@@ -1,13 +1,13 @@
-import Link from 'next/link'
+// import Link from 'next/link'
 import Layout from '../components/Layout'
 import { withRedux } from '../lib/withRedux'
 import { useSelector, useDispatch } from 'react-redux'
 
 
- export default const IndexPage = () => {
+const IndexPage = () => {
   const selectedState = useSelector((state: any) => state.counter)
   console.log(selectedState)
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
   // console.log(dispatch(incrementCounter()))
 
   return (

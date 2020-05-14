@@ -1,4 +1,4 @@
-export {}
+
 
 const { gql } = require('apollo-server-lambda');
 

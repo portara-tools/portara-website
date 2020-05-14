@@ -1,13 +1,23 @@
 //Action Types
-export const INCREMENT_COUNTER = "INCREMENT_COUNTER";
-export const DECREMENT_COUNTER = "DECREMENT_COUNTER";
+export const INCREMENT = "INCREMENT";
+export const DECREMENT = "DECREMENT";
+export const TICK = "TICK";
+export const RESET = "RESET"
 
 
 //Action Creator
 export const incrementCounter = () => ({
-  type: INCREMENT_COUNTER
+  type: INCREMENT
 });
 
 export const decrementCounter = () => ({
-  type: DECREMENT_COUNTER
+  type: DECREMENT
+});
+
+export const tick = () => ({
+  type: TICK
+});
+
+export const reset = () => ({
+  type: RESET
 });

@@ -1,21 +1,37 @@
-import { IReducerParams } from '../../types/interface'
-import { DECREMENT_COUNTER, INCREMENT_COUNTER } from '../actions/exampleActions'
+import { DECREMENT, INCREMENT, TICK, RESET } from '../actions/exampleActions'
 
-const exampleReducer: IReducerParams = (state = { value: 0 }, action) => {
+export const initialState = {
+  lastUpdate: 0,
+  light: false,
+  count: 0,
+}
+
+const exampleReducer = (state = initialState, action: any) => {
   switch (action.type) {
-    case INCREMENT_COUNTER:
+    case TICK:
       return {
         ...state,
-        value: state.value + 1
+        lastUpdate: action.lastUpdate,
+        light: !!action.light,
       }
-    case DECREMENT_COUNTER:
+    case INCREMENT:
       return {
         ...state,
-        value: state.value - 1
+        count: state.count + 1,
+      }
+    case DECREMENT:
+      return {
+        ...state,
+        count: state.count - 1,
+      }
+    case RESET:
+      return {
+        ...state,
+        count: initialState.count,
       }
     default:
-      return { ...state };
+      return state
   }
-};
+}
 
 export default exampleReducer;

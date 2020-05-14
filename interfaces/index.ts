@@ -4,7 +4,19 @@
 //
 // import User from 'path/to/interfaces';
 
+import { initialState } from "../redux/reducers/exampleReducer"
+
 export type User = {
   id: number
   name: string
+}
+
+export interface IReducerParams {
+  (state?: IState, action?: any): IState
+}
+
+export type IState = typeof initialState
+
+export interface IRootReducer {
+  counter: IState
 }

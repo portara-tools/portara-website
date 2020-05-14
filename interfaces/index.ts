@@ -6,11 +6,6 @@
 
 import { initialState } from "../redux/reducers/exampleReducer"
 
-export type User = {
-  id: number
-  name: string
-}
-
 export interface IReducerParams {
   (state?: IState, action?: any): IState
 }

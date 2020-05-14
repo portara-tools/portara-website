@@ -8,9 +8,14 @@
     "type-check": "tsc"
   },
   "dependencies": {
+    "@apollo/react-hooks": "^3.1.5",
+    "@apollo/react-ssr": "^3.1.5",
     "@material-ui/core": "^4.9.14",
     "@material-ui/styles": "^4.9.14",
     "@types/react-redux": "^7.1.8",
+    "apollo-cache-inmemory": "^1.6.6",
+    "apollo-client": "^2.6.10",
+    "apollo-link-http": "^1.5.17",
     "apollo-server-lambda": "^2.13.1",
     "graphql": "^15.0.0",
     "isomorphic-unfetch": "3.0.0",

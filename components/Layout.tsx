@@ -11,10 +11,10 @@ type Props = {
 const useStyles = makeStyles({
   linkStyle: {
     textDecoration: 'none',
-    color: 'black',
+    // color: 'black',
   },
   appBar: {
-    backgroundColor: "lightgray"
+    backgroundColor: "black",
   }
 });
 
@@ -51,10 +51,10 @@ const Layout: React.FunctionComponent<Props> = (props) => {
         </AppBar>
       </header>
       {children}
-      <footer>
+      {/* <footer>
         <hr />
         <span>I'm here to stay (Footer)</span>
-      </footer>
+      </footer> */}
     </div>
   );
 };

@@ -4,9 +4,12 @@
     "alwaysStrict": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "isolatedModules": false,
+    "isolatedModules": true,
     "jsx": "preserve",
-    "lib": ["dom", "es2017"],
+    "lib": [
+      "dom",
+      "es2017"
+    ],
     "module": "esnext",
     "moduleResolution": "node",
     "noEmit": true,
@@ -16,8 +19,15 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
-    "target": "esnext"
+    "target": "es2017"
   },
-  "exclude": ["node_modules"],
-  "include": ["**/*.ts", "**/*.tsx", "utils/theme.js", "pages/_app.js"]
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "utils/theme.js",
+    "pages/_app.js"
+  ]
 }

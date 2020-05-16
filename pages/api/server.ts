@@ -1,5 +1,6 @@
 
-const { gql } = require('apollo-server-lambda');
+// import {gql} from 'apollo-server-lambda';
+
 // const { ApolloServer } = require('apollo-server-lambda');
 // const {typeDefs} = require('./graphql/typeDefs');
 // const {resolvers} = require('./graphql/resolvers');
@@ -26,8 +27,9 @@ const { gql } = require('apollo-server-lambda');
         
         
 // !UNCOMMENT TO USE LOCAL SERVER FOR TESTING. If switching to AWS, remember to change the URI string at the bottom in the "lib/withApollo" file
-        
-const { ApolloServer } = require('apollo-server');
+export {}
+const { ApolloServer, gql } = require('apollo-server')
+
 const typeDefs = gql`
   type Query {
     hello: String

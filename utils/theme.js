@@ -24,6 +24,15 @@ const theme = createMuiTheme({
       hoverOpacity: 0.2
     }
   },
+  // OVERRIDES
+  overrides: {
+    MuiButton: {
+      outlined: {
+        borderColor: "violet",
+        borderOpacity: 0
+      }
+    }
+  }
 });
 
 export default theme;

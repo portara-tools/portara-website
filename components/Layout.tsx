@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
-import { AppBar, Typography, Container, Link as LinkM } from '@material-ui/core';
+import { AppBar, Typography, Container, Link as LinkM, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 type Props = {
@@ -13,7 +13,7 @@ const Layout: React.FunctionComponent<Props> = (props) => {
   const { children, title = 'This is the default title' } = props;
   const classes = useStyles(props);
   return (
-    <div>
+    <>
       <Head>
         <title>{title}</title>
         <meta charSet='utf-8' />
@@ -23,7 +23,7 @@ const Layout: React.FunctionComponent<Props> = (props) => {
 
       <Container maxWidth='sm' className={classes.container}>
         <AppBar position="static" className={classes.appBar}>
-          <ul>
+          <ul className={classes.linksUL}>
             <Link href='/'>
               <LinkM variant="overline" underline="none" className={classes.linkStyle}>HOME</LinkM>
 
@@ -34,19 +34,34 @@ const Layout: React.FunctionComponent<Props> = (props) => {
             <Link href='/about'>
               <LinkM variant="overline" underline="none" className={classes.linkStyle}>ABOUT</LinkM>
             </Link>
-
           </ul>
+          <Button className={classes.loginButton} size="small">LOGIN / SIGNUP</Button>
         </AppBar>
         {children}
       </Container>
-    </div>
+    </>
   );
 };
 
 export default Layout;
 
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(() => ({
+
+  appBar: {
+    flexDirection: "row",
+    backgroundColor: "black",
+    justifyContent: "space-between"
+  },
+  container: {
+    backgroundColor: 'black',
+    padding: '25px',
+    maxWidth: '1000px'
+  },
+  linksUL: {
+    display: 'flex',
+    padding: 0
+  },
   linkStyle: {
     textDecoration: 'none',
     color: 'white',
@@ -55,13 +70,12 @@ const useStyles = makeStyles({
     },
     padding: '5px',
   },
+  loginButton: {
 
-  appBar: {
-    backgroundColor: "black",
-  },
-  container: {
-    backgroundColor: 'black',
-    height: '100vh',
-    padding: '0',
-  },
-});
+    '&:hover': {
+      color: "violet",
+      backgroundColor: "black",
+    },
+  }
+
+}));

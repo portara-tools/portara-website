@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
-import { AppBar, Typography, Container, Link as LinkM, Button } from '@material-ui/core';
+import { AppBar, Typography, Container, Link as LinkM, Button, Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 type Props = {
@@ -21,7 +21,7 @@ const Layout: React.FunctionComponent<Props> = (props) => {
       </Head>
 
 
-      <Container maxWidth='sm' className={classes.container}>
+      <Box className={classes.container}>
         <AppBar position="static" className={classes.appBar}>
           <ul className={classes.linksUL}>
             <Link href='/'>
@@ -37,8 +37,9 @@ const Layout: React.FunctionComponent<Props> = (props) => {
           </ul>
           <Button className={classes.loginButton} size="small">LOGIN / SIGNUP</Button>
         </AppBar>
-        {children}
-      </Container>
+      </Box>
+      {children}
+
     </>
   );
 };
@@ -56,7 +57,9 @@ const useStyles = makeStyles(() => ({
   container: {
     backgroundColor: 'black',
     padding: '25px',
-    maxWidth: '1000px'
+
+    margin: "0 15%",
+
   },
   linksUL: {
     display: 'flex',

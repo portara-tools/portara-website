@@ -1,14 +1,14 @@
 // import Link from 'next/link'
 import Layout from '../components/Layout';
-import LayoutWhite from '../components/LayoutWhite';
 import { withRedux } from '../lib/withRedux';
 import { withApollo } from '../lib/withApollo';
 // import { useSelector, useDispatch } from 'react-redux';
 import { compose } from 'redux';
-import { Button, Typography, Grid, Link as LinkM, Box, Card, Container } from '@material-ui/core';
+import { Button, Typography, Grid, Link as LinkM, Box, Container, Zoom } from '@material-ui/core';
 // import { useQuery } from '@apollo/react-hooks';
 // import gql from 'graphql-tag';
 import { makeStyles } from '@material-ui/styles';
+// import Card from '../components/Card'
 
 const IndexPage = (props: any) => {
   const classes = useStyles()
@@ -19,53 +19,63 @@ const IndexPage = (props: any) => {
       <Layout title='Portara | Home'>
         <Box maxWidth='sm' className={classes.container}>
           <Grid className={classes.content}>
-            {/* <Typography variant='h2'>Portara</Typography> */}
-            <img src={'https://imgur.com/U0PyleJ.png'} alt='wtf' />
+
+            <Typography variant='h2'>Portara</Typography>
+
+            {/* <img src={'https://imgur.com/U0PyleJ.png'} alt='wtf' /> */}
             <Typography variant='h5'>The best rate limiter that exists</Typography>
 
 
             <Typography
               variant='subtitle2'
+              color="textSecondary"
             >This rate limiter accompishes what no other ratelimiter can by using directives for it's application and some serious throttling
           </Typography>
 
 
-            <Button className={classes.button}>
+            <Button className={classes.downloadButton}>
               <LinkM target='_blank' href='https://www.npmjs.com/package/portara' underline='none' >
-                <Typography color='primary'>Download Laten Sea</Typography>
+                <Typography color='primary'>Download on NPM</Typography>
               </LinkM>
             </Button>
           </Grid>
+          <img src={"/portaraScreenshot2.png"} height="400px" />
+          {/* CARDS */}
           <Grid className={classes.cardsWrapper}>
-            <Typography variant="h4" color="primary">Limit server overload</Typography>
             <Box className={classes.cardsContainer}>
-              <Grid item xs={3} className={classes.card}>
-                <Box className={classes.upperSplit}>
-                  <Typography variant="h5">Third feature</Typography>
-                  <Typography variant="body1">Something you can't be without</Typography>
-                </Box>
-                <Box className={classes.lowerSplit}>
-                  <Typography variant="body2">Here we discuss the third amazing feature of Portara</Typography>
-                </Box>
-              </Grid>
-              <Grid item xs={3} className={classes.card}>
-                <Box className={classes.upperSplit}>
-                  <Typography variant="h5">Third feature</Typography>
-                  <Typography variant="body1">Something you can't be without</Typography>
-                </Box>
-                <Box className={classes.lowerSplit}>
-                  <Typography variant="body2" color="textSecondary">Here we discuss the third amazing feature of Portara</Typography>
-                </Box>
-              </Grid>
-              <Grid item xs={3} className={classes.card}>
-                <Box className={classes.upperSplit}>
-                  <Typography variant="h5">Third feature</Typography>
-                  <Typography variant="body1">Something you can't be without</Typography>
-                </Box>
-                <Box className={classes.lowerSplit}>
-                  <Typography variant="body2">Here we discuss the third amazing feature of Portara</Typography>
-                </Box>
-              </Grid>
+              <Zoom in style={{ transitionDelay: "500ms" }}>
+                <Grid item xs={3} className={classes.card}>
+                  <Box className={classes.upperSplit}>
+                    <Typography variant="h5">First feature</Typography>
+                    <Typography variant="body1">Something you can't be without</Typography>
+                  </Box>
+                  <Box className={classes.lowerSplit}>
+                    <Typography variant="body2" color="textSecondary">Here we discuss the first amazing feature of Portara</Typography>
+                  </Box>
+                </Grid>
+              </Zoom>
+              <Zoom in style={{ transitionDelay: "1000ms" }}>
+                <Grid item xs={3} className={classes.card}>
+                  <Box className={classes.upperSplit}>
+                    <Typography variant="h5">Second feature</Typography>
+                    <Typography variant="body1">Something you can't be without</Typography>
+                  </Box>
+                  <Box className={classes.lowerSplit}>
+                    <Typography variant="body2" color="textSecondary">Here we discuss the second amazing feature of Portara</Typography>
+                  </Box>
+                </Grid>
+              </Zoom>
+              <Zoom in style={{ transitionDelay: "1500ms" }}>
+                <Grid item xs={3} className={classes.card}>
+                  <Box className={classes.upperSplit}>
+                    <Typography variant="h5">Third feature</Typography>
+                    <Typography variant="body1">Something you can't be without</Typography>
+                  </Box>
+                  <Box className={classes.lowerSplit}>
+                    <Typography variant="body2" color="textSecondary">Here we discuss the third amazing feature of Portara</Typography>
+                  </Box>
+                </Grid>
+              </Zoom>
             </Box>
 
           </Grid>
@@ -73,14 +83,14 @@ const IndexPage = (props: any) => {
         </Box>
         <Box maxWidth='sm' className={classes.gradientContainer}>
           <Box className={classes.images} >
-            <img src={'https://imgur.com/viE03IQ.png'} alt='wtf' height='300px' width='600px' />
+            {/* <Card /> */}
+            {/* <img src={'https://imgur.com/viE03IQ.png'} alt='wtf' height='300px' width='600px' /> */}
+            {/* <img src={"/portaraScreenshot2.png"} height="400px" /> */}
             <br />
-            <img src={'https://imgur.com/HzsaNfY.png'} alt='wtf' height='300px' width='600px' />
+            {/* <img src={'https://imgur.com/HzsaNfY.png'} alt='wtf' height='300px' width='600px' /> */}
           </Box>
         </Box>
       </Layout >
-      {/* <LayoutWhite> */}
-      {/* </LayoutWhite> */}
     </>
   );
 };
@@ -89,12 +99,14 @@ const IndexPage = (props: any) => {
 export default compose(withApollo, withRedux)(IndexPage);
 
 
-
+// ------- STYLING FOR THIS PAGE -----
 const useStyles = makeStyles((theme) => ({
   container: {
+    // background: `url("https://images.unsplash.com/photo-1486783046960-64d2ef697c46?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80")`,
+    backgroundSize: "contain",
     backgroundColor: 'black',
     padding: '25px',
-    margin: "0 15%",
+    margin: "0 10%",
     // marginLeft: "200px",
   },
   gradientContainer: {
@@ -109,15 +121,16 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'center'
   },
-  button: {
-    backgroundColor: "purple",
+  downloadButton: {
+    backgroundColor: "#7209b7",
+    marginTop: "40px",
     '&:hover': {
-      color: "white",
-      backgroundColor: "blue"
+      backgroundColor: "rgba(114,111,156,1)",
+      // border: "1px solid #7209b7"
     }
   },
   cardsWrapper: {
-    marginTop: "100px"
+    marginTop: "100px",
   },
   cardsContainer: {
     display: "flex",
@@ -126,17 +139,18 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "10px",
   },
   card: {
-    border: "1px solid #3a506b",
+    borderBottomLeftRadius: "0px",
     color: "white",
-    backgroundColor: "#1a535c",
+    backgroundColor: "#7209b7",
     borderRadius: "10px",
     // marginRight: "60px",
-    height: "200px",
+    height: "150px",
 
   },
   upperSplit: {
     borderTopLeftRadius: "10px",
     borderTopRightRadius: "10px",
+    borderBottomRightRadius: "30px",
     padding: "10px",
     width: "100%",
     height: "60%",
@@ -146,7 +160,9 @@ const useStyles = makeStyles((theme) => ({
   },
   lowerSplit: {
     borderRadius: "10px",
+
     padding: "10px",
+
 
   },
   images: {

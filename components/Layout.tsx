@@ -58,7 +58,7 @@ const useStyles = makeStyles(() => ({
     backgroundColor: 'black',
     padding: '25px',
 
-    margin: "0 15%",
+    margin: "0 10%",
 
   },
   linksUL: {
@@ -69,14 +69,14 @@ const useStyles = makeStyles(() => ({
     textDecoration: 'none',
     color: 'white',
     '&:hover': {
-      color: "violet"
+      color: "#7209b7"
     },
     padding: '5px',
   },
   loginButton: {
 
     '&:hover': {
-      color: "violet",
+      color: "#7209b7",
       backgroundColor: "black",
     },
   }

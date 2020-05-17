@@ -6,10 +6,10 @@ const theme = createMuiTheme({
   palette: {
     type: "dark",
     primary: {
-      main: '#556cd6',
+      main: '#fff',
     },
     secondary: {
-      main: '#19857b',
+      main: '#7209b7',
     },
     error: {
       main: red.A400,
@@ -24,6 +24,14 @@ const theme = createMuiTheme({
       hoverOpacity: 0.2
     }
   },
+  // OVERRIDES
+  overrides: {
+    // MuiButton: {
+    //   outlined: {
+    //     borderColor: "violet",
+    //   }
+    // }
+  }
 });
 
 export default theme;

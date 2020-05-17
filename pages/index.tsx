@@ -38,8 +38,8 @@ const IndexPage = (props: any) => {
                 <Typography color='primary'>Download on NPM</Typography>
               </LinkM>
             </Button>
+            <img src={"/portaraScreenshot2.png"} height="400px" />
           </Grid>
-          <img src={"/portaraScreenshot2.png"} height="400px" />
           {/* CARDS */}
           <Grid className={classes.cardsWrapper}>
             <Box className={classes.cardsContainer}>

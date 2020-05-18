@@ -8,7 +8,7 @@ import { Button, Typography, Grid, Link as LinkM, Box, Container, Zoom } from '@
 // import { useQuery } from '@apollo/react-hooks';
 // import gql from 'graphql-tag';
 import { makeStyles } from '@material-ui/styles';
-// import Card from '../components/Card'
+import AnimatedCard from '../components/AnimatedCard'
 
 const IndexPage = (props: any) => {
   const classes = useStyles()
@@ -38,7 +38,9 @@ const IndexPage = (props: any) => {
                 <Typography color='primary'>Download on NPM</Typography>
               </LinkM>
             </Button>
-            <img src={"/portaraScreenshot2.png"} height="400px" />
+            <AnimatedCard>
+              <img src={"/portaraScreenshot2.png"} height="400px" />
+            </AnimatedCard>
           </Grid>
           {/* CARDS */}
           <Grid className={classes.cardsWrapper}>
@@ -83,7 +85,6 @@ const IndexPage = (props: any) => {
         </Box>
         <Box maxWidth='sm' className={classes.gradientContainer}>
           <Box className={classes.images} >
-            {/* <Card /> */}
             {/* <img src={'https://imgur.com/viE03IQ.png'} alt='wtf' height='300px' width='600px' /> */}
             {/* <img src={"/portaraScreenshot2.png"} height="400px" /> */}
             <br />

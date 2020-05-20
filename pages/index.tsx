@@ -11,6 +11,10 @@ import { makeStyles } from '@material-ui/styles';
 import AnimatedCard from '../components/AnimatedCard';
 import DecoratedExpand from '../components/DecorateExpand';
 import { useSpring, animated } from 'react-spring';
+import BackupIcon from '@material-ui/icons/Backup';
+import EmojiEmotionsIcon from '@material-ui/icons/EmojiEmotions';
+import DoneOutlineIcon from '@material-ui/icons/DoneOutline';
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 
 const IndexPage = () => {
   const classes = useStyles();
@@ -32,6 +36,7 @@ const IndexPage = () => {
             <animated.div style={props}>Portara</animated.div>
 
             {/* <img src={'https://imgur.com/U0PyleJ.png'} alt='wtf' /> */}
+            <hr style={{width: "100%", marginBottom: "30px"}}/>
             <Typography variant='h5'>The best rate limiter that exists</Typography>
 
             {/* <Typography variant='subtitle2' color='textSecondary'>
@@ -39,7 +44,7 @@ const IndexPage = () => {
               it's application and some serious throttling
             </Typography> */}
 
-            <Button className={classes.downloadButton} variant="outlined">
+            <Button className={classes.downloadButton} variant='outlined'>
               <LinkM target='_blank' href='https://www.npmjs.com/package/portara' underline='none'>
                 <Typography color='primary'>Download on NPM</Typography>
               </LinkM>
@@ -54,7 +59,13 @@ const IndexPage = () => {
               {/* <Box className={classes.cardsContainer}> */}
               <Zoom in style={{ transitionDelay: '500ms' }}>
                 <Grid item xs={4} className={classes.card}>
-                  <Typography variant='subtitle1'>No re-deployment</Typography>
+                <Box style={{ flexDirection: 'row', display: 'flex' }}>
+                    <BackupIcon
+                      fontSize='small'
+                      style={{ marginTop: '3px', marginRight: '10px' }}
+                    />
+                    <Typography variant='subtitle1'>No re-deploying</Typography>
+                  </Box>
                   <hr></hr>
                   <Typography variant='caption' gutterBottom>
                     The ability to alter rate limiter settings through a user account eliminates the
@@ -64,7 +75,13 @@ const IndexPage = () => {
               </Zoom>
               <Zoom in style={{ transitionDelay: '800ms' }}>
                 <Grid item xs={4} className={classes.card}>
-                  <Typography variant='subtitle1'>Easy to use</Typography>
+                  <Box style={{ flexDirection: 'row', display: 'flex' }}>
+                    <EmojiEmotionsIcon
+                      fontSize='small'
+                      style={{ marginTop: '3px', marginRight: '10px' }}
+                    />
+                    <Typography variant='subtitle1'>Easy to use</Typography>
+                  </Box>
                   <hr></hr>
                   <Typography variant='caption' gutterBottom>
                     Thanks to schema directives, Portara gives you a lot of flexibility. It can be
@@ -75,32 +92,37 @@ const IndexPage = () => {
               </Zoom>
               <Zoom in style={{ transitionDelay: '1100ms' }}>
                 <Grid item xs={4} className={classes.card}>
-                  <Typography variant='subtitle1'>Safe</Typography>
+                <Box style={{ flexDirection: 'row', display: 'flex' }}>
+                    <DoneOutlineIcon
+                      fontSize='small'
+                      style={{ marginTop: '3px', marginRight: '10px' }}
+                    />
+                    <Typography variant='subtitle1'>Safe</Typography>
+                    </Box>
                   <hr></hr>
                   <Typography variant='caption' gutterBottom>
                     Built with TypeScript and thoroughly tested to ensure stability
                   </Typography>
                 </Grid>
               </Zoom>
-              
+
               {/* </Box> */}
               {/* <DecoratedExpand>{['abc']}</DecoratedExpand> */}
             </Grid>
-            <Grid xs={12} container item className={classes.cardsWrapper} spacing={5}>              <Zoom in style={{ transitionDelay: '1400ms' }}>
-                <Grid item xs={4} className={classes.card}>
-                  <Typography variant='subtitle1'>Safe</Typography>
-                  <hr></hr>
-                  <Typography variant='caption' gutterBottom>
-                    Built with TypeScript and thoroughly tested to ensure stability
-                  </Typography>
-                </Grid>
-              </Zoom>
+            <Grid xs={12} container item className={classes.cardsWrapper} spacing={5}>              
               <Zoom in style={{ transitionDelay: '1700ms' }}>
                 <Grid item xs={4} className={classes.card}>
-                  <Typography variant='subtitle1'>Safe</Typography>
+                <Box style={{ flexDirection: 'row', display: 'flex' }}>
+                    <AttachMoneyIcon
+                      fontSize='small'
+                      style={{ marginTop: '3px', marginRight: '10px' }}
+                    />
+                    <Typography variant='subtitle1'>Save money</Typography>
+                    </Box>
                   <hr></hr>
                   <Typography variant='caption' gutterBottom>
-                    Built with TypeScript and thoroughly tested to ensure stability
+                    Prevent malicious entities from causing server overload or rate spikes in
+                    services like AWS
                   </Typography>
                 </Grid>
               </Zoom>
@@ -148,8 +170,7 @@ const useStyles = makeStyles(() => ({
   },
   downloadButton: {
     // backgroundColor: '#7209b7',
-    marginTop: '40px',
- 
+    marginTop: '20px',
   },
   cardsWrapper: {
     // marginTop: '100px',

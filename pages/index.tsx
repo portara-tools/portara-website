@@ -1,20 +1,19 @@
-// import Link from 'next/link'
+
 import Layout from '../components/Layout';
 import { withRedux } from '../lib/withRedux';
 import { withApollo } from '../lib/withApollo';
-// import { useSelector, useDispatch } from 'react-redux';
 import { compose } from 'redux';
 import { Button, Typography, Grid, Link as LinkM, Box, Zoom } from '@material-ui/core';
-// import { useQuery } from '@apollo/react-hooks';
-// import gql from 'graphql-tag';
 import { makeStyles } from '@material-ui/styles';
 import AnimatedCard from '../components/AnimatedCard';
-import DecoratedExpand from '../components/DecorateExpand';
 import { useSpring, animated } from 'react-spring';
 import BackupIcon from '@material-ui/icons/Backup';
 import EmojiEmotionsIcon from '@material-ui/icons/EmojiEmotions';
 import DoneOutlineIcon from '@material-ui/icons/DoneOutline';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import BlockRounded from '@material-ui/icons/BlockRounded'
+import AlternateEmail from '@material-ui/icons/AlternateEmail'
+import DoneAll from '@material-ui/icons/DoneAll'
 
 const IndexPage = () => {
   const classes = useStyles();
@@ -32,26 +31,29 @@ const IndexPage = () => {
       <Layout title='Portara | Home'>
         <Box maxWidth='sm' className={classes.container}>
           <Grid className={classes.content}>
-            {/* <Typography variant='h2'>Portara</Typography> */}
             <animated.div style={props}>Portara</animated.div>
-
             {/* <img src={'https://imgur.com/U0PyleJ.png'} alt='wtf' /> */}
             <hr style={{width: "100%", marginBottom: "30px"}}/>
             <Typography variant='h5'>The best rate limiter that exists</Typography>
-
-            {/* <Typography variant='subtitle2' color='textSecondary'>
-              This rate limiter accompishes what no other ratelimiter can by using directives for
-              it's application and some serious throttling
-            </Typography> */}
 
             <Button className={classes.downloadButton} variant='outlined'>
               <LinkM target='_blank' href='https://www.npmjs.com/package/portara' underline='none'>
                 <Typography color='primary'>Download on NPM</Typography>
               </LinkM>
             </Button>
-            <AnimatedCard>
-              <img src={'/portaraScreenshot2.png'} height='400px' />
-            </AnimatedCard>
+            <Grid className={classes.cardsWrapper}>
+              <Box className={classes.cardsContainer}>
+                <AnimatedCard>
+                  <img src={"/portaraScreenshot2.png"} height="400px" />
+                </AnimatedCard>
+                <Grid className={classes.textWrapper}>
+                  <Typography><AlternateEmail style={{ fontSize: 'small', marginRight: '5px' }} />Easy to use: decorate at will</Typography>
+                  <Typography><BlockRounded style={{ fontSize: 'small', marginRight: '5px' }} />Blocks or slows requests: save money</Typography>
+                  <Typography><DoneAll style={{ fontSize: 'small', marginRight: '5px' }} />Tested & Typescripted</Typography>
+                </Grid>
+              </Box>
+
+            </Grid>
           </Grid>
           {/* CARDS */}
           <Grid container spacing={10}>
@@ -105,9 +107,7 @@ const IndexPage = () => {
                   </Typography>
                 </Grid>
               </Zoom>
-
-              {/* </Box> */}
-              {/* <DecoratedExpand>{['abc']}</DecoratedExpand> */}
+            </Grid>
             </Grid>
             <Grid xs={12} container item className={classes.cardsWrapper} spacing={5}>              
               <Zoom in style={{ transitionDelay: '1700ms' }}>
@@ -127,16 +127,10 @@ const IndexPage = () => {
                 </Grid>
               </Zoom>
             </Grid>
-          </Grid>
-          <br />
-        </Box>
-        <Box maxWidth='sm' className={classes.gradientContainer}>
-          <Box className={classes.images}>
-            {/* <img src={'https://imgur.com/viE03IQ.png'} alt='wtf' height='300px' width='600px' /> */}
-            {/* <img src={"/portaraScreenshot2.png"} height="400px" /> */}
-            <br />
-            {/* <img src={'https://imgur.com/HzsaNfY.png'} alt='wtf' height='300px' width='600px' /> */}
           </Box>
+          <br />
+        {/* </Box> */}
+        <Box maxWidth='sm' className={classes.gradientContainer}>
         </Box>
       </Layout>
     </>
@@ -154,12 +148,12 @@ const useStyles = makeStyles(() => ({
     backgroundColor: 'black',
     padding: '25px',
     margin: '0 10%',
-    // marginLeft: "200px",
+
   },
   gradientContainer: {
     background: 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(0,0,0,1) 100%)',
     padding: '25px',
-    // maxWidth: '1000px',
+
     margin: '0px',
     marginRight: '0px',
   },
@@ -169,13 +163,21 @@ const useStyles = makeStyles(() => ({
     alignItems: 'center',
   },
   downloadButton: {
-    // backgroundColor: '#7209b7',
+
     marginTop: '20px',
   },
   cardsWrapper: {
     // marginTop: '100px',
     spacing: '8',
     display: 'flex',
+  },
+  textWrapper: {
+    marginTop: '50px',
+    marginBottom: '50px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    alignItems: 'center'
   },
   cardsContainer: {
     display: 'flex',
@@ -185,11 +187,9 @@ const useStyles = makeStyles(() => ({
     marginTop: '10px',
   },
   card: {
-    // borderBottomLeftRadius: "0px",
+
     color: 'white',
-    // backgroundColor: "#7209b7",
-    // borderRadius: "10px",
-    // marginRight: "60px",
+
     height: '150px',
   },
   upperSplit: {
@@ -199,7 +199,7 @@ const useStyles = makeStyles(() => ({
     padding: '10px',
     width: '100%',
     height: '60%',
-    // backgroundColor: "#3a506b",
+
     background:
       'linear-gradient(197deg, rgba(114,111,156,1) 0%, rgba(58,80,107,1) 65%, rgba(58,80,107,1) 100%)',
   },
@@ -215,7 +215,7 @@ const useStyles = makeStyles(() => ({
     flexShrink: 0.5,
     flexBasis: 'auto',
     alignItems: 'center',
-    // backgroundColor: 'white',
+
     paddingTop: '15px',
     paddingBottom: '15px',
   },

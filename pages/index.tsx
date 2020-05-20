@@ -8,9 +8,12 @@ import { Button, Typography, Grid, Link as LinkM, Box, Zoom } from '@material-ui
 // import { useQuery } from '@apollo/react-hooks';
 // import gql from 'graphql-tag';
 import { makeStyles } from '@material-ui/styles';
-import AnimatedCard from '../components/AnimatedCard'
-import DecoratedExpand from '../components/DecorateExpand'
+import AnimatedCard from '../components/AnimatedCard.jsx'
+// import DecoratedExpand from '../components/DecorateExpand'
 import { useSpring, animated } from 'react-spring'
+import BlockRounded from '@material-ui/icons/BlockRounded'
+import AlternateEmail from '@material-ui/icons/AlternateEmail'
+import DoneAll from '@material-ui/icons/DoneAll'
 
 const IndexPage = () => {
   const classes = useStyles()
@@ -49,9 +52,19 @@ const IndexPage = () => {
                 <Typography color='primary'>Download on NPM</Typography>
               </LinkM>
             </Button>
-            <AnimatedCard>
-              <img src={"/portaraScreenshot2.png"} height="400px" />
-            </AnimatedCard>
+            <Grid className={classes.cardsWrapper}>
+              <Box className={classes.cardsContainer}>
+                <AnimatedCard>
+                  <img src={"/portaraScreenshot2.png"} height="400px" />
+                </AnimatedCard>
+                <Grid className={classes.textWrapper}>
+                  <Typography><AlternateEmail style={{ fontSize: 'small', marginRight: '5px' }} />Easy to use: decorate at will</Typography>
+                  <Typography><BlockRounded style={{ fontSize: 'small', marginRight: '5px' }} />Blocks or slows requests: save money</Typography>
+                  <Typography><DoneAll style={{ fontSize: 'small', marginRight: '5px' }} />Tested & Typescripted</Typography>
+                </Grid>
+              </Box>
+
+            </Grid>
           </Grid>
           {/* CARDS */}
           <Grid className={classes.cardsWrapper}>
@@ -90,9 +103,9 @@ const IndexPage = () => {
                 </Grid>
               </Zoom>
             </Box>
-            <DecoratedExpand>
+            {/* <DecoratedExpand>
               {['abc',]}
-            </DecoratedExpand>
+            </DecoratedExpand> */}
 
           </Grid>
           <br />
@@ -146,6 +159,16 @@ const useStyles = makeStyles(() => ({
   },
   cardsWrapper: {
     marginTop: "100px",
+    display: 'flex',
+    alignItems: 'center'
+  },
+  textWrapper: {
+    marginTop: '50px',
+    marginBottom: '50px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    alignItems: 'center'
   },
   cardsContainer: {
     display: "flex",

@@ -4,14 +4,24 @@ import { withRedux } from '../lib/withRedux';
 import { withApollo } from '../lib/withApollo';
 // import { useSelector, useDispatch } from 'react-redux';
 import { compose } from 'redux';
-import { Button, Typography, Grid, Link as LinkM, Box, Container, Zoom } from '@material-ui/core';
+import { Button, Typography, Grid, Link as LinkM, Box, Zoom } from '@material-ui/core';
 // import { useQuery } from '@apollo/react-hooks';
 // import gql from 'graphql-tag';
 import { makeStyles } from '@material-ui/styles';
 import AnimatedCard from '../components/AnimatedCard'
+import DecoratedExpand from '../components/DecorateExpand'
+import { useSpring, animated } from 'react-spring'
 
-const IndexPage = (props: any) => {
+const IndexPage = () => {
   const classes = useStyles()
+  const props = useSpring({
+    opacity: 1,
+    font: "Roboto",
+    fontSize: "60px",
+    fontWeight: "lighter",
+    from: { opacity: 0, fontSize: "600px" },
+    config: { duration: 500 }
+  })
 
 
   return (
@@ -20,7 +30,8 @@ const IndexPage = (props: any) => {
         <Box maxWidth='sm' className={classes.container}>
           <Grid className={classes.content}>
 
-            <Typography variant='h2'>Portara</Typography>
+            {/* <Typography variant='h2'>Portara</Typography> */}
+            <animated.div style={props}>Portara</animated.div>
 
             {/* <img src={'https://imgur.com/U0PyleJ.png'} alt='wtf' /> */}
             <Typography variant='h5'>The best rate limiter that exists</Typography>
@@ -79,6 +90,9 @@ const IndexPage = (props: any) => {
                 </Grid>
               </Zoom>
             </Box>
+            <DecoratedExpand>
+              {['abc',]}
+            </DecoratedExpand>
 
           </Grid>
           <br />
@@ -101,7 +115,7 @@ export default compose(withApollo, withRedux)(IndexPage);
 
 
 // ------- STYLING FOR THIS PAGE -----
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   container: {
     // background: `url("https://images.unsplash.com/photo-1486783046960-64d2ef697c46?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80")`,
     backgroundSize: "contain",

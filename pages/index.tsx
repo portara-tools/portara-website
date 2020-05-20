@@ -34,12 +34,12 @@ const IndexPage = () => {
             {/* <img src={'https://imgur.com/U0PyleJ.png'} alt='wtf' /> */}
             <Typography variant='h5'>The best rate limiter that exists</Typography>
 
-            <Typography variant='subtitle2' color='textSecondary'>
+            {/* <Typography variant='subtitle2' color='textSecondary'>
               This rate limiter accompishes what no other ratelimiter can by using directives for
               it's application and some serious throttling
-            </Typography>
+            </Typography> */}
 
-            <Button className={classes.downloadButton}>
+            <Button className={classes.downloadButton} variant="outlined">
               <LinkM target='_blank' href='https://www.npmjs.com/package/portara' underline='none'>
                 <Typography color='primary'>Download on NPM</Typography>
               </LinkM>
@@ -147,12 +147,9 @@ const useStyles = makeStyles(() => ({
     alignItems: 'center',
   },
   downloadButton: {
-    backgroundColor: '#7209b7',
+    // backgroundColor: '#7209b7',
     marginTop: '40px',
-    '&:hover': {
-      backgroundColor: 'rgba(114,111,156,1)',
-      // border: "1px solid #7209b7"
-    },
+ 
   },
   cardsWrapper: {
     // marginTop: '100px',

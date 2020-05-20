@@ -8,8 +8,8 @@ import { Button, Typography, Grid, Link as LinkM, Box, Zoom } from '@material-ui
 // import { useQuery } from '@apollo/react-hooks';
 // import gql from 'graphql-tag';
 import { makeStyles } from '@material-ui/styles';
-import AnimatedCard from '../components/AnimatedCard'
-import DecoratedExpand from '../components/DecorateExpand'
+import AnimatedCard from '../components/AnimatedCard.jsx'
+// import DecoratedExpand from '../components/DecorateExpand'
 import { useSpring, animated } from 'react-spring'
 import BlockRounded from '@material-ui/icons/BlockRounded'
 import AlternateEmail from '@material-ui/icons/AlternateEmail'

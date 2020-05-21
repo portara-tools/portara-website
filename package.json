@@ -6,7 +6,9 @@
     "build": "next build",
     "start": "next start",
     "type-check": "tsc",
-    "test-server": "nodemon pages/api/server.ts"
+    "test-server": "nodemon pages/api/server.ts",
+    "next-test": "next build && next start"
+
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.1.5",

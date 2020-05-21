@@ -8,7 +8,7 @@ const config = {
   friction: 200
 }
 
-export default function DecorateExpand(props: any) {
+export default function DecorateExpand(props) {
   const classes = useStyles(props)
   const { children } = props
   const [toggle, set] = useState(true)
@@ -30,7 +30,7 @@ export default function DecorateExpand(props: any) {
         {trail.map(({ value, height, ...rest }, index) => (
           <animated.div
             key={children[index]}
-            style={{ ...rest, transform: value.interpolate((value: any) => `translat3d(0,${value}px,0)`) }}
+            style={{ ...rest, transform: value.interpolate((value) => `translat3d(0,${value}px,0)`) }}
           >
             <animated.div style={{ height }}>{children[index]}</animated.div>
           </animated.div>

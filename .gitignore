@@ -1,3 +1,8 @@
 node_modules
+<<<<<<< HEAD
 .next
 .env
+=======
+.env
+/client/node_modules
+>>>>>>> b5cdd3ddd1c7f67bb532271397c4f12590e3183e

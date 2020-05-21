@@ -2,6 +2,7 @@ import * as React from 'react';
 import { AppBar, Link as LinkM, Button, Box } from '@material-ui/core';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import { makeStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
 
 const Navbar: React.FunctionComponent = (props) => {
   const classes = useStyles(props);
@@ -10,17 +11,16 @@ const Navbar: React.FunctionComponent = (props) => {
       <Box className={classes.container}>
         <AppBar position='static' className={classes.appBar}>
           <ul className={classes.linksUL}>
-            <LinkM variant='overline' underline='none' className={classes.linkStyle}>
-              HOME
-            </LinkM>
-
-            <LinkM variant='overline' underline='none' className={classes.linkStyle}>
-              DOCUMENTATION
-            </LinkM>
-
-            <LinkM variant='overline' underline='none' className={classes.linkStyle}>
-              ABOUT
-            </LinkM>
+            <Button >
+              <Link to="/" className={classes.linkStyle}>
+                HOME
+              </Link>
+            </Button>
+            <Button >
+              <Link to="/about" className={classes.linkStyle}>
+                ABOUT
+              </Link>
+            </Button>
           </ul>
           <ul className={classes.loginButton}>
             <LinkM variant='overline' underline='none'>
@@ -57,9 +57,7 @@ const useStyles = makeStyles(() => ({
   linkStyle: {
     textDecoration: 'none',
     color: 'white',
-    '&:hover': {
-      color: '#7209b7',
-    },
+    hoverOpacity: "0.8",
     padding: '5px',
   },
   loginButton: {

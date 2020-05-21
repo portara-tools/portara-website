@@ -3,30 +3,24 @@ import { AppBar, Link as LinkM, Button, Box } from '@material-ui/core';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import { makeStyles } from '@material-ui/core/styles';
 
-
 const Navbar: React.FunctionComponent = (props) => {
   const classes = useStyles(props);
   return (
     <>
-
       <Box className={classes.container}>
         <AppBar position='static' className={classes.appBar}>
           <ul className={classes.linksUL}>
+            <LinkM variant='overline' underline='none' className={classes.linkStyle}>
+              HOME
+            </LinkM>
 
-              <LinkM variant='overline' underline='none' className={classes.linkStyle}>
-                HOME
-              </LinkM>
+            <LinkM variant='overline' underline='none' className={classes.linkStyle}>
+              DOCUMENTATION
+            </LinkM>
 
-
-              <LinkM variant='overline' underline='none' className={classes.linkStyle}>
-                DOCUMENTATION
-              </LinkM>
-
-
-              <LinkM variant='overline' underline='none' className={classes.linkStyle}>
-                ABOUT
-              </LinkM>
-
+            <LinkM variant='overline' underline='none' className={classes.linkStyle}>
+              ABOUT
+            </LinkM>
           </ul>
           <ul className={classes.loginButton}>
             <LinkM variant='overline' underline='none'>

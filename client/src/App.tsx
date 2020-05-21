@@ -1,11 +1,14 @@
 import React from 'react';
-import LandingPage from './components/LandingPage'
+// import { useTheme} from '@material-ui/core/styles';
+import LandingPage from './components/LandingPage';
 
 function App() {
   return (
-    <div className="App">
-      <LandingPage />
-    </div>
+
+      <div style={{backgroundColor: "black"}}>
+        <LandingPage />
+      </div>
+
   );
 }
 

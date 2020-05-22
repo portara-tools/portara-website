@@ -56,14 +56,18 @@ const resolvers = {
   },
 };
 
-const PORT:any = process.env.PORT || 4000;
+const PORT = process.env.PORT || 4000;
 
 const app = express();
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  playground: true,
 });
+
+// may have to set up route for graphql
+// app.use('/graphql', )
 
 app.use(express.static('public'));
 

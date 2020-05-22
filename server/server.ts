@@ -1,5 +1,6 @@
-// const { ApolloServer, gql } = require('apollo-server');
-import { ApolloServer, gql } from 'apollo-server-express'
+
+const { ApolloServer } = require('apollo-server-express')
+const { gql } = require('apollo-server-express')
 const express = require('express');
 const path = require('path');
 
@@ -55,7 +56,7 @@ const resolvers = {
   },
 };
 
-const PORT = process.env.PORT || 4000;
+const PORT:any = process.env.PORT || 4000;
 
 const app = express();
 

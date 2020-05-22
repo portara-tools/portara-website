@@ -7,8 +7,7 @@
   },
   "scripts": {
     "dev": "nodemon server.ts",
-    "start": "node server.ts",
-    "test": "jest --forceExit --detectOpenHandles"
+    "start": "node server.ts"
   },
   "author": "portara-labs",
   "license": "MIT",
@@ -30,5 +29,4 @@
     "typescript": "^3.8.3"
   },
   "homepage": "https://github.com/oslabs-beta/portara/blob/staging/README.md"
-  
 }

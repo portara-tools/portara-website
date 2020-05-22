@@ -4,16 +4,12 @@
   "description": "Portara",
   "main": "/server/server.ts",
   "scripts": {
-<<<<<<< HEAD
     "install": "npm run install:client && npm run install:server",
     "install:client": "(cd ./client && npm install)",
     "install:server": "(cd ./server && npm install)",
     "start": "npm run build:client && npm run start:server",
     "start:dev": "(cd ./client && npm run build)",
     "start:server": "(cd ./server && npm start)"
-=======
-    "start": "cd server && node server.ts"
->>>>>>> 28cdc4644d8f935bcc0bc98a119664f5385dcd87
   },
   "repository": {
     "type": "git",

@@ -1,40 +1,20 @@
 {
-  "name": "with-typescript",
-  "version": "1.0.0",
+  "name": "portara_website",
+  "version": "1.0.5",
+  "description": "Portara",
+  "main": "/server/server.ts",
   "scripts": {
-    "dev": "next",
-    "build": "next build",
-    "start": "next start",
-    "type-check": "tsc",
-    "test-server": "nodemon pages/api/server.ts"
+    "start": "cd client && npm run build && cd .. && cd server && node server.ts"
   },
-  "dependencies": {
-    "@apollo/react-hooks": "^3.1.5",
-    "@apollo/react-ssr": "^3.1.5",
-    "@material-ui/core": "^4.9.14",
-    "@material-ui/icons": "^4.9.1",
-    "@material-ui/styles": "^4.9.14",
-    "@types/react-redux": "^7.1.8",
-    "apollo-cache-inmemory": "^1.6.6",
-    "apollo-client": "^2.6.10",
-    "apollo-link-http": "^1.5.17",
-    "apollo-server": "^2.13.1",
-    "apollo-server-lambda": "^2.13.1",
-    "graphql": "^15.0.0",
-    "isomorphic-unfetch": "3.0.0",
-    "next": "latest",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-redux": "^7.2.0",
-    "react-spring": "^8.0.27",
-    "redux": "^4.0.5",
-    "redux-devtools-extension": "^2.13.8"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oslabs-beta/portara.git"
   },
-  "devDependencies": {
-    "@types/node": "^14.0.1",
-    "@types/react": "^16.9.35",
-    "@types/react-dom": "^16.9.8",
-    "typescript": "3.9.2"
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/oslabs-beta/portara/issues"
   },
-  "license": "ISC"
+  "homepage": "https://github.com/oslabs-beta/portara#readme"
 }

@@ -1,9 +1,7 @@
-const { ApolloServer, gql } = require('apollo-server');
-// import { typeDefs } from './api/schema';
-// import { resolvers } from './api/resolvers';
-// import {  } from './api/models';
+const { gql } = require('apollo-server');
 
-const typeDefs = gql`
+// Construct a schema, using GraphQL schema language
+export const typeDefs = gql`
   type Query {
     test: String
     getAllRateLimiters: [RateLimiter!]
@@ -46,22 +44,5 @@ const typeDefs = gql`
     throttle: ID
     id: ID!
   }
+
 `;
-
-const resolvers = {
-  Query: {
-    test: () => 'Testing is a Success!',
-    // getAllRateLimiters:
-  },
-};
-
-
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-  // context: ({ req, res }) => ({ req, res }),
-});
-
-server.listen({ port: 4000 }, () => {
-  console.log(`Server running @ PORT 4000`);
-});

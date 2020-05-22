@@ -9,7 +9,8 @@ install:
   - npm install
 
 #before_script
-# script:
+script:
+  - echo "Hello World"
 #   - npm test
 
 #after_success:

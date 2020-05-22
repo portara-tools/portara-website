@@ -3,7 +3,6 @@ import React from 'react';
 import { Button, Typography, Grid, Link as LinkM, Box, Zoom } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import AnimatedCard from './AnimatedCard';
-import { useSpring, animated } from 'react-spring';
 import BackupIcon from '@material-ui/icons/Backup';
 import EmojiEmotionsIcon from '@material-ui/icons/EmojiEmotions';
 import DoneOutlineIcon from '@material-ui/icons/DoneOutline';
@@ -11,6 +10,7 @@ import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import BlockRounded from '@material-ui/icons/BlockRounded';
 import AlternateEmail from '@material-ui/icons/AlternateEmail';
 import DoneAll from '@material-ui/icons/DoneAll';
+import Title from './Title'
 
 const LandingPage = () => {
   const classes = useStyles();
@@ -20,7 +20,7 @@ const LandingPage = () => {
       <Navbar />
       <Box maxWidth='sm' className={classes.container}>
         <Grid className={classes.content}>
-          <Typography variant="h2" color="primary">Portara</Typography>
+          <Title>Portara</Title>
           {/* <img src={'https://imgur.com/U0PyleJ.png'} alt='wtf' /> */}
           <hr style={{ width: '100%', marginBottom: '30px' }} />
           <Typography variant='h5' color="primary">The best rate limiter that exists</Typography>
@@ -30,6 +30,7 @@ const LandingPage = () => {
               <Typography color='primary'>Download on NPM</Typography>
             </LinkM>
           </Button>
+
           {/* IMAGE WITH BULLETS */}
           <Grid className={classes.imageWrapper}>
             <Box className={classes.imageContainer}>
@@ -53,10 +54,10 @@ const LandingPage = () => {
             </Box>
           </Grid>
         </Grid>
+
         {/* CARDS */}
         <Grid container spacing={10}>
           <Grid xs={12} container item className={classes.cardsWrapper} spacing={5}>
-            {/* <Box className={classes.cardsContainer}> */}
             <Zoom in style={{ transitionDelay: '500ms' }}>
               <Grid item xs={4} className={classes.card}>
                 <Box style={{ flexDirection: 'row', display: 'flex' }}>

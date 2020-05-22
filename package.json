@@ -1,0 +1,20 @@
+{
+  "name": "portara_website",
+  "version": "1.0.5",
+  "description": "Portara",
+  "main": "index.js",
+  "scripts": {
+    "test": "cd server && npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oslabs-beta/portara.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/oslabs-beta/portara/issues"
+  },
+  "homepage": "https://github.com/oslabs-beta/portara#readme"
+}

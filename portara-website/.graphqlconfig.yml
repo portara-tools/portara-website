@@ -1,0 +1,15 @@
+projects:
+  portarawebsite:
+    schemaPath: amplify/backend/api/portarawebsite/build/schema.graphql
+    includes:
+      - src/graphql/**/*.js
+    excludes:
+      - ./amplify/**
+    extensions:
+      amplify:
+        codeGenTarget: javascript
+        generatedFileName: ''
+        docsFilePath: src/graphql
+        region: eu-west-1
+        apiId: null
+        maxDepth: 5

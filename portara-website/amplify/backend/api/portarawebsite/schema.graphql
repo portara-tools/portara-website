@@ -1,0 +1,19 @@
+type Query {
+  test: String!
+}
+
+type User @model {
+    id: ID!
+    username: String!
+    rateLimiters: [RateLimiter] @connection(keyName: "byUser", fields: ["id"])
+  }
+
+  type RateLimiter @model @key(name: "byUser", fields: ["userId"]) {
+    id: ID!
+    projectName: ID!
+    limit: Int!
+    per: ID!
+    throttle: ID
+    userId: ID!
+    user: User @connection(fields: ["userId"])
+  }

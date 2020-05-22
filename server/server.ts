@@ -1,59 +1,37 @@
 
-const { ApolloServer } = require('apollo-server-express')
+const { ApolloServer, PubSub, graphqlExpress, graphiqlExpress } = require('apollo-server-express')
 const { gql } = require('apollo-server-express')
 const express = require('express');
 const path = require('path');
+const http = require('http');
+const pubsub = new PubSub();
+
 
 const typeDefs = gql`
   type Query {
     test: String
-    getAllRateLimiters: [RateLimiter!]
   }
-
-  type Mutation {
-    addUser(username: String!): User!
-    deleteUser(username: String!): User!
-
-    addRateLimiter(
-      userId: ID!, 
-      projectName: ID!,
-      limit: Int!,
-      per: ID!,
-      throttle: ID
-    ): RateLimiter
-
-    deleteRateLimiter(
-      userId: ID!, 
-      id: ID!,
-    ): RateLimiter
-
-    editRateLimiter(
-      userId: ID!, 
-      id: ID!,
-    ): RateLimiter
-  }
-
-  type User {
-    id: ID!
-    username: String!
-    rateLimiter: [RateLimiter]
-  }
-
-  type RateLimiter {
-    userId: ID!
-    projectName: ID!
-    limit: Int!
-    per: ID!
-    throttle: ID
-    id: ID!
+  type Subscription {
+    testSub: String!
   }
 `;
 
 const resolvers = {
-  Query: {
-    test: () => 'Testing is a Success!',
-    // getAllRateLimiters:
+  Subscription: {
+    testSub: {
+      subscribe() {
+        return pubsub.asyncIterator("TEST_SUB")
+      }
+    }
   },
+  Query: {
+    test: () => {
+      pubsub.publish('TEST_SUB', { testSub: 'sub returned' })
+      return 'Testing is a Success!'
+    },
+
+  },
+
 };
 
 const PORT = process.env.PORT || 4000;
@@ -63,22 +41,25 @@ const app = express();
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  context: ({ req, res }) => ({ req, res, pubsub }),
   playground: true,
 });
 
-// may have to set up route for graphql
-// app.use('/graphql', )
+const httpServer = http.createServer(app);
+server.installSubscriptionHandlers(httpServer);
 
-app.use(express.static('public'));
-
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'public', 'index.html'))  
-})
 
 server.applyMiddleware({
   app,
 });
 
-app.listen({port: PORT || 4000}, () => {
-  console.log(`Listening @ ${PORT}`)
+app.use(express.static('public'));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'public', 'index.html'))
+})
+
+httpServer.listen(PORT, () => {
+  console.log(`🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`)
+  console.log(`🚀 Subscriptions ready at ws://localhost:${PORT}${server.subscriptionsPath}`)
 })

@@ -4,7 +4,7 @@
   "description": "Portara",
   "main": "/server/server.ts",
   "scripts": {
-    "start": "cd server && node server.ts"
+    "start": "cd client && npm run build && cd .. && cd server && node server.ts"
   },
   "repository": {
     "type": "git",

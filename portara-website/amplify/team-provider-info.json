@@ -10,6 +10,14 @@
             "StackName": "amplify-portarawebsite-dev-01720",
             "StackId": "arn:aws:cloudformation:eu-west-1:252700073582:stack/amplify-portarawebsite-dev-01720/4841b0f0-9bfc-11ea-a73d-02dbc193ed28",
             "AmplifyAppId": "d81zw8b0ele5x"
+        },
+        "categories": {
+            "hosting": {
+                "amplifyhosting": {
+                    "appId": "d81zw8b0ele5x",
+                    "type": "cicd"
+                }
+            }
         }
     }
 }

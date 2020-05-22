@@ -2,7 +2,7 @@
   "name": "portara_website",
   "version": "1.0.5",
   "description": "Portara",
-  "main": "index.js",
+  "main": "/server/server.ts",
   "scripts": {
     "test": "cd server && npm test"
   },

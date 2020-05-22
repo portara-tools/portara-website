@@ -1,0 +1,15 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-portarawebsite-dev-01720-authRole",
+            "UnauthRoleArn": "arn:aws:iam::252700073582:role/amplify-portarawebsite-dev-01720-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::252700073582:role/amplify-portarawebsite-dev-01720-authRole",
+            "Region": "eu-west-1",
+            "DeploymentBucketName": "amplify-portarawebsite-dev-01720-deployment",
+            "UnauthRoleName": "amplify-portarawebsite-dev-01720-unauthRole",
+            "StackName": "amplify-portarawebsite-dev-01720",
+            "StackId": "arn:aws:cloudformation:eu-west-1:252700073582:stack/amplify-portarawebsite-dev-01720/4841b0f0-9bfc-11ea-a73d-02dbc193ed28",
+            "AmplifyAppId": "d81zw8b0ele5x"
+        }
+    }
+}

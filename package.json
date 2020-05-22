@@ -7,8 +7,8 @@
     "install": "npm run install:client && npm run install:server",
     "install:client": "(cd ./client && npm install)",
     "install:server": "(cd ./server && npm install)",
-    "start": "npm run start:dev",
-    "start:dev": "npm run start:server",
+    "start": "npm run build:client && npm run start:server",
+    "start:dev": "(cd ./client && npm run build)",
     "start:server": "(cd ./server && npm start)"
   },
   "repository": {

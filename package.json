@@ -4,11 +4,7 @@
   "description": "Portara",
   "main": "index.js",
   "scripts": {
-    "test": "cd server && npm test",
-    "install:server": "cd server && npm install",
-    "install:client": "cd client && npm install",
-    "start:client": "cd client && npm run start && cd .. && cd server && npm run start",
-    "start": "cd client && npm run build && npm run start && cd server && npm run start"
+    "test": "cd server && npm test"
   },
   "repository": {
     "type": "git",

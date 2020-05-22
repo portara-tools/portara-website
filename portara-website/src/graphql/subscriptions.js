@@ -14,6 +14,15 @@ export const onCreateUser = /* GraphQL */ `
           per
           throttle
           userId
+          user {
+            id
+            username
+            rateLimiters {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -37,6 +46,15 @@ export const onUpdateUser = /* GraphQL */ `
           per
           throttle
           userId
+          user {
+            id
+            username
+            rateLimiters {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -60,6 +78,15 @@ export const onDeleteUser = /* GraphQL */ `
           per
           throttle
           userId
+          user {
+            id
+            username
+            rateLimiters {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -83,6 +110,22 @@ export const onCreateRateLimiter = /* GraphQL */ `
         id
         username
         rateLimiters {
+          items {
+            id
+            projectName
+            limit
+            per
+            throttle
+            userId
+            user {
+              id
+              username
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         createdAt
@@ -106,6 +149,22 @@ export const onUpdateRateLimiter = /* GraphQL */ `
         id
         username
         rateLimiters {
+          items {
+            id
+            projectName
+            limit
+            per
+            throttle
+            userId
+            user {
+              id
+              username
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         createdAt
@@ -129,6 +188,22 @@ export const onDeleteRateLimiter = /* GraphQL */ `
         id
         username
         rateLimiters {
+          items {
+            id
+            projectName
+            limit
+            per
+            throttle
+            userId
+            user {
+              id
+              username
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         createdAt

@@ -1,6 +1,8 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+
+
 export const getUser = /* GraphQL */ `
   query GetUser($id: ID!) {
     getUser(id: $id) {
@@ -14,6 +16,15 @@ export const getUser = /* GraphQL */ `
           per
           throttle
           userId
+          user {
+            id
+            username
+            rateLimiters {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -35,6 +46,22 @@ export const listUsers = /* GraphQL */ `
         id
         username
         rateLimiters {
+          items {
+            id
+            projectName
+            limit
+            per
+            throttle
+            userId
+            user {
+              id
+              username
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         createdAt
@@ -57,6 +84,22 @@ export const getRateLimiter = /* GraphQL */ `
         id
         username
         rateLimiters {
+          items {
+            id
+            projectName
+            limit
+            per
+            throttle
+            userId
+            user {
+              id
+              username
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         createdAt
@@ -84,6 +127,19 @@ export const listRateLimiters = /* GraphQL */ `
         user {
           id
           username
+          rateLimiters {
+            items {
+              id
+              projectName
+              limit
+              per
+              throttle
+              userId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
           createdAt
           updatedAt
         }

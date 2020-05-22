@@ -1,3 +1,7 @@
+type Query {
+  test: String!
+}
+
 type User @model {
     id: ID!
     username: String!

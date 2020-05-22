@@ -1,10 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
 import AWSAppSyncClient, { AUTH_TYPE } from 'aws-appsync';
 import aws_config from './aws-exports';
-import { ApolloProvider } from 'react-apollo'
+import { ApolloProvider } from 'react-apollo';
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { CssBaseline } from '@material-ui/core';
+import theme from './utils/theme';
+import App from './App';
 
 const client = new AWSAppSyncClient({
     url: aws_config.aws_appsync_graphqlEndpoint,
@@ -19,7 +21,11 @@ const client = new AWSAppSyncClient({
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-      <App />
+    <ThemeProvider theme={theme}>
+      <CssBaseline>
+        <App />
+      </CssBaseline>
+    </ThemeProvider>
   </ApolloProvider>, 
 
 document.getElementById('root'));

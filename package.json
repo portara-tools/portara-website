@@ -2,13 +2,14 @@
   "name": "portara_website",
   "version": "1.0.5",
   "description": "Portara",
-  "main": "index.js",
+  "main": "/server/server.ts",
   "scripts": {
-    "test": "cd server && npm test",
-    "install:server": "cd server && npm install",
-    "install:client": "cd client && npm install",
-    "start:client": "cd client && npm run start && cd .. && cd server && npm run start",
-    "start": "cd client && npm run build && npm run start && cd server && npm run start"
+    "install": "npm run install:client && npm run install:server",
+    "install:client": "(cd ./client && npm install)",
+    "install:server": "(cd ./server && npm install)",
+    "start": "npm run build:client && npm run start:server",
+    "build:client": "(cd ./client && npm run build)",
+    "start:server": "(cd ./server && npm start)"
   },
   "repository": {
     "type": "git",

@@ -1,7 +1,8 @@
-const { ApolloServer, gql } = require('apollo-server');
-// import { typeDefs } from './api/schema';
-// import { resolvers } from './api/resolvers';
-// import {  } from './api/models';
+
+const { ApolloServer } = require('apollo-server-express')
+const { gql } = require('apollo-server-express')
+const express = require('express');
+const path = require('path');
 
 const typeDefs = gql`
   type Query {
@@ -55,13 +56,29 @@ const resolvers = {
   },
 };
 
+const PORT = process.env.PORT || 4000;
+
+const app = express();
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  // context: ({ req, res }) => ({ req, res }),
+  playground: true,
 });
 
-server.listen({ port: 4000 }, () => {
-  console.log(`Server running @ PORT 4000`);
+// may have to set up route for graphql
+// app.use('/graphql', )
+
+app.use(express.static('public'));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'public', 'index.html'))  
+})
+
+server.applyMiddleware({
+  app,
 });
+
+app.listen({port: PORT || 4000}, () => {
+  console.log(`Listening @ ${PORT}`)
+})

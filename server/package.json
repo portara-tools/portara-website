@@ -7,14 +7,13 @@
   },
   "scripts": {
     "dev": "nodemon server.ts",
-    "start": "node server.ts",
-    "test": "jest --forceExit --detectOpenHandles"
+    "start": "node server.ts"
   },
   "author": "portara-labs",
   "license": "MIT",
   "dependencies": {
-    "apollo-server": "^2.13.0",
-    "apollo-server-lambda": "^2.13.1",
+    "@types/node": "^14.0.5",
+    "apollo-server-express": "^2.13.1",
     "graphql": "^15.0.0",
     "mongodb": "^3.5.7",
     "mongoose": "^5.9.15",

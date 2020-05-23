@@ -28,13 +28,21 @@ const User = mongoose.model('portaraUsers', userSchema);
 // typeDefs
 const typeDefs = gql`
   type Query {
-    portaraSettings(userID: String!, limit: ID!, per: ID!, throttle: ID!): Settings!
+    portaraSettings(userID: String!, limit: ID!, per: ID!, throttle: ID!): PortaraSetting!
   }
   type Subscription {
-    portaraSettings(userID: String!): Settings!
+    portaraSettings(userID: String!): PortaraSetting!
   }
-  type Settings {
+  type Mutation {
+    changeSetting(userID: String, name: String!, limit: ID!, per: ID!, throttle: ID!): PortaraSetting
+  }
+  type User {
     userID: String!
+    portara: [PortaraSetting]!
+  }
+
+  type PortaraSetting {
+    name: String!
     limit: ID!
     per: ID!
     throttle: ID!
@@ -58,9 +66,16 @@ const resolvers = {
       pubsub.publish(userID, { portaraSettings: { userID, limit, per, throttle } })
       return { userID, limit, per, throttle }
     },
-
   },
-
+  Mutation: {
+    changeSetting: async (_, { userID, name, limit, per, throttle }) => {
+      const data = await User.findById(userID)
+      //loop through data
+      console.log(data)
+      //update data
+      // if nothing found, create new entry
+    }
+  }
 };
 
 const PORT = process.env.PORT || 4000;

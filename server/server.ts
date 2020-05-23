@@ -12,21 +12,26 @@ const typeDefs = gql`
     test: String
   }
   type Subscription {
-    testSub: String!
+    portaraSettings: Settings!
+  }
+  type Settings {
+    limit: Int!
+    per: ID!
+    throttle: ID!
   }
 `;
 
 const resolvers = {
   Subscription: {
-    testSub: {
+    portaraSettings: {
       subscribe() {
-        return pubsub.asyncIterator("TEST_SUB")
+        return pubsub.asyncIterator("PORTARA_SETTINGS")
       }
     }
   },
   Query: {
     test: () => {
-      pubsub.publish('TEST_SUB', { testSub: 'sub returned' })
+      pubsub.publish('PORTARA_SETTINGS', { portaraSettings: { limit: 5, per: 20, throttle: 1 } })
       return 'Testing is a Success!'
     },
 

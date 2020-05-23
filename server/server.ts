@@ -7,6 +7,7 @@ const http = require('http');
 const pubsub = new PubSub();
 
 
+
 const typeDefs = gql`
   type Query {
     portaraSettings: Settings!
@@ -15,24 +16,27 @@ const typeDefs = gql`
     portaraSettings: Settings!
   }
   type Settings {
-    limit: Int!
+    limit: ID!
     per: ID!
     throttle: ID!
   }
 `;
 
+const settings = { limit: 5, per: 20, throttle: 1 }
+
 const resolvers = {
   Subscription: {
     portaraSettings: {
+      // also need args here to establish user ID as channel
       subscribe() {
         return pubsub.asyncIterator("PORTARA_SETTINGS")
       }
     }
   },
   Query: {
-    portaraSettings: () => {
-      pubsub.publish('PORTARA_SETTINGS', { portaraSettings: { limit: 5, per: 20, throttle: 1 } })
-      return 'Testing is a Success!'
+    portaraSettings: () => { // we need to use args here to grab correct user ID and also insert into limit etc
+      pubsub.publish('PORTARA_SETTINGS', { portaraSettings: { limit: settings.limit, per: settings.per, throttle: settings.throttle } })
+      return settings
     },
 
   },

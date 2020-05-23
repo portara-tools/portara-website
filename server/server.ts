@@ -9,7 +9,7 @@ const pubsub = new PubSub();
 
 const typeDefs = gql`
   type Query {
-    test: String
+    portaraSettings: Settings!
   }
   type Subscription {
     portaraSettings: Settings!
@@ -30,7 +30,7 @@ const resolvers = {
     }
   },
   Query: {
-    test: () => {
+    portaraSettings: () => {
       pubsub.publish('PORTARA_SETTINGS', { portaraSettings: { limit: 5, per: 20, throttle: 1 } })
       return 'Testing is a Success!'
     },

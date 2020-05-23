@@ -1,0 +1,25 @@
+{
+  "name": "portara_website",
+  "version": "1.0.5",
+  "description": "Portara",
+  "main": "/server/server.ts",
+  "scripts": {
+    "install": "npm run install:client && npm run install:server",
+    "install:client": "(cd ./client && npm install)",
+    "install:server": "(cd ./server && npm install)",
+    "start": "npm run start:server",
+    "start:server": "(cd ./server && npm start)"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oslabs-beta/portara.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/oslabs-beta/portara/issues"
+  },
+  "homepage": "https://github.com/oslabs-beta/portara#readme",
+  "dependencies": {}
+}

@@ -17,10 +17,14 @@ mongoose.connect(URI, { useUnifiedTopology: true, useNewUrlParser: true }, () =>
 
 const userSchema = new mongoose.Schema({
   userID: String,
-  limit: String || Number,
-  per: String || Number,
-  throttle: String || Number
+  portara: [{ name: String, limit: String, per: String, throttle: String }],
 });
+
+// const portaraSchema = new mongoose.Schema({
+//     limit: String || Number,
+//   per: String || Number,
+//   throttle: String || Number
+// })
 
 const User = mongoose.model('portaraUsers', userSchema);
 
@@ -70,13 +74,37 @@ const resolvers = {
   Mutation: {
     changeSetting: async (_, { userID, name, limit, per, throttle }) => {
       const data = await User.findById(userID)
-      //loop through data
-      console.log(data)
-      //update data
-      // if nothing found, create new entry
+      const arr = [...data.portara]
+      const Field = {
+        name,
+        limit,
+        per,
+        throttle
+      };
+
+      let found = false
+      for (let field of arr) {
+        if (field.name === name) {
+          field.limit = limit;
+          field.per = per;
+          field.throttle = throttle
+          found = true
+          break
+        }
+      }
+      if (!found) {
+        arr.push(Field)
+
+      }
+      await User.findOneAndUpdate(userID, { $set: { portara: arr } }, { upsert: true })
+
+      // const doodoo = await User.findById(userID)
+      // console.log('steves data', doodoo)
+      return { userID, name, limit, per, throttle }
     }
   }
 };
+
 
 const PORT = process.env.PORT || 4000;
 

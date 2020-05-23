@@ -10,33 +10,34 @@ const pubsub = new PubSub();
 
 const typeDefs = gql`
   type Query {
-    portaraSettings: Settings!
+    portaraSettings(userID: String!, limit: ID!, per: ID!, throttle: ID!): Settings!
   }
   type Subscription {
-    portaraSettings: Settings!
+    portaraSettings(userID: String!): Settings!
   }
   type Settings {
+    userID: String!
     limit: ID!
     per: ID!
     throttle: ID!
   }
 `;
 
-const settings = { limit: 5, per: 20, throttle: 1 }
-
 const resolvers = {
   Subscription: {
     portaraSettings: {
       // also need args here to establish user ID as channel
-      subscribe() {
-        return pubsub.asyncIterator("PORTARA_SETTINGS")
+      subscribe(_, { userID }) {
+        console.log(userID)
+
+        return pubsub.asyncIterator(userID)
       }
     }
   },
   Query: {
-    portaraSettings: () => { // we need to use args here to grab correct user ID and also insert into limit etc
-      pubsub.publish('PORTARA_SETTINGS', { portaraSettings: { limit: settings.limit, per: settings.per, throttle: settings.throttle } })
-      return settings
+    portaraSettings: (_, { userID, limit, per, throttle }) => {
+      pubsub.publish(userID, { portaraSettings: { userID, limit, per, throttle } })
+      return { userID, limit, per, throttle }
     },
 
   },

@@ -67,8 +67,8 @@ const resolvers = {
   },
   Query: {
     portaraSettings: (_, { userID, limit, per, throttle }) => {
-      pubsub.publish(userID, { portaraSettings: { userID, limit, per, throttle } })
-      return { userID, limit, per, throttle }
+      pubsub.publish(userID, { portaraSettings: { name, limit, per, throttle } })
+      return { name, limit, per, throttle }
     },
   },
   Mutation: {
@@ -100,6 +100,7 @@ const resolvers = {
 
       // const doodoo = await User.findById(userID)
       // console.log('steves data', doodoo)
+      pubsub.publish(userID, { portaraSettings: { name, limit, per, throttle } })
       return { userID, name, limit, per, throttle }
     }
   }

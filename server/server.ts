@@ -1,11 +1,12 @@
-
 const { ApolloServer, PubSub, graphqlExpress, graphiqlExpress } = require('apollo-server-express')
 const { gql } = require('apollo-server-express')
 const express = require('express');
 const path = require('path');
 const http = require('http');
 const pubsub = new PubSub();
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+import * as passport from "passport";
+const GitHubStrategy = require('passport-github').Strategy;
 
 // Mongo Connection
 const URI = `mongodb://heroku_wcgfs261:n1g8tpuc2nmb8bj8d8jt24hd8v@ds137263.mlab.com:37263/heroku_wcgfs261`;
@@ -125,13 +126,32 @@ server.installSubscriptionHandlers(httpServer);
 
 server.applyMiddleware({
   app,
+  cors: false,
 });
 
 app.use(express.static('public'));
 
+
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'public', 'index.html'))
-})
+});
+
+
+// Github Authentication --------------------------------------------------
+passport.use(new GitHubStrategy({
+  clientID: process.env.GITHUB_CLIENT_ID,
+  clientSecret: process.env.GITHUB_CLIENT_SECRET,
+  callbackURL: "http://localhost:3000/oauth/github"
+},
+function(accessToken, refreshToken, profile, cb) {
+  User.findOrCreate({ githubId: profile.id }, function (err, user) {
+    return cb(err, user);
+  });
+}
+));
+
+app.use(passport.initialize());
+// --------------------------------------------------------------------------
 
 httpServer.listen(PORT, () => {
   console.log(`🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`)

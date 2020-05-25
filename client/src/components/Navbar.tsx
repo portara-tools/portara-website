@@ -21,6 +21,11 @@ const Navbar: React.FunctionComponent = (props) => {
                 ABOUT
               </Link>
             </Button>
+            <Button >
+              <Link to="/account" className={classes.linkStyle}>
+                ACCOUNT
+              </Link>
+            </Button>
           </ul>
           <ul className={classes.loginButton}>
             <LinkM variant='overline' underline='none'>

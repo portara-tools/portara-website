@@ -49,11 +49,6 @@ const About: React.FunctionComponent = (props) => {
             </Box>
           </Grid>
         </Grid>
-
-
-
-
-
       </Box>
     </>
   );

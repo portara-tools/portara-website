@@ -5,8 +5,9 @@ const path = require('path');
 const http = require('http');
 const pubsub = new PubSub();
 const mongoose = require('mongoose');
-import * as passport from "passport";
-const GitHubStrategy = require('passport-github').Strategy;
+require('dotenv').config()
+import passport from "passport";
+import { Profile, Strategy as GitHubStrategy } from 'passport-github';
 
 // Mongo Connection
 const URI = `mongodb://heroku_wcgfs261:n1g8tpuc2nmb8bj8d8jt24hd8v@ds137263.mlab.com:37263/heroku_wcgfs261`;
@@ -68,12 +69,12 @@ const resolvers = {
     }
   },
   Mutation: {
-
+    
     /*
       This is the mutation to be triggered when a user updates settings to ANY field
       ---- name: the name of the field definition or object
       ---- userID: the unique token that is used and sent back to the client
-    */
+      */
     changeSetting: async (_, { userID, name, limit, per, throttle }) => {
       try {
         const data = await User.findById(userID)
@@ -100,7 +101,7 @@ const resolvers = {
         await User.findOneAndUpdate(userID, { $set: { portara: arr } }, { upsert: true })
         pubsub.publish(userID, { portaraSettings: { name, limit, per, throttle } })
         return { userID, name, limit, per, throttle }
-
+        
       } catch (error) {
         return error;
       }
@@ -112,6 +113,45 @@ const resolvers = {
 const PORT = process.env.PORT || 4000;
 
 const app = express();
+
+// Github Authentication --------------------------------------------------
+
+interface UserProfile extends Profile {
+  _json: {
+    [key: string]: string;
+  };
+}
+
+passport.use(
+  new GitHubStrategy({
+    clientID: process.env.GITHUB_CLIENT_ID,
+    clientSecret: process.env.GITHUB_CLIENT_SECRET,
+    callbackURL: "http://localhost:4000/auth/github/callback" // CHANGE IN PRODUCTION
+  },
+  (accessToken, refreshToken, userProfile, cb) => {
+    const profile = (userProfile as unknown) as UserProfile;
+    // User.findOrCreate({ githubId: profile.id }, function (err, user) {
+    //   return cb(err, user);
+    // });
+    console.log(profile._json)
+    cb(null, profile)
+  }
+));
+
+app.use(passport.initialize());
+
+app.get(
+  '/githublogin',
+  passport.authenticate('github', { session: false })
+);
+
+app.get(
+  '/auth/github/callback',
+  passport.authenticate('github', { session: false }),
+  (req, res) => res.redirect('http://localhost:3000') // CHANGE IN PRODUCTION TO '/dashboard'
+);
+
+// --------------------------------------------------------------------------
 
 const server = new ApolloServer({
   typeDefs,
@@ -137,21 +177,6 @@ app.get('*', (req, res) => {
 });
 
 
-// Github Authentication --------------------------------------------------
-passport.use(new GitHubStrategy({
-  clientID: process.env.GITHUB_CLIENT_ID,
-  clientSecret: process.env.GITHUB_CLIENT_SECRET,
-  callbackURL: "http://localhost:3000/oauth/github"
-},
-function(accessToken, refreshToken, profile, cb) {
-  User.findOrCreate({ githubId: profile.id }, function (err, user) {
-    return cb(err, user);
-  });
-}
-));
-
-app.use(passport.initialize());
-// --------------------------------------------------------------------------
 
 httpServer.listen(PORT, () => {
   console.log(`🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`)

@@ -6,7 +6,7 @@ const http = require('http');
 const pubsub = new PubSub();
 const mongoose = require('mongoose');
 
-const cors = require('cors')
+// const cors = require('cors')
 
 const { v4: uuidv4 } = require('uuid');
 require('dotenv').config()
@@ -195,7 +195,7 @@ server.installSubscriptionHandlers(httpServer);
 
 server.applyMiddleware({
   app,
-  cors: false,
+  // cors: false,
 });
 
 app.use(express.static('public'));

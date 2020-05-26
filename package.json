@@ -21,9 +21,5 @@
   "bugs": {
     "url": "https://github.com/oslabs-beta/portara/issues"
   },
-  "homepage": "https://github.com/oslabs-beta/portara#readme",
-  "dependencies": {
-    "passport-local-mongoose": "^6.0.1",
-    "uuid": "^8.1.0"
-  }
+  "homepage": "https://github.com/oslabs-beta/portara#readme"
 }

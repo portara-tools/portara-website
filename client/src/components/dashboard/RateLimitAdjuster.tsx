@@ -16,13 +16,6 @@ import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
 import { UPDATE_SETTING, READ_DATABASE } from '../../utils/queries'
 
-
-// interface Props {
-//   name: string
-//   limit: string
-//   per: string
-//   throttle: string
-// };
 let setted = false
 const RateLimitAdjuster: React.FunctionComponent = () => {
   const classes = useStyles();
@@ -32,7 +25,7 @@ const RateLimitAdjuster: React.FunctionComponent = () => {
   });
   const [triggerMutation, { data: newData }] = useMutation(UPDATE_SETTING)
 
-  
+
   const handleDuration = (e: any, index: any, settingType: any, newValue?: any) => {  
     let value = e.target.value;
     if (newValue) {

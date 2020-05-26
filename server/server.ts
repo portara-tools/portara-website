@@ -132,7 +132,7 @@ const resolvers = {
 const PORT = process.env.PORT || 4000;
 
 const app = express();
-app.use(cors())
+// app.use(cors())
 // Github Authentication --------------------------------------------------
 // interface UserProfile extends Profile {
 //   _json: {

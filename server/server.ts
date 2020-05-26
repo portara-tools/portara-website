@@ -194,7 +194,7 @@ app.get(
     res.locals.avatar = req.user.photos[0].value;
     
     res
-      .json({ githubID: res.locals.id, username: res.locals.username, avatar: res.locals.avatar })
+      .render('.././client/public/index.html' ,{ githubID: res.locals.id, username: res.locals.username, avatar: res.locals.avatar })
       // .redirect('http://localhost:3000') // CHANGE IN PRODUCTION TO '/dashboard' 
   }
 );

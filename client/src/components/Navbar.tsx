@@ -4,6 +4,8 @@ import GitHubIcon from '@material-ui/icons/GitHub';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 
+const oauthLogin_Github = 'http://localhost:4000/githublogin'
+
 const Navbar: React.FunctionComponent = (props) => {
   const classes = useStyles(props);
   return (
@@ -21,10 +23,22 @@ const Navbar: React.FunctionComponent = (props) => {
                 ABOUT
               </Link>
             </Button>
+            <Button >
+              <Link to="/account" className={classes.linkStyle}>
+                ACCOUNT
+              </Link>
+            </Button>
           </ul>
           <ul className={classes.loginButton}>
-            <LinkM variant='overline' underline='none'>
-              <Button variant='outlined' size='small'>
+          <LinkM
+            href={oauthLogin_Github}
+            variant='overline' 
+            underline='none'
+            >
+              <Button 
+              variant='outlined' 
+              size='small'
+              >
                 SIGN IN WITH
                 <GitHubIcon style={{ fontSize: 'large', marginLeft: '8px' }}></GitHubIcon>
               </Button>

@@ -71,14 +71,16 @@ const resolvers = {
             let str = JSON.stringify(data)
             newArr.push(str)
           })
-        const derp = JSON.parse(newArr[0])
-        delete derp['_id']
-        delete derp['userID']
-        delete derp['portara']
-        for (let key in derp) {
-          let newObj = { ...derp[key] }
-          newObj['name'] = key.toString()
-          finalArr.push(newObj)
+        const data = JSON.parse(newArr[0])
+        delete data['_id']
+        delete data['userID']
+        delete data['portara']
+        for (let key in data) {
+          if (typeof data[key] === 'object') {
+            let newObj = { ...data[key] }
+            newObj['name'] = key.toString()
+            finalArr.push(newObj)
+          }
         }
         return finalArr;
 
@@ -104,8 +106,8 @@ const resolvers = {
 
         await User.findByIdAndUpdate(userID, { [name]: newObj }, { upsert: true, new: true })
         await pubsub.publish(userID, { portaraSettings: { name, limit, per, throttle } })
-        const doodoo = await User.findById(userID)
-        console.log(doodoo)
+        const datacheck = await User.findById(userID)
+        console.log(datacheck)
         return { userID, name, limit, per, throttle }
 
       } catch (error) {

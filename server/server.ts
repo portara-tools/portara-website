@@ -8,8 +8,11 @@ const mongoose = require('mongoose');
 // const passportLocalMongoose = require('passport-local-mongoose');
 const { v4: uuidv4 } = require('uuid');
 require('dotenv').config()
-import passport from "passport";
-import { Profile, Strategy as GitHubStrategy } from 'passport-github';
+const passport = require("passport");
+const { Profile } = require('passport-github');
+const GitHubStrategy = require('passport-github').Strategy;
+// import passport from "passport";
+// import { Profile, Strategy as GitHubStrategy } from 'passport-github';
 const cors = require('cors')
 
 // Mongo Connection
@@ -133,21 +136,21 @@ const PORT = process.env.PORT || 4000;
 const app = express();
 app.use(cors())
 // Github Authentication --------------------------------------------------
-interface UserProfile extends Profile {
-  _json: {
-    [key: string]: string;
-  };
-}
+// interface UserProfile extends Profile {
+//   _json: {
+//     [key: string]: string;
+//   };
+// }
 
 passport.use(
   new GitHubStrategy({
     clientID: process.env.GITHUB_CLIENT_ID,
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    callbackURL: "http://localhost:4000/auth/github/callback" // CHANGE IN PRODUCTION
+    callbackURL: "http://portara-web.herokuapp.com/auth/github/callback" // CHANGE IN PRODUCTION
   },
-  async (accessToken, refreshToken, userProfile, cb) => {
+  async (accessToken, refreshToken, profile, cb) => {
 
-    const profile = (userProfile as unknown) as UserProfile;
+    // const profile = (userProfile as unknown) as UserProfile;
     let existingUser = await User.find(
       { githubID: profile._json.id }
     );

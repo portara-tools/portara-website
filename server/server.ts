@@ -5,7 +5,7 @@ const path = require('path');
 const http = require('http');
 const pubsub = new PubSub();
 const mongoose = require('mongoose');
-const passportLocalMongoose = require('passport-local-mongoose');
+// const passportLocalMongoose = require('passport-local-mongoose');
 const { v4: uuidv4 } = require('uuid');
 require('dotenv').config()
 import passport from "passport";
@@ -28,7 +28,7 @@ const userSchema = new mongoose.Schema({
   avatarURL: String,
 });
 
-userSchema.plugin(passportLocalMongoose);
+// userSchema.plugin(passportLocalMongoose);
 const User = mongoose.model('portaraUsers', userSchema);
 
 // typeDefs
@@ -136,19 +136,22 @@ passport.use(
     callbackURL: "http://localhost:4000/auth/github/callback" // CHANGE IN PRODUCTION
   },
   async (accessToken, refreshToken, userProfile, cb) => {
+
     const profile = (userProfile as unknown) as UserProfile;
-    let existingUser = await db.User.find(
+    let existingUser = await User.find(
       { githubID: profile._json.id }
     );
 
-    if (!existingUser) {
-      db.User.insertOne({
+    if (!existingUser.length) {
+      await User.create({
         URI: uuidv4(),
         username: profile._json.login,
         githubID: profile._json.id,
         avatarURL: profile._json.avatar_url,
       })
-    } else cb(null, profile)
+    }
+    // let test = await 
+    await cb(null, profile)
   }
 ));
 

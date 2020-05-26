@@ -27,18 +27,13 @@ let setted = false
 const RateLimitAdjuster: React.FunctionComponent = () => {
   const classes = useStyles();
   const [state, setState]:any = useState([])
-  
   const { loading, data, refetch } = useQuery(READ_DATABASE, {
     variables: { userID: "5ec9aa3a9057a222f161be33" }, // this needs to change to variable
   });
+  const [triggerMutation, { data: newData }] = useMutation(UPDATE_SETTING)
 
-
-
-
-
-
-
-  const handleDuration = (e: any, name: any, index: any, settingType: any, newValue?: any) => {  
+  
+  const handleDuration = (e: any, index: any, settingType: any, newValue?: any) => {  
     let value = e.target.value;
     if (newValue) {
       value = newValue;
@@ -51,13 +46,11 @@ const RateLimitAdjuster: React.FunctionComponent = () => {
   };
 
 
-  if (!loading && data) {
-    console.log('DATA FROM QUERY', data)    
+  if (!loading && data) {    
     if (!setted){
       setState(data.findUser)
       setted = true
-    }
-    console.log('CURRENT STATE', state)
+    }  
     return (
       <div>
         {data.findUser.map((setting: any, index:any) => {
@@ -77,9 +70,16 @@ const RateLimitAdjuster: React.FunctionComponent = () => {
                     color="primary" 
                     className={classes.update}
                     onClick={(e) => {
-                      e.preventDefault()
-                      // setState({ ...state, name: props.name })
-                      // triggerMutation()
+                      e.preventDefault()                                          
+                      triggerMutation({
+                        variables: {
+                          userID: "5ec9aa3a9057a222f161be33",
+                          name: state[index].name, 
+                          limit: state[index].limit,
+                          per: state[index].per, 
+                          throttle: state[index].throttle, 
+                        }
+                      })
                       refetch()
                     }}
                   >
@@ -109,7 +109,7 @@ const RateLimitAdjuster: React.FunctionComponent = () => {
                   valueLabelDisplay="auto" 
                   defaultValue={Number(setting.limit)} 
                   onChange={(e, newValue) => {
-                    handleDuration(e, setting.name, index, "limit", newValue)
+                    handleDuration(e, index, "limit", newValue)
                   }}
                   />
                   <label>Duration</label>
@@ -120,7 +120,7 @@ const RateLimitAdjuster: React.FunctionComponent = () => {
                         className: classes.searchInput,
                       }}
                       onChange={(e) => {
-                        handleDuration(e, setting.name, index, "per")
+                        handleDuration(e, index, "per")
                       }}
                     />
                 </div>
@@ -136,7 +136,7 @@ const RateLimitAdjuster: React.FunctionComponent = () => {
                       className: classes.searchInput,
                     }}
                     onChange={(e) => {
-                      handleDuration(e, setting.name, index, "throttle")
+                      handleDuration(e, index, "throttle")
                     }}
                   />
                 </div>
@@ -234,12 +234,3 @@ const DemoSlider = withStyles({
 
 
 
-  // const [triggerMutation, { data: newData }] = useMutation(UPDATE_SETTING, {
-  //   variables: {
-  //     userID: "5ec9aa3a9057a222f161be33",
-  //     name: state.name.toString(), 
-  //     limit: state.limit.toString(),
-  //     per: state.per.toString(), 
-  //     throttle: state.throttle.toString(), 
-  //   }
-  // })

@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
 import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core/styles';
-import CustomizedSlider from './Slider'
+import RateLimitAdjuster from './RateLimitAdjuster'
 
 
 const styles = (theme: Theme) =>
@@ -69,7 +69,7 @@ function Content(props: ContentProps) {
       <div className={classes.contentWrapper}>
           <div className={classes.root}>
             <div className={classes.margin} />
-            <CustomizedSlider/>
+            <RateLimitAdjuster />
           </div>
       </div>
     </Paper>

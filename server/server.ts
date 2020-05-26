@@ -5,43 +5,108 @@ const express = require('express');
 const path = require('path');
 const http = require('http');
 const pubsub = new PubSub();
+const mongoose = require('mongoose')
+
+// Mongo Connection
+const URI = `mongodb://heroku_wcgfs261:n1g8tpuc2nmb8bj8d8jt24hd8v@ds137263.mlab.com:37263/heroku_wcgfs261`;
+mongoose.connect(URI, { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false }, () =>
+  console.log('connected to MongoDB')
+);
+
+const userSchema = new mongoose.Schema({
+  userID: String,
+  portara: [{ name: String, limit: String, per: String, throttle: String }],
+});
 
 
+const User = mongoose.model('portaraUsers', userSchema);
 
+// typeDefs
 const typeDefs = gql`
   type Query {
-    portaraSettings: Settings!
+    test: String!
+    findUser (userID: String!): User!
   }
   type Subscription {
-    portaraSettings: Settings!
+    portaraSettings(userID: String!): PortaraSetting!
   }
-  type Settings {
+  type Mutation {
+    changeSetting(userID: String!, name: String!, limit: ID!, per: ID!, throttle: ID!): PortaraSetting
+  }
+  type User {
+    userID: String!
+    portara: [PortaraSetting]!
+  }
+  type PortaraSetting {
+    name: String!
     limit: ID!
     per: ID!
     throttle: ID!
   }
 `;
 
-const settings = { limit: 5, per: 20, throttle: 1 }
-
+// resolvers
 const resolvers = {
   Subscription: {
     portaraSettings: {
-      // also need args here to establish user ID as channel
-      subscribe() {
-        return pubsub.asyncIterator("PORTARA_SETTINGS")
+      subscribe(_, { userID }) {
+        console.log(userID)
+        return pubsub.asyncIterator(userID)
       }
     }
   },
   Query: {
-    portaraSettings: () => { // we need to use args here to grab correct user ID and also insert into limit etc
-      pubsub.publish('PORTARA_SETTINGS', { portaraSettings: { limit: settings.limit, per: settings.per, throttle: settings.throttle } })
-      return settings
-    },
-
+    test: () => "Test success",
+    findUser: async (_, { userID }) => {
+      try {
+        const user = await User.findById(userID);
+        return user;  
+      } catch (error) {
+        return error;
+      }
+    }
   },
+  Mutation: {
 
+    /*
+      This is the mutation to be triggered when a user updates settings to ANY field
+      ---- name: the name of the field definition or object
+      ---- userID: the unique token that is used and sent back to the client
+    */
+    changeSetting: async (_, { userID, name, limit, per, throttle }) => {
+      try {
+        const data = await User.findById(userID)
+        const arr = [...data.portara]
+        const Field = {
+          name,
+          limit,
+          per,
+          throttle
+        };
+        let found = false
+        for (let field of arr) {
+          if (field.name === name) {
+            field.limit = limit;
+            field.per = per;
+            field.throttle = throttle
+            found = true
+            break
+          }
+        }
+        if (!found) {
+          arr.push(Field)
+        }
+        await User.findOneAndUpdate(userID, { $set: { portara: arr } }, { upsert: true })
+        pubsub.publish(userID, { portaraSettings: { name, limit, per, throttle } })
+        return { userID, name, limit, per, throttle }
+
+      } catch (error) {
+        return error;
+      }
+    }
+  }
 };
+
 
 const PORT = process.env.PORT || 4000;
 

@@ -13,7 +13,7 @@ import { Profile, Strategy as GitHubStrategy } from 'passport-github';
 const cors = require('cors')
 
 // Mongo Connection
-const URI = process.env.MONGO_DB || '';
+const URI = process.env.MONGO_DB_URI || '';
 mongoose.connect(URI, { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false }, () =>
   console.log('connected to MongoDB')
 );
@@ -72,6 +72,7 @@ const resolvers = {
     test: () => "Test success",
 
     findUser: async (_, { userID }) => {
+      console.log('HIT FINDUSER')
       try {
 
         const newArr = [];
@@ -92,6 +93,7 @@ const resolvers = {
             finalArr.push(newObj)
           }
         }
+        
         return finalArr;
 
       } catch (error) {
@@ -107,6 +109,7 @@ const resolvers = {
       ---- userID: the unique token that is used and sent back to the client
       */
     changeSetting: async (_, { userID, name, limit, per, throttle }) => {
+      
       try {
         const newObj = {
           limit,
@@ -117,7 +120,7 @@ const resolvers = {
         await User.findByIdAndUpdate(userID, { [name]: newObj }, { upsert: true, new: true })
         await pubsub.publish(userID, { portaraSettings: { name, limit, per, throttle } })
         const datacheck = await User.findById(userID)
-        console.log(datacheck)
+        // console.log(datacheck)
         return { userID, name, limit, per, throttle }
 
       } catch (error) {

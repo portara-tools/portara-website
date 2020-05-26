@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 require('dotenv').config()
 import passport from "passport";
 import { Profile, Strategy as GitHubStrategy } from 'passport-github';
+const cors = require('cors')
 
 // Mongo Connection
 const URI = process.env.MONGO_DB;
@@ -118,7 +119,7 @@ const resolvers = {
 const PORT = process.env.PORT || 4000;
 
 const app = express();
-
+app.use(cors())
 // Github Authentication --------------------------------------------------
 
 interface UserProfile extends Profile {

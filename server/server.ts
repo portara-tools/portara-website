@@ -13,7 +13,13 @@ import { Profile, Strategy as GitHubStrategy } from 'passport-github';
 const cors = require('cors')
 
 // Mongo Connection
-const URI = process.env.MONGO_DB || '';
+// const URI = process.env.MONGO_DB;
+// mongoose.connect(URI, { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false }, () =>
+//   console.log('connected to MongoDB')
+// );
+
+const MONGO_DB = `mongodb://heroku_wcgfs261:n1g8tpuc2nmb8bj8d8jt24hd8v@ds137263.mlab.com:37263/heroku_wcgfs261`;
+const URI = MONGO_DB;
 mongoose.connect(URI, { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false }, () =>
   console.log('connected to MongoDB')
 );
@@ -160,22 +166,37 @@ passport.use(
         avatarURL: profile._json.avatar_url,
       })
     }
-    // let test = await 
+
+    const userInfo = await User.find(
+      { githubID: profile._json.id },
+    )
+
+    // console.log('USER INFO', userInfo[0])
+    
     await cb(null, profile)
   }
-));
-
+  ));
+  
 app.use(passport.initialize());
 
 app.get(
   '/githublogin',
-  passport.authenticate('github', { session: false })
+  passport.authenticate('github', { session: false }),
 );
 
 app.get(
   '/auth/github/callback',
   passport.authenticate('github', { session: false }),
-  (req, res) => res.redirect('http://localhost:3000') // CHANGE IN PRODUCTION TO '/dashboard'
+  (req, res) => {
+    // console.log('REQUEST: ', req.user)
+    res.locals.id = req.user.id;
+    res.locals.username = req.user.username;
+    res.locals.avatar = req.user.photos[0].value;
+    
+    res
+      .json({ githubID: res.locals.id, username: res.locals.username, avatar: res.locals.avatar })
+      // .redirect('http://localhost:3000') // CHANGE IN PRODUCTION TO '/dashboard' 
+  }
 );
 // --------------------------------------------------------------------------
 

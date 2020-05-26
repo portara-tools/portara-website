@@ -8,11 +8,11 @@ const mongoose = require('mongoose');
 
 // const cors = require('cors')
 
-const { v4: uuidv4 } = require('uuid');
-require('dotenv').config()
-const passport = require("passport");
-const { Profile } = require('passport-github');
-const GitHubStrategy = require('passport-github').Strategy;
+// const { v4: uuidv4 } = require('uuid');
+// require('dotenv').config()
+// const passport = require("passport");
+// const { Profile } = require('passport-github');
+// const GitHubStrategy = require('passport-github').Strategy;
 
 // Mongo Connection
 // const URI = process.env.MONGODB_URI || '';

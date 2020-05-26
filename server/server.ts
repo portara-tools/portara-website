@@ -5,6 +5,7 @@ const path = require('path');
 const http = require('http');
 const pubsub = new PubSub();
 const mongoose = require('mongoose');
+const { v4: uuidv4 } = require('uuid');
 require('dotenv').config()
 import passport from "passport";
 import { Profile, Strategy as GitHubStrategy } from 'passport-github';
@@ -18,6 +19,9 @@ mongoose.connect(URI, { useUnifiedTopology: true, useNewUrlParser: true, useFind
 const userSchema = new mongoose.Schema({
   userID: String,
   portara: [{ name: String, limit: String, per: String, throttle: String }],
+  URI: String,
+  username: String,
+  avatarURL: String,
 });
 
 

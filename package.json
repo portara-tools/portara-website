@@ -21,5 +21,7 @@
     "url": "https://github.com/oslabs-beta/portara/issues"
   },
   "homepage": "https://github.com/oslabs-beta/portara#readme",
-  "dependencies": {}
+  "dependencies": {
+    "uuid": "^8.1.0"
+  }
 }

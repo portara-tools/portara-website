@@ -16,7 +16,8 @@ const GitHubStrategy = require('passport-github').Strategy;
 const cors = require('cors')
 
 // Mongo Connection
-const URI = process.env.MONGODB_URI || '';
+// const URI = process.env.MONGODB_URI || '';
+const URI = `mongodb://heroku_wcgfs261:n1g8tpuc2nmb8bj8d8jt24hd8v@ds137263.mlab.com:37263/heroku_wcgfs261`;
 mongoose.connect(URI, { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false }, () =>
   console.log('connected to MongoDB')
 );
@@ -144,8 +145,10 @@ app.use(cors())
 
 passport.use(
   new GitHubStrategy({
-    clientID: process.env.GITHUB_CLIENT_ID,
-    clientSecret: process.env.GITHUB_CLIENT_SECRET,
+    clientID: "287f5caf1e8c640581e4",
+    // clientID: process.env.GITHUB_CLIENT_ID,
+    clientSecret: "94b22b16bfc5d9d40309dd35d67d437dd6b83da0",
+    // clientSecret: process.env.GITHUB_CLIENT_SECRET,
     callbackURL: "http://portara-web.herokuapp.com/auth/github/callback" // CHANGE IN PRODUCTION
   },
   async (accessToken, refreshToken, profile, cb) => {

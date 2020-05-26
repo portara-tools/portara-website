@@ -16,7 +16,7 @@ const GitHubStrategy = require('passport-github').Strategy;
 
 // Mongo Connection
 // const URI = process.env.MONGODB_URI || '';
-const URI = `mongodb://heroku_wcgfs261:n1g8tpuc2nmb8bj8d8jt24hd8v@ds137263.mlab.com:37263/heroku_wcgfs261`;
+const URI = process.env.MONGODB_URI || '';
 mongoose.connect(URI, { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false }, () =>
   console.log('connected to MongoDB')
 );
@@ -132,6 +132,7 @@ const resolvers = {
 const PORT = process.env.PORT || 4000;
 
 const app = express();
+
 // app.use(cors())
 // Github Authentication --------------------------------------------------
 // interface UserProfile extends Profile {
@@ -140,46 +141,46 @@ const app = express();
 //   };
 // }
 
-passport.use(
-  new GitHubStrategy({
-    clientID: "287f5caf1e8c640581e4",
-    // clientID: process.env.GITHUB_CLIENT_ID,
-    clientSecret: "94b22b16bfc5d9d40309dd35d67d437dd6b83da0",
-    // clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    callbackURL: "http://portara-web.herokuapp.com/auth/github/callback" // CHANGE IN PRODUCTION
-  },
-  async (accessToken, refreshToken, profile, cb) => {
+// passport.use(
+//   new GitHubStrategy({
+//     clientID: "287f5caf1e8c640581e4",
+//     // clientID: process.env.GITHUB_CLIENT_ID,
+//     clientSecret: "94b22b16bfc5d9d40309dd35d67d437dd6b83da0",
+//     // clientSecret: process.env.GITHUB_CLIENT_SECRET,
+//     callbackURL: "http://portara-web.herokuapp.com/auth/github/callback" // CHANGE IN PRODUCTION
+//   },
+//   async (accessToken, refreshToken, profile, cb) => {
 
-    // const profile = (userProfile as unknown) as UserProfile;
-    let existingUser = await User.find(
-      { githubID: profile._json.id }
-    );
+//     // const profile = (userProfile as unknown) as UserProfile;
+//     let existingUser = await User.find(
+//       { githubID: profile._json.id }
+//     );
 
-    if (!existingUser.length) {
-      await User.create({
-        URI: uuidv4(),
-        username: profile._json.login,
-        githubID: profile._json.id,
-        avatarURL: profile._json.avatar_url,
-      })
-    }
-    // let test = await 
-    await cb(null, profile)
-  }
-));
+//     if (!existingUser.length) {
+//       await User.create({
+//         URI: uuidv4(),
+//         username: profile._json.login,
+//         githubID: profile._json.id,
+//         avatarURL: profile._json.avatar_url,
+//       })
+//     }
+//     // let test = await 
+//     await cb(null, profile)
+//   }
+// ));
 
-app.use(passport.initialize());
+// app.use(passport.initialize());
 
-app.get(
-  '/githublogin',
-  passport.authenticate('github', { session: false })
-);
+// app.get(
+//   '/githublogin',
+//   passport.authenticate('github', { session: false })
+// );
 
-app.get(
-  '/auth/github/callback',
-  passport.authenticate('github', { session: false }),
-  (req, res) => res.redirect('http://localhost:3000') // CHANGE IN PRODUCTION TO '/dashboard'
-);
+// app.get(
+//   '/auth/github/callback',
+//   passport.authenticate('github', { session: false }),
+//   (req, res) => res.redirect('http://localhost:3000') // CHANGE IN PRODUCTION TO '/dashboard'
+// );
 // --------------------------------------------------------------------------
 
 const server = new ApolloServer({

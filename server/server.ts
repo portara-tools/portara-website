@@ -1,11 +1,17 @@
-
 const { ApolloServer, PubSub, graphqlExpress, graphiqlExpress } = require('apollo-server-express')
 const { gql } = require('apollo-server-express')
 const express = require('express');
 const path = require('path');
 const http = require('http');
 const pubsub = new PubSub();
+<<<<<<< HEAD
 const mongoose = require('mongoose')
+=======
+const mongoose = require('mongoose');
+require('dotenv').config()
+import passport from "passport";
+import { Profile, Strategy as GitHubStrategy } from 'passport-github';
+>>>>>>> 20bc88ae857348225ebff4e1f591a40711117553
 
 // Mongo Connection
 const URI = `mongodb://heroku_wcgfs261:n1g8tpuc2nmb8bj8d8jt24hd8v@ds137263.mlab.com:37263/heroku_wcgfs261`;
@@ -24,12 +30,13 @@ const User = mongoose.model('portaraUsers', userSchema);
 const typeDefs = gql`
   type Query {
     test: String!
+    findUser (userID: String!): User!
   }
   type Subscription {
     portaraSettings(userID: String!): PortaraSetting!
   }
   type Mutation {
-    changeSetting(userID: String, name: String!, limit: ID!, per: ID!, throttle: ID!): PortaraSetting
+    changeSetting(userID: String!, name: String!, limit: ID!, per: ID!, throttle: ID!): PortaraSetting
   }
   type User {
     userID: String!
@@ -54,15 +61,34 @@ const resolvers = {
     }
   },
   Query: {
+<<<<<<< HEAD
     test: () => "Test success"
   },
   Mutation: {
 
+=======
+    test: () => "Test success",
+    findUser: async (_, { userID }) => {
+      try {
+        const user = await User.findById(userID);
+        return user;  
+      } catch (error) {
+        return error;
+      }
+    }
+  },
+  Mutation: {
+    
+>>>>>>> 20bc88ae857348225ebff4e1f591a40711117553
     /*
       This is the mutation to be triggered when a user updates settings to ANY field
       ---- name: the name of the field definition or object
       ---- userID: the unique token that is used and sent back to the client
+<<<<<<< HEAD
     */
+=======
+      */
+>>>>>>> 20bc88ae857348225ebff4e1f591a40711117553
     changeSetting: async (_, { userID, name, limit, per, throttle }) => {
       try {
         const newObj = {
@@ -70,6 +96,7 @@ const resolvers = {
           per,
           throttle
         };
+<<<<<<< HEAD
 
         await User.findByIdAndUpdate(userID, { [name]: newObj }, { upsert: true, new: true })
         await pubsub.publish(userID, { portaraSettings: { name, limit, per, throttle } })
@@ -77,6 +104,25 @@ const resolvers = {
         console.log(doodoo)
         return { userID, name, limit, per, throttle }
 
+=======
+        let found = false
+        for (let field of arr) {
+          if (field.name === name) {
+            field.limit = limit;
+            field.per = per;
+            field.throttle = throttle
+            found = true
+            break
+          }
+        }
+        if (!found) {
+          arr.push(Field)
+        }
+        await User.findOneAndUpdate(userID, { $set: { portara: arr } }, { upsert: true })
+        pubsub.publish(userID, { portaraSettings: { name, limit, per, throttle } })
+        return { userID, name, limit, per, throttle }
+        
+>>>>>>> 20bc88ae857348225ebff4e1f591a40711117553
       } catch (error) {
         return error;
       }
@@ -88,6 +134,45 @@ const resolvers = {
 const PORT = process.env.PORT || 4000;
 
 const app = express();
+
+// Github Authentication --------------------------------------------------
+
+interface UserProfile extends Profile {
+  _json: {
+    [key: string]: string;
+  };
+}
+
+passport.use(
+  new GitHubStrategy({
+    clientID: process.env.GITHUB_CLIENT_ID,
+    clientSecret: process.env.GITHUB_CLIENT_SECRET,
+    callbackURL: "http://localhost:4000/auth/github/callback" // CHANGE IN PRODUCTION
+  },
+  (accessToken, refreshToken, userProfile, cb) => {
+    const profile = (userProfile as unknown) as UserProfile;
+    // User.findOrCreate({ githubId: profile.id }, function (err, user) {
+    //   return cb(err, user);
+    // });
+    console.log(profile._json)
+    cb(null, profile)
+  }
+));
+
+app.use(passport.initialize());
+
+app.get(
+  '/githublogin',
+  passport.authenticate('github', { session: false })
+);
+
+app.get(
+  '/auth/github/callback',
+  passport.authenticate('github', { session: false }),
+  (req, res) => res.redirect('http://localhost:3000') // CHANGE IN PRODUCTION TO '/dashboard'
+);
+
+// --------------------------------------------------------------------------
 
 const server = new ApolloServer({
   typeDefs,
@@ -102,13 +187,17 @@ server.installSubscriptionHandlers(httpServer);
 
 server.applyMiddleware({
   app,
+  cors: false,
 });
 
 app.use(express.static('public'));
 
+
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'public', 'index.html'))
-})
+});
+
+
 
 httpServer.listen(PORT, () => {
   console.log(`🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`)

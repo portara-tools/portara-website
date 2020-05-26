@@ -13,7 +13,7 @@ import { Profile, Strategy as GitHubStrategy } from 'passport-github';
 const cors = require('cors')
 
 // Mongo Connection
-const URI = process.env.MONGO_DB_URI || '';
+const URI = process.env.MONGODB_URI || '';
 mongoose.connect(URI, { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false }, () =>
   console.log('connected to MongoDB')
 );

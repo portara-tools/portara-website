@@ -9,7 +9,8 @@ const mongoose = require('mongoose');
 const { v4: uuidv4 } = require('uuid');
 require('dotenv').config()
 import passport from "passport";
-import { Profile, Strategy as GitHubStrategy } from 'passport-github';
+// import { Profile, Strategy as GitHubStrategy } from 'passport-github';
+const GitHubStrategy = require('passport-github').Strategy;
 const cors = require('cors')
 
 // Mongo Connection
@@ -139,11 +140,11 @@ const PORT = process.env.PORT || 4000;
 const app = express();
 app.use(cors())
 // Github Authentication --------------------------------------------------
-interface UserProfile extends Profile {
-  _json: {
-    [key: string]: string;
-  };
-}
+// interface UserProfile extends Profile {
+//   _json: {
+//     [key: string]: string;
+//   };
+// }
 
 passport.use(
   new GitHubStrategy({
@@ -151,9 +152,9 @@ passport.use(
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
     callbackURL: "http://localhost:4000/auth/github/callback" // CHANGE IN PRODUCTION
   },
-  async (accessToken, refreshToken, userProfile, cb) => {
+  async (accessToken, refreshToken, profile, cb) => {
 
-    const profile = (userProfile as unknown) as UserProfile;
+    // const profile = (userProfile as unknown) as UserProfile;
     let existingUser = await User.find(
       { githubID: profile._json.id }
     );
@@ -188,14 +189,16 @@ app.get(
   '/auth/github/callback',
   passport.authenticate('github', { session: false }),
   (req, res) => {
-    // console.log('REQUEST: ', req.user)
     res.locals.id = req.user.id;
     res.locals.username = req.user.username;
     res.locals.avatar = req.user.photos[0].value;
+    console.log(res.locals.avatar)
     
     res
-      .render('.././client/public/index.html' ,{ githubID: res.locals.id, username: res.locals.username, avatar: res.locals.avatar })
-      // .redirect('http://localhost:3000') // CHANGE IN PRODUCTION TO '/dashboard' 
+      .cookie('GitHubID', res.locals.id)
+      .cookie('Username', res.locals.username)
+      .cookie('Avatar', res.locals.avatar)
+      .redirect('http://localhost:4000') // CHANGE IN PRODUCTION
   }
 );
 // --------------------------------------------------------------------------

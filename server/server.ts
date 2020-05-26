@@ -71,10 +71,8 @@ const resolvers = {
   Query: {
     test: () => "Test success",
 
-    findUser: async (_, { userID }) => {
-      console.log('HIT FINDUSER')
+    findUser: async (_, { userID }) => {      
       try {
-
         const newArr = [];
         const finalArr = [];
         const user = await User.findOne({ _id: userID })
@@ -92,8 +90,7 @@ const resolvers = {
             newObj['name'] = key.toString()
             finalArr.push(newObj)
           }
-        }
-        
+        }        
         return finalArr;
 
       } catch (error) {

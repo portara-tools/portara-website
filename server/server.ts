@@ -5,6 +5,7 @@ const path = require('path');
 const http = require('http');
 const pubsub = new PubSub();
 const mongoose = require('mongoose');
+const passportLocalMongoose = require('passport-local-mongoose');
 const { v4: uuidv4 } = require('uuid');
 require('dotenv').config()
 import passport from "passport";
@@ -16,15 +17,18 @@ mongoose.connect(URI, { useUnifiedTopology: true, useNewUrlParser: true, useFind
   console.log('connected to MongoDB')
 );
 
+const db = mongoose.connection;
+
 const userSchema = new mongoose.Schema({
   userID: String,
   portara: [{ name: String, limit: String, per: String, throttle: String }],
   URI: String,
   username: String,
+  githubID: Number,
   avatarURL: String,
 });
 
-
+userSchema.plugin(passportLocalMongoose);
 const User = mongoose.model('portaraUsers', userSchema);
 
 // typeDefs
@@ -119,7 +123,6 @@ const PORT = process.env.PORT || 4000;
 const app = express();
 
 // Github Authentication --------------------------------------------------
-
 interface UserProfile extends Profile {
   _json: {
     [key: string]: string;
@@ -132,13 +135,20 @@ passport.use(
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
     callbackURL: "http://localhost:4000/auth/github/callback" // CHANGE IN PRODUCTION
   },
-  (accessToken, refreshToken, userProfile, cb) => {
+  async (accessToken, refreshToken, userProfile, cb) => {
     const profile = (userProfile as unknown) as UserProfile;
-    // User.findOrCreate({ githubId: profile.id }, function (err, user) {
-    //   return cb(err, user);
-    // });
-    console.log(profile._json)
-    cb(null, profile)
+    let existingUser = await db.User.find(
+      { githubID: profile._json.id }
+    );
+
+    if (!existingUser) {
+      db.User.insertOne({
+        URI: uuidv4(),
+        username: profile._json.login,
+        githubID: profile._json.id,
+        avatarURL: profile._json.avatar_url,
+      })
+    } else cb(null, profile)
   }
 ));
 
@@ -154,7 +164,6 @@ app.get(
   passport.authenticate('github', { session: false }),
   (req, res) => res.redirect('http://localhost:3000') // CHANGE IN PRODUCTION TO '/dashboard'
 );
-
 // --------------------------------------------------------------------------
 
 const server = new ApolloServer({

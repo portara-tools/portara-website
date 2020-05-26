@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/oslabs-beta/portara#readme",
   "dependencies": {
+    "passport-local-mongoose": "^6.0.1",
     "uuid": "^8.1.0"
   }
 }

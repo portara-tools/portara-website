@@ -5,15 +5,14 @@ const path = require('path');
 const http = require('http');
 const pubsub = new PubSub();
 const mongoose = require('mongoose');
-// const passportLocalMongoose = require('passport-local-mongoose');
-const { v4: uuidv4 } = require('uuid');
-require('dotenv').config()
-const passport = require("passport");
-const { Profile } = require('passport-github');
-const GitHubStrategy = require('passport-github').Strategy;
-// import passport from "passport";
-// import { Profile, Strategy as GitHubStrategy } from 'passport-github';
-const cors = require('cors')
+
+// const cors = require('cors')
+
+// const { v4: uuidv4 } = require('uuid');
+// require('dotenv').config()
+// const passport = require("passport");
+// const { Profile } = require('passport-github');
+// const GitHubStrategy = require('passport-github').Strategy;
 
 // Mongo Connection
 // const URI = process.env.MONGODB_URI || '';
@@ -119,9 +118,7 @@ const resolvers = {
         };
 
         await User.findByIdAndUpdate(userID, { [name]: newObj }, { upsert: true, new: true })
-        await pubsub.publish(userID, { portaraSettings: { name, limit, per, throttle } })
-        const datacheck = await User.findById(userID)
-        // console.log(datacheck)
+        await pubsub.publish(userID, { portaraSettings: { name, limit, per, throttle } })        
         return { userID, name, limit, per, throttle }
 
       } catch (error) {
@@ -135,54 +132,54 @@ const resolvers = {
 const PORT = process.env.PORT || 4000;
 
 const app = express();
-app.use(cors())
-// Github Authentication --------------------------------------------------
-// interface UserProfile extends Profile {
-//   _json: {
-//     [key: string]: string;
-//   };
-// }
+// app.use(cors())
+// // Github Authentication --------------------------------------------------
+// // interface UserProfile extends Profile {
+// //   _json: {
+// //     [key: string]: string;
+// //   };
+// // }
 
-passport.use(
-  new GitHubStrategy({
-    clientID: "287f5caf1e8c640581e4",
-    // clientID: process.env.GITHUB_CLIENT_ID,
-    clientSecret: "94b22b16bfc5d9d40309dd35d67d437dd6b83da0",
-    // clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    callbackURL: "http://portara-web.herokuapp.com/auth/github/callback" // CHANGE IN PRODUCTION
-  },
-  async (accessToken, refreshToken, profile, cb) => {
+// passport.use(
+//   new GitHubStrategy({
+//     clientID: "287f5caf1e8c640581e4",
+//     // clientID: process.env.GITHUB_CLIENT_ID,
+//     clientSecret: "94b22b16bfc5d9d40309dd35d67d437dd6b83da0",
+//     // clientSecret: process.env.GITHUB_CLIENT_SECRET,
+//     callbackURL: "http://portara-web.herokuapp.com/auth/github/callback" // CHANGE IN PRODUCTION
+//   },
+//   async (accessToken, refreshToken, profile, cb) => {
 
-    // const profile = (userProfile as unknown) as UserProfile;
-    let existingUser = await User.find(
-      { githubID: profile._json.id }
-    );
+//     // const profile = (userProfile as unknown) as UserProfile;
+//     let existingUser = await User.find(
+//       { githubID: profile._json.id }
+//     );
 
-    if (!existingUser.length) {
-      await User.create({
-        URI: uuidv4(),
-        username: profile._json.login,
-        githubID: profile._json.id,
-        avatarURL: profile._json.avatar_url,
-      })
-    }
-    // let test = await 
-    await cb(null, profile)
-  }
-));
+//     if (!existingUser.length) {
+//       await User.create({
+//         URI: uuidv4(),
+//         username: profile._json.login,
+//         githubID: profile._json.id,
+//         avatarURL: profile._json.avatar_url,
+//       })
+//     }
+//     // let test = await 
+//     await cb(null, profile)
+//   }
+// ));
 
-app.use(passport.initialize());
+// app.use(passport.initialize());
 
-app.get(
-  '/githublogin',
-  passport.authenticate('github', { session: false })
-);
+// app.get(
+//   '/githublogin',
+//   passport.authenticate('github', { session: false })
+// );
 
-app.get(
-  '/auth/github/callback',
-  passport.authenticate('github', { session: false }),
-  (req, res) => res.redirect('http://localhost:3000') // CHANGE IN PRODUCTION TO '/dashboard'
-);
+// app.get(
+//   '/auth/github/callback',
+//   passport.authenticate('github', { session: false }),
+//   (req, res) => res.redirect('http://localhost:3000') // CHANGE IN PRODUCTION TO '/dashboard'
+// );
 // --------------------------------------------------------------------------
 
 const server = new ApolloServer({
@@ -198,7 +195,7 @@ server.installSubscriptionHandlers(httpServer);
 
 server.applyMiddleware({
   app,
-  cors: false,
+  // cors: false,
 });
 
 app.use(express.static('public'));

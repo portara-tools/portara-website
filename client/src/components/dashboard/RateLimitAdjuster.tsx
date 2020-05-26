@@ -6,33 +6,50 @@ import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import TextField from '@material-ui/core/TextField';
 import CircularProgress from '@material-ui/core/CircularProgress';
-// import InputLabel from '@material-ui/core/InputLabel';
-// import FormControl from '@material-ui/core/FormControl';
-// import Select from '@material-ui/core/Select';
-// import FormControlLabel from '@material-ui/core/FormControlLabel';
-// import Switch from '@material-ui/core/Switch';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import RefreshIcon from '@material-ui/icons/Refresh';
+import Button from '@material-ui/core/Button';
+import Tooltip from '@material-ui/core/Tooltip';
+import IconButton from '@material-ui/core/IconButton';
 
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
+    outerRoot: {
+      width: '100%',
+    },
+    innerRoot: {
       width: '100%',
       display: 'flex',
       alignItems: 'center',
     },
     contentWrapper: {
-      margin: '40px 16px',
+      margin: '20px 16px',
     },
     margin: {
       height: theme.spacing(3),
-    },
-    formControl: {
-      minWidth: 80,
     },
     searchInput: {
       fontSize: theme.typography.fontSize,
       margin: '1rem',
       maxWidth: 140!,
+    },
+    paper: {
+      maxWidth: 936,
+      overflow: 'hidden',
+      margin: '2rem auto',
+    },
+    searchBar: {
+      borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
+    },
+    block: {
+      display: 'block',
+    },
+    update: {
+      marginRight: theme.spacing(1),
     },
   }),
 );
@@ -82,20 +99,15 @@ const UPDATE_SETTING = gql`
 const READ_DATABASE = gql`
   query findUser($userID: String!){
     findUser(userID: $userID) {
-      portara {
-        name
-        limit
-        per
-        throttle
-      }
+      name
+      limit
+      per
+      throttle
     }
   }
 `
 
 interface Props {
-//   children: React.ReactElement;
-//   open: boolean;
-//   value: number;
   name: string
   limit: string
   per: string
@@ -124,16 +136,6 @@ const RateLimitAdjuster: React.FunctionComponent = () => {
   const { loading, data } = useQuery(READ_DATABASE, {
     variables: { userID: "5ec9aa3a9057a222f161be33" },
   });
-  
-  console.log('DATA FROM DB READ (QUERY)', data)
-  console.log('DATA FROM MUTATION', newData)
-
-  // const handleSwitch = (event: any) => {
-  //   setState({ 
-  //     ...state, 
-  //     [event.target.name]: event.target.checked 
-  //   });
-  // };
 
   const updateField = (e: any) => {
     setState({
@@ -144,188 +146,79 @@ const RateLimitAdjuster: React.FunctionComponent = () => {
   if (!loading && data) {
     return (
       <div>
-        {data.findUser.portara.map((props:Props) => {
+        {data.findUser.map((props:Props, index:any) => {
               return (
-        <div>
-          <div>
-            <Typography color="textSecondary" align="center">
-            Rate Limit
-            </Typography>
-            <div className={classes.root}>
-              <div className={classes.margin} />
-              <DemoSlider name="limit" valueLabelDisplay="auto" defaultValue={Number(props.limit)} onChange={updateField} />
-              <label>per</label>
-                <TextField
-                  name="per"
-                  // type="number"
-                  placeholder={props.per}
-                  InputProps={{
-                    className: classes.searchInput,
-                  }}
-                  onChange={updateField}
-                />
-              {/* <FormControl variant="outlined" className={classes.formControl}>
-                <InputLabel htmlFor="outlined-age-native-simple">time</InputLabel>
-                <Select
-                  native
-                  name="rateTime"
-                  value={state.rateTimeValue}
-                  onChange={updateField}
-                  label="time"
-                  inputProps={{
-                    name: 'rateTimeValue',
-                    id: 'outlined-age-native-simple',
-                  }}
-                >
-                  <option aria-label="None" value="" />
-                  <option value='miliseconds'>ms</option>
-                  <option value='seconds'>s</option>
-                  <option value='minutes'>m</option>
-                  <option value='hours'>h</option>
-                  <option value='days'>d</option>
-                </Select>
-              </FormControl> */}
-            </div>
-          </div>
-          <div>
-            <div className={classes.root}>
+        <Paper className={classes.paper}>
+          <AppBar className={classes.searchBar} position="static" color="default" elevation={0}>
+            <Toolbar>
+              <Grid container spacing={2} alignItems="center">
+                <Grid item xs>
+                <Typography color="textPrimary">
+                  <h4>{props.name}</h4>
+                </Typography>
+                </Grid>
+                <Grid item>
+                  <Button 
+                    variant="contained" 
+                    color="primary" 
+                    className={classes.update}
+                    onClick={(e) => {
+                      e.preventDefault()
+                      triggerMutation()
+                    }}
+                  >
+                    Update
+                  </Button>
+                  <Tooltip title="Reset">
+                    <IconButton>
+                      <RefreshIcon className={classes.block} color="inherit" />
+                    </IconButton>
+                  </Tooltip>
+                </Grid>
+              </Grid>
+            </Toolbar>
+          </AppBar>
+        <div className={classes.contentWrapper}>
+          <div className={classes.outerRoot}>
             <div className={classes.margin} />
-            <Typography>Throttle: </Typography>
-            {/* <FormControlLabel
-              control={
-                <Switch
-                  checked={state.isThrottled}
-                  onChange={handleSwitch}
-                  name="isThrottled"
-                  color="primary"
-                />
-              }
-              label="Throttle"
-            /> */}
-            {/* <label>every</label> */}
-              <TextField
-                name="throttle"
-                // type="number"
-                placeholder={props.throttle}
-                InputProps={{
-                  className: classes.searchInput,
-                }}
-              />
-            {/* <FormControl variant="outlined" className={classes.formControl}>
-              <InputLabel htmlFor="outlined-age-native-simple">time</InputLabel>
-              <Select
-                native
-                name="throttleTimeValue"
-                value={state.throttleTimeValue}
-                onChange={updateField}
-                label="time"
-                inputProps={{
-                  name: 'throttleTimeValue',
-                  id: 'outlined-age-native-simple',
-                }}
-              >
-                <option aria-label="None" value="" />
-                <option value='miliseconds'>ms</option>
-                <option value='seconds'>s</option>
-                <option value='minutes'>m</option>
-                <option value='hours'>h</option>
-                <option value='days'>d</option>
-              </Select>
-            </FormControl> */}
+            <div key={index}>
+              <div>
+                <Typography color="textSecondary" align="center">
+                Rate Limit: {props.limit}
+                </Typography>
+                <div className={classes.innerRoot}>
+                  <div className={classes.margin} />
+                  <DemoSlider name="limit" valueLabelDisplay="auto" defaultValue={Number(props.limit)} onChange={updateField} />
+                  <label>per</label>
+                    <TextField
+                      name="per"
+                      placeholder={props.per}
+                      InputProps={{
+                        className: classes.searchInput,
+                      }}
+                      onChange={updateField}
+                    />
+                </div>
+              </div>
+              <div className={classes.contentWrapper}>
+                <div className={classes.innerRoot}>
+                <div className={classes.margin} />
+                <Typography>Throttle: </Typography>
+                  <TextField
+                    name="throttle"
+                    placeholder={props.throttle}
+                    InputProps={{
+                      className: classes.searchInput,
+                    }}
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>
+        </Paper>
               )
         })}
-        <div>
-          <div>
-            <Typography color="textSecondary" align="center">
-            Rate Limit
-            </Typography>
-            <div className={classes.root}>
-              <div className={classes.margin} />
-              <DemoSlider name="limit" valueLabelDisplay="auto" defaultValue={10} onChange={updateField} />
-              <label>per</label>
-                <TextField
-                  name="per"
-                  // type="number"
-                  placeholder=""
-                  InputProps={{
-                    className: classes.searchInput,
-                  }}
-                  onChange={updateField}
-                />
-              {/* <FormControl variant="outlined" className={classes.formControl}>
-                <InputLabel htmlFor="outlined-age-native-simple">time</InputLabel>
-                <Select
-                  native
-                  name="rateTime"
-                  value={state.rateTimeValue}
-                  onChange={updateField}
-                  label="time"
-                  inputProps={{
-                    name: 'rateTimeValue',
-                    id: 'outlined-age-native-simple',
-                  }}
-                >
-                  <option aria-label="None" value="" />
-                  <option value='miliseconds'>ms</option>
-                  <option value='seconds'>s</option>
-                  <option value='minutes'>m</option>
-                  <option value='hours'>h</option>
-                  <option value='days'>d</option>
-                </Select>
-              </FormControl> */}
-            </div>
-          </div>
-          <div>
-            <div className={classes.root}>
-            <div className={classes.margin} />
-            <Typography>Throttle: </Typography>
-            {/* <FormControlLabel
-              control={
-                <Switch
-                  checked={state.isThrottled}
-                  onChange={handleSwitch}
-                  name="isThrottled"
-                  color="primary"
-                />
-              }
-              label="Throttle"
-            /> */}
-            {/* <label>every</label> */}
-              <TextField
-                name="throttle"
-                // type="number"
-                placeholder=""
-                InputProps={{
-                  className: classes.searchInput,
-                }}
-              />
-            {/* <FormControl variant="outlined" className={classes.formControl}>
-              <InputLabel htmlFor="outlined-age-native-simple">time</InputLabel>
-              <Select
-                native
-                name="throttleTimeValue"
-                value={state.throttleTimeValue}
-                onChange={updateField}
-                label="time"
-                inputProps={{
-                  name: 'throttleTimeValue',
-                  id: 'outlined-age-native-simple',
-                }}
-              >
-                <option aria-label="None" value="" />
-                <option value='miliseconds'>ms</option>
-                <option value='seconds'>s</option>
-                <option value='minutes'>m</option>
-                <option value='hours'>h</option>
-                <option value='days'>d</option>
-              </Select>
-            </FormControl> */}
-            </div>
-          </div>
-        </div>
       </div>
     );
   } else {

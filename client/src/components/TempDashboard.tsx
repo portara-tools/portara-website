@@ -17,12 +17,10 @@ const UPDATE_SETTING = gql`
 const READ_DATABASE = gql`
   query findUser($userID: String!){
     findUser(userID: $userID) {
-      portara {
-        name
-        limit
-        per
-        throttle
-      }
+      name
+      limit
+      per
+      throttle
     }
   }
 `
@@ -65,7 +63,7 @@ const TempDashboard: React.FunctionComponent = () => {
         <Navbar />
         <div>
           <ul>
-            {data.findUser.portara.map((field:IField) => {
+            {data.findUser.map((field:IField) => {
               return <li>Name: {field.name} Limit: {field.limit} Duration: {field.per} Throttle: {field.throttle}</li>
             })}
             <form onSubmit={(e) => {

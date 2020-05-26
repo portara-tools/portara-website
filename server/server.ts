@@ -16,7 +16,7 @@ const GitHubStrategy = require('passport-github').Strategy;
 
 // Mongo Connection
 // const URI = process.env.MONGODB_URI || '';
-const URI = process.env.MONGODB_URI || '';
+const URI = 'mongodb://heroku_wcgfs261:n1g8tpuc2nmb8bj8d8jt24hd8v@ds137263.mlab.com:37263/heroku_wcgfs261';
 mongoose.connect(URI, { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false }, () =>
   console.log('connected to MongoDB')
 );

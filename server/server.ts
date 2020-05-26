@@ -10,15 +10,14 @@ import passport from "passport";
 import { Profile, Strategy as GitHubStrategy } from 'passport-github';
 
 // Mongo Connection
-const URI = `mongodb://heroku_wcgfs261:n1g8tpuc2nmb8bj8d8jt24hd8v@ds137263.mlab.com:37263/heroku_wcgfs261`;
+const URI = process.env.MONGO_DB;
 mongoose.connect(URI, { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false }, () =>
   console.log('connected to MongoDB')
 );
 
 const userSchema = new mongoose.Schema({
   userID: String,
-  portara: [{ name: String, limit: String, per: String, throttle: String }],
-});
+}, { strict: false });
 
 
 const User = mongoose.model('portaraUsers', userSchema);
@@ -27,7 +26,7 @@ const User = mongoose.model('portaraUsers', userSchema);
 const typeDefs = gql`
   type Query {
     test: String!
-    findUser (userID: String!): User!
+    findUser (userID: String!): [PortaraSetting]!
   }
   type Subscription {
     portaraSettings(userID: String!): PortaraSetting!
@@ -45,6 +44,7 @@ const typeDefs = gql`
     per: ID!
     throttle: ID!
   }
+  
 `;
 
 // resolvers
@@ -59,17 +59,35 @@ const resolvers = {
   },
   Query: {
     test: () => "Test success",
+
     findUser: async (_, { userID }) => {
       try {
-        const user = await User.findById(userID);
-        return user;  
+
+        const newArr = [];
+        const finalArr = [];
+        const user = await User.findOne({ _id: userID })
+          .then(data => {
+            let str = JSON.stringify(data)
+            newArr.push(str)
+          })
+        const derp = JSON.parse(newArr[0])
+        delete derp['_id']
+        delete derp['userID']
+        delete derp['portara']
+        for (let key in derp) {
+          let newObj = { ...derp[key] }
+          newObj['name'] = key.toString()
+          finalArr.push(newObj)
+        }
+        return finalArr;
+
       } catch (error) {
         return error;
       }
     }
   },
   Mutation: {
-    
+
     /*
       This is the mutation to be triggered when a user updates settings to ANY field
       ---- name: the name of the field definition or object
@@ -77,31 +95,18 @@ const resolvers = {
       */
     changeSetting: async (_, { userID, name, limit, per, throttle }) => {
       try {
-        const data = await User.findById(userID)
-        const arr = [...data.portara]
-        const Field = {
-          name,
+        const newObj = {
           limit,
           per,
           throttle
         };
-        let found = false
-        for (let field of arr) {
-          if (field.name === name) {
-            field.limit = limit;
-            field.per = per;
-            field.throttle = throttle
-            found = true
-            break
-          }
-        }
-        if (!found) {
-          arr.push(Field)
-        }
-        await User.findOneAndUpdate(userID, { $set: { portara: arr } }, { upsert: true })
-        pubsub.publish(userID, { portaraSettings: { name, limit, per, throttle } })
+
+        await User.findByIdAndUpdate(userID, { [name]: newObj }, { upsert: true, new: true })
+        await pubsub.publish(userID, { portaraSettings: { name, limit, per, throttle } })
+        const doodoo = await User.findById(userID)
+        console.log(doodoo)
         return { userID, name, limit, per, throttle }
-        
+
       } catch (error) {
         return error;
       }
@@ -128,15 +133,15 @@ passport.use(
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
     callbackURL: "http://localhost:4000/auth/github/callback" // CHANGE IN PRODUCTION
   },
-  (accessToken, refreshToken, userProfile, cb) => {
-    const profile = (userProfile as unknown) as UserProfile;
-    // User.findOrCreate({ githubId: profile.id }, function (err, user) {
-    //   return cb(err, user);
-    // });
-    console.log(profile._json)
-    cb(null, profile)
-  }
-));
+    (accessToken, refreshToken, userProfile, cb) => {
+      const profile = (userProfile as unknown) as UserProfile;
+      // User.findOrCreate({ githubId: profile.id }, function (err, user) {
+      //   return cb(err, user);
+      // });
+      console.log(profile._json)
+      cb(null, profile)
+    }
+  ));
 
 app.use(passport.initialize());
 

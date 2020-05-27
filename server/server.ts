@@ -150,7 +150,7 @@ passport.use(
     clientID: process.env.GITHUB_CLIENT_ID,
     // clientSecret: "94b22b16bfc5d9d40309dd35d67d437dd6b83da0",
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    callbackURL: "http://portara-web.herokuapp.com/auth/github/callback" // CHANGE IN PRODUCTION
+    callbackURL: "https://portara-web.herokuapp.com/auth/github/callback" // CHANGE IN PRODUCTION
   },
   async (accessToken, refreshToken, profile, cb) => {
 
@@ -182,7 +182,7 @@ app.get(
 app.get(
   '/auth/github/callback',
   passport.authenticate('github', { session: false }),
-  (req, res) => res.redirect('http://portara-web.herokuapp.com') // CHANGE IN PRODUCTION TO '/dashboard'
+  (req, res) => res.redirect('https://portara-web.herokuapp.com') // CHANGE IN PRODUCTION TO '/dashboard'
 );
 // --------------------------------------------------------------------------
 

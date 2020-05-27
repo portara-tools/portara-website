@@ -17,6 +17,7 @@ import Title from './Title'
 
 const LandingPage = () => {
   const classes = useStyles();
+  // const [state, setState] = useState()
 
   return (
     <>

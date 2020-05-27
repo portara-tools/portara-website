@@ -22,7 +22,7 @@ interface Props {
   per: string
   throttle: string
 };
-
+// temp id 5ec9aa3a9057a222f161be33
 let setted = false
 const RateLimitAdjuster: React.FunctionComponent = () => {
   const classes = useStyles();
@@ -43,7 +43,7 @@ const RateLimitAdjuster: React.FunctionComponent = () => {
     copyOfState[index] = copyOfSetting;
     setState(copyOfState);
   };
-
+// if !loading and !data
   if (!loading && data) {    
     if (!setted){
       setState(data.findUser)
@@ -71,7 +71,7 @@ const RateLimitAdjuster: React.FunctionComponent = () => {
                       e.preventDefault()                                          
                       triggerMutation({
                         variables: {
-                          userID: "5ec9aa3a9057a222f161be33",
+                          userID: "5ec9aa3a9057a222f161be33",                          
                           name: state[index].name, 
                           limit: state[index].limit,
                           per: state[index].per, 
@@ -149,6 +149,12 @@ const RateLimitAdjuster: React.FunctionComponent = () => {
         })}
       </div>
     );
+  } else if (!loading && !data) {
+    return(
+      <div>
+        You currently have no rate limiters. Please go to your tools and add some you fuck.
+      </div>
+    )
   } else {
     return (
       <>
@@ -183,13 +189,15 @@ const useStyles = makeStyles((theme: Theme) =>
       height: theme.spacing(3),
     },
     searchInput: {
-      fontSize: theme.typography.fontSize,
+      fontSize: '1.2rem',
       margin: '1rem',
       maxWidth: 140!,
       color: '#212121',
       paddingLeft: '6px',
       borderRadius: '2px',
-      '&:placeholder': {
+      textAlign: 'right',
+      float: 'right',
+      '&$::placeholder': {
         color: 'red',
         opacity: '1',
       },

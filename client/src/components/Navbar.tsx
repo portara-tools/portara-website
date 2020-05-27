@@ -2,6 +2,7 @@ import * as React from 'react';
 import { AppBar, Link as LinkM, Button, Box } from '@material-ui/core';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import { makeStyles } from '@material-ui/core/styles';
+import { HashLink } from 'react-router-hash-link';
 import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
@@ -23,9 +24,9 @@ const Navbar: React.FunctionComponent = (props) => {
               </Link>
             </Button>
             <Button >
-              <Link to="#about" className={classes.linkStyle}>
+              <HashLink to="/#about" className={classes.linkStyle}>
                 ABOUT
-              </Link>
+              </HashLink>
             </Button>
             { uuid ?
               <Button >

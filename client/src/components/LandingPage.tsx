@@ -127,7 +127,7 @@ const LandingPage = () => {
             </Zoom>
         </Grid>
       </Box>
-      <br /> 
+      <br id="about"/> 
       {/* <Box maxWidth='sm' className={classes.gradientContainer}></Box> */}
       <About />
       <Footer />

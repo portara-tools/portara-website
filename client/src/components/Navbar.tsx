@@ -11,7 +11,7 @@ const oauthLogin_Github = 'https://portara-web.herokuapp.com/githublogin'
 const Navbar: React.FunctionComponent = (props) => {
   const classes = useStyles(props);
   const uuid = Cookies.get('GitHubID');
-  console.log('GITHUB INFO HERE: ===========',uuid)
+  const username = Cookies.get('Username');
 
   return (
     <>
@@ -36,7 +36,8 @@ const Navbar: React.FunctionComponent = (props) => {
               </Button>
               : <div />
             }
-          </ul> 
+          </ul>
+            { !uuid ?
           <ul className={classes.loginButton}>
           <LinkM
             href={oauthLogin_Github}
@@ -52,6 +53,10 @@ const Navbar: React.FunctionComponent = (props) => {
               </Button>
             </LinkM>
           </ul>
+          : <div id={'welcome'}> 
+            `Welcome, ${username}`
+            </div>
+            } 
         </AppBar>
       </Box>
     </>

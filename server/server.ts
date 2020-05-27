@@ -133,14 +133,15 @@ const PORT = process.env.PORT || 4000;
 const app = express();
 
 app.use(cors())
-
+// Github Authentication --------------------------------------------------
 passport.use(
-  new GitHubStrategy({    
-    clientID: process.env.GITHUB_CLIENT_ID,    
+  new GitHubStrategy({
+    clientID: process.env.GITHUB_CLIENT_ID,
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
     callbackURL: "https://portara-web.herokuapp.com/auth/github/callback"
   },
   async (accessToken, refreshToken, profile, cb) => {
+
     let existingUser = await User.find(
       { githubID: profile._json.id }
     );
@@ -151,20 +152,29 @@ passport.use(
         githubID: profile._json.id,
         avatarURL: profile._json.avatar_url,
       })
-    }
+    }    
     await cb(null, profile)
   }
-));
-
+  ));
+  
 app.use(passport.initialize());
 app.get(
   '/githublogin',
-  passport.authenticate('github', { session: false })
+  passport.authenticate('github', { session: false }),
 );
 app.get(
   '/auth/github/callback',
   passport.authenticate('github', { session: false }),
-  (req, res) => res.redirect('https://portara-web.herokuapp.com')
+  (req, res) => {
+    res.locals.id = req.user.id;
+    res.locals.username = req.user.username;
+    res.locals.avatar = req.user.photos[0].value;    
+    res
+      .cookie('GitHubID', res.locals.id)
+      .cookie('Username', res.locals.username)
+      .cookie('Avatar', res.locals.avatar)
+      .redirect('https://portara-web.herokuapp.com/')
+  }
 );
 // --------------------------------------------------------------------------
 

@@ -8,7 +8,7 @@ import TempDashboard from './components/TempDashboard';
 
 function App() {
   return (
-    <div style={{ backgroundColor: "black" }}>
+    <div style={{ backgroundColor: "black"}}>
       <Router>
         <Route >
           <Switch>

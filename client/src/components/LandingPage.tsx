@@ -1,4 +1,5 @@
 import Navbar from './Navbar';
+import Footer from './Footer';
 import React from 'react';
 import { Button, Typography, Grid, Link as LinkM, Box, Zoom } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
@@ -12,6 +13,7 @@ import AlternateEmail from '@material-ui/icons/AlternateEmail';
 import DoneAll from '@material-ui/icons/DoneAll';
 import Title from './Title'
 
+
 const LandingPage = () => {
   const classes = useStyles();
 
@@ -23,49 +25,48 @@ const LandingPage = () => {
           <Title>Portara</Title>
           {/* <img src={'https://imgur.com/U0PyleJ.png'} alt='wtf' /> */}
           <hr style={{ width: '100%', marginBottom: '30px' }} />
-          <Typography variant='h5' color="primary">The best rate limiter that exists</Typography>
-
-          <Button className={classes.downloadButton} variant='outlined'>
-            <LinkM target='_blank' href='https://www.npmjs.com/package/portara' underline='none'>
-              <Typography color='primary'>Download on NPM</Typography>
-            </LinkM>
-          </Button>
-
+          <Typography variant='h5' color="primary" style={{ marginBottom: '8rem' }}>
+            The best rate limiter that exists
+          </Typography>
           {/* IMAGE WITH BULLETS */}
           <Grid className={classes.imageWrapper}>
             <Box className={classes.imageContainer}>
-              <AnimatedCard>
+              {/* <AnimatedCard>
                 <img src={'/portaraScreenshot2.png'} height='400px' />
-              </AnimatedCard>
+              </AnimatedCard> */}
               <Grid className={classes.textWrapper}>
-                <Typography>
-                  <AlternateEmail style={{ fontSize: 'small', marginRight: '5px' }} />
+                <Typography className={classes.textLine}>
+                  <AlternateEmail style={{ marginRight: '5px' }} />
                   Easy to use: decorate at will
                 </Typography>
-                <Typography>
-                  <BlockRounded style={{ fontSize: 'small', marginRight: '5px' }} />
-                  Blocks or slows requests: save money
+                <Typography className={classes.textLine}>
+                  <BlockRounded style={{ marginRight: '5px' }} />
+                  Blocks or slows requests
                 </Typography>
-                <Typography>
-                  <DoneAll style={{ fontSize: 'small', marginRight: '5px' }} />
+                <Typography className={classes.textLine}>
+                  <DoneAll style={{  marginRight: '5px' }} />
                   Tested & Typescripted
                 </Typography>
               </Grid>
             </Box>
           </Grid>
+          <Button className={classes.downloadButton} variant='outlined'>
+              <LinkM target='_blank' href='https://www.npmjs.com/package/portara' underline='none'>
+                <Typography color='primary'>Download on NPM</Typography>
+              </LinkM>
+            </Button>
         </Grid>
-
         {/* CARDS */}
         <Grid container spacing={10}>
           <Grid xs={12} container item className={classes.cardsWrapper} spacing={5}>
             <Zoom in style={{ transitionDelay: '500ms' }}>
               <Grid item xs={4} className={classes.card}>
-                <Box style={{ flexDirection: 'row', display: 'flex' }}>
-                  <BackupIcon fontSize='small' style={{ marginTop: '3px', marginRight: '10px' }} />
-                  <Typography variant='subtitle1'>No re-deploying</Typography>
+                <Box style={{ flexDirection: 'row', display: 'flex', justifyContent: 'center' }}>
+                  <BackupIcon fontSize='large' style={{ marginTop: '3px', marginRight: '10px' }} />
+                  <Typography className={classes.textLine}>No re-deploying</Typography>
                 </Box>
-                <hr></hr>
-                <Typography variant='caption' gutterBottom>
+                <hr></hr> 
+                <Typography className={classes.textLine} gutterBottom>
                   The ability to alter rate limiter settings through a user account eliminates the
                   need to re-deploy your application
                 </Typography>
@@ -73,77 +74,78 @@ const LandingPage = () => {
             </Zoom>
             <Zoom in style={{ transitionDelay: '800ms' }}>
               <Grid item xs={4} className={classes.card}>
-                <Box style={{ flexDirection: 'row', display: 'flex' }}>
+                <Box style={{ flexDirection: 'row', display: 'flex', justifyContent: 'center' }}>
                   <EmojiEmotionsIcon
-                    fontSize='small'
+                    fontSize='large'
                     style={{ marginTop: '3px', marginRight: '10px' }}
                   />
-                  <Typography variant='subtitle1'>Easy to use</Typography>
+                  <Typography className={classes.textLine}>Easy to use</Typography>
                 </Box>
                 <hr></hr>
-                <Typography variant='caption' gutterBottom>
+                <Typography className={classes.textLine} gutterBottom>
                   Thanks to schema directives, Portara gives you a lot of flexibility. It can be as
                   easy as applying a limiter to a single field, or to a combination of fields and
                   objects
                 </Typography>
               </Grid>
             </Zoom>
-            <Zoom in style={{ transitionDelay: '1100ms' }}>
-              <Grid item xs={4} className={classes.card}>
-                <Box style={{ flexDirection: 'row', display: 'flex' }}>
-                  <DoneOutlineIcon
-                    fontSize='small'
-                    style={{ marginTop: '3px', marginRight: '10px' }}
-                  />
-                  <Typography variant='subtitle1'>Safe</Typography>
-                </Box>
-                <hr></hr>
-                <Typography variant='caption' gutterBottom>
-                  Built with TypeScript and thoroughly tested to ensure stability
-                </Typography>
-              </Grid>
-            </Zoom>
           </Grid>
         </Grid>
         <Grid xs={12} container item className={classes.cardsWrapper} spacing={5}>
-          <Zoom in style={{ transitionDelay: '1700ms' }}>
+          <Zoom in style={{ transitionDelay: '1100ms' }}>
             <Grid item xs={4} className={classes.card}>
-              <Box style={{ flexDirection: 'row', display: 'flex' }}>
+              <Box style={{ flexDirection: 'row', display: 'flex', justifyContent: 'center'  }}>
                 <AttachMoneyIcon
-                  fontSize='small'
+                  fontSize='large'
                   style={{ marginTop: '3px', marginRight: '10px' }}
                 />
-                <Typography variant='subtitle1'>Save money</Typography>
+                <Typography className={classes.textLine}>Save money</Typography>
               </Box>
               <hr></hr>
-              <Typography variant='caption' gutterBottom>
+              <Typography className={classes.textLine} gutterBottom>
                 Prevent malicious entities from causing server overload or rate spikes in services
                 like AWS
               </Typography>
             </Grid>
           </Zoom>
+          <Zoom in style={{ transitionDelay: '1300ms' }}>
+              <Grid item xs={4} className={classes.card}>
+                <Box style={{ flexDirection: 'row', display: 'flex', justifyContent: 'center' }}>
+                  <DoneOutlineIcon
+                    fontSize='large'
+                    style={{ marginTop: '3px', marginRight: '10px' }}
+                  />
+                  <Typography className={classes.textLine}>Safe</Typography>
+                </Box>
+                <hr></hr>
+                <Typography className={classes.textLine} gutterBottom>
+                  Built with TypeScript and thoroughly tested to ensure stability
+                </Typography>
+              </Grid>
+            </Zoom>
         </Grid>
       </Box>
-      <br />
-      <Box maxWidth='sm' className={classes.gradientContainer}></Box>
-    </>
-  );
-};
+      <br /> 
+      {/* <Box maxWidth='sm' className={classes.gradientContainer}></Box> */}
+      <Footer />
+    </> 
+  ); 
+}; 
 
 export default LandingPage;
 
 // ------- STYLING FOR THIS PAGE -----
 const useStyles = makeStyles(() => ({
   container: {
-    // background: `url("https://images.unsplash.com/photo-1486783046960-64d2ef697c46?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80")`,
+    background: `url("https://images.unsplash.com/photo-1486783046960-64d2ef697c46?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80")`,
     backgroundSize: 'contain',
-    padding: '25px',
-    margin: '0 10%',
-  },
+    // padding: '25px',
+    margin: '0 10.5% 5rem',
+    backgroundRepeat: 'no-repeat',
+  }, 
   gradientContainer: {
-    background: 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(0,0,0,1) 100%)',
+    // background: 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(0,0,0,1) 100%)',
     padding: '25px',
-
     margin: '0px',
     marginRight: '0px',
   },
@@ -151,20 +153,27 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-  },
+    marginBottom: '6rem',
+  }, 
   downloadButton: {
-    marginTop: '20px',
+    marginTop: '5rem',
+    background: 'rgba(33, 33, 33, .8)',
+    padding: '8px 16px',
   },
   cardsWrapper: {
-    // marginTop: '100px',
+    marginTop: '2rem',
     spacing: '8',
     display: 'flex',
-  },
+    justifyContent: 'space-evenly',
+  }, 
   imageWrapper: {
-    // marginTop: '100px',
+    marginTop: '6%',
+    padding: '1rem',
     spacing: '8',
     display: 'flex',
-    justifyContent: "space-between"
+    justifyContent: "center",
+    background: 'rgba(0, 0, 0, .5)',
+    width: '100%'
   },
   imageContainer: {
     display: 'flex',
@@ -172,11 +181,14 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'space-between',
   },
   textWrapper: {
-    marginTop: '50px',
-    marginBottom: '50px',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+  textLine: {
+    fontSize: 'large',
+    display: 'flex',
     alignItems: 'center',
   },
   cardsContainer: {
@@ -188,7 +200,11 @@ const useStyles = makeStyles(() => ({
   },
   card: {
     // color: 'white',
-    height: '150px',
+    minHeight: '150px',
+    minWidth: '250px',
+  }, 
+  cardHeader: {
+    textAlign: 'center',
   },
   upperSplit: {
     borderTopLeftRadius: '10px',

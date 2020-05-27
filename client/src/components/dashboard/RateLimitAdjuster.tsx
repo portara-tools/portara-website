@@ -36,27 +36,43 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: theme.typography.fontSize,
       margin: '1rem',
       maxWidth: 140!,
-    },
+      color: '#fff',
+      border: '1px solid rgba(255, 255, 255, 0.8)',
+      paddingLeft: '6px',
+      borderRadius: '2px',
+    }, 
     paper: {
       maxWidth: 936,
       overflow: 'hidden',
       margin: '2rem auto',
-    },
+      background: 'transparent',
+      border: '1px solid rgba(255, 255, 255, 0.8)',
+    }, 
     searchBar: {
-      borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
+      borderBottom: '1px solid rgba(255, 255, 255, 0.8)',
+      background: 'transparent',
+      '&::placeholder': {
+        color: 'red',
+        opacity: '1',
+      },
     },
     block: {
       display: 'block',
-    },
+    }, 
     update: {
       marginRight: theme.spacing(1),
+      background: 'transparent',
+      border: '1px solid rgba(255, 255, 255, 0.8)',
     },
+    text: {
+      color: '#fff'
+    }
   }),
-);
+); 
 
 const DemoSlider = withStyles({
   root: {
-    color: '#52af77',
+    color: '#009be5',
     height: 8,
     margin: '1rem',
   },
@@ -149,11 +165,11 @@ const RateLimitAdjuster: React.FunctionComponent = () => {
         {data.findUser.map((props:Props, index:any) => {
               return (
         <Paper className={classes.paper}>
-          <AppBar className={classes.searchBar} position="static" color="default" elevation={0}>
+          <AppBar className={classes.searchBar} color="default" position="static" elevation={0}>
             <Toolbar>
               <Grid container spacing={2} alignItems="center">
                 <Grid item xs>
-                <Typography color="textPrimary">
+                <Typography className={classes.text}>
                   <h4>{props.name}</h4>
                 </Typography>
                 </Grid>
@@ -169,11 +185,11 @@ const RateLimitAdjuster: React.FunctionComponent = () => {
                   >
                     Update
                   </Button>
-                  <Tooltip title="Reset">
+                  {/* <Tooltip title="Reset">
                     <IconButton>
                       <RefreshIcon className={classes.block} color="inherit" />
                     </IconButton>
-                  </Tooltip>
+                  </Tooltip> */}
                 </Grid>
               </Grid>
             </Toolbar>
@@ -183,13 +199,13 @@ const RateLimitAdjuster: React.FunctionComponent = () => {
             <div className={classes.margin} />
             <div key={index}>
               <div>
-                <Typography color="textSecondary" align="center">
+                <Typography className={classes.text} align="center">
                 Rate Limit: {props.limit}
                 </Typography>
                 <div className={classes.innerRoot}>
                   <div className={classes.margin} />
                   <DemoSlider name="limit" valueLabelDisplay="auto" defaultValue={Number(props.limit)} onChange={updateField} />
-                  <label>per</label>
+                  <label className={classes.text} >per</label>
                     <TextField
                       name="per"
                       placeholder={props.per}
@@ -203,7 +219,7 @@ const RateLimitAdjuster: React.FunctionComponent = () => {
               <div className={classes.contentWrapper}>
                 <div className={classes.innerRoot}>
                 <div className={classes.margin} />
-                <Typography>Throttle: </Typography>
+                <Typography className={classes.text}>Throttle: </Typography>
                   <TextField
                     name="throttle"
                     placeholder={props.throttle}

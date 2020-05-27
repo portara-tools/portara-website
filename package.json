@@ -21,5 +21,7 @@
     "url": "https://github.com/oslabs-beta/portara/issues"
   },
   "homepage": "https://github.com/oslabs-beta/portara#readme",
-  "dependencies": {}
+  "dependencies": {
+    "js-cookie": "^2.2.1"
+  }
 }

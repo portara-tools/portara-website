@@ -12,6 +12,7 @@ import TimerIcon from '@material-ui/icons/Timer';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { Omit } from '@material-ui/types';
 
+
 const categories = [
   {
     id: '',
@@ -25,6 +26,7 @@ const categories = [
 
 const styles = (theme: Theme) =>
   createStyles({
+  
     categoryHeader: {
       paddingTop: theme.spacing(2),
       paddingBottom: theme.spacing(2),
@@ -41,7 +43,7 @@ const styles = (theme: Theme) =>
       },
     },
     itemCategory: {
-      backgroundColor: '#232f3e',
+      backgroundColor: '#000',
       boxShadow: '0 -1px 0 #404854 inset',
       paddingTop: theme.spacing(2),
       paddingBottom: theme.spacing(2),
@@ -49,6 +51,7 @@ const styles = (theme: Theme) =>
     firebase: {
       fontSize: 24,
       color: theme.palette.common.white,
+      background: '#000'
     },
     itemActiveItem: {
       color: '#4fc3f7',
@@ -80,7 +83,7 @@ function Navigator(props: NavigatorProps) {
           <ListItemIcon className={classes.itemIcon}>
             <HomeIcon />
           </ListItemIcon>
-          <ListItemText
+          <ListItemText 
             classes={{
               primary: classes.itemPrimary,
             }}

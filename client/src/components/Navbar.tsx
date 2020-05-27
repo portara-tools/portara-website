@@ -3,11 +3,15 @@ import { AppBar, Link as LinkM, Button, Box } from '@material-ui/core';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const oauthLogin_Github = 'https://portara-web.herokuapp.com/githublogin'
 
 const Navbar: React.FunctionComponent = (props) => {
   const classes = useStyles(props);
+  const uuid = Cookies.get('GitHubID');
+  console.log('GITHUB INFO HERE: ===========',uuid)
+
   return (
     <>
       <Box className={classes.container}>
@@ -19,16 +23,19 @@ const Navbar: React.FunctionComponent = (props) => {
               </Link>
             </Button>
             <Button >
-              <Link to="/about" className={classes.linkStyle}>
+              <Link to="#about" className={classes.linkStyle}>
                 ABOUT
               </Link>
             </Button>
-            <Button >
-              <Link to="/account" className={classes.linkStyle}>
-                ACCOUNT
-              </Link>
-            </Button>
-          </ul>
+            { uuid ?
+              <Button >
+                <Link to="/account" className={classes.linkStyle}>
+                  ACCOUNT
+                </Link>
+              </Button>
+              : <div />
+            }
+          </ul> 
           <ul className={classes.loginButton}>
           <LinkM
             href={oauthLogin_Github}

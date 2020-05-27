@@ -1,6 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core/styles';
+import Link from '@material-ui/core/Link';
 import Divider from '@material-ui/core/Divider';
 import Drawer, { DrawerProps } from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
@@ -11,6 +12,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import TimerIcon from '@material-ui/icons/Timer';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { Omit } from '@material-ui/types';
+
 
 const categories = [
   {
@@ -25,6 +27,7 @@ const categories = [
 
 const styles = (theme: Theme) =>
   createStyles({
+  
     categoryHeader: {
       paddingTop: theme.spacing(2),
       paddingBottom: theme.spacing(2),
@@ -41,7 +44,7 @@ const styles = (theme: Theme) =>
       },
     },
     itemCategory: {
-      backgroundColor: '#232f3e',
+      backgroundColor: '#000',
       boxShadow: '0 -1px 0 #404854 inset',
       paddingTop: theme.spacing(2),
       paddingBottom: theme.spacing(2),
@@ -49,6 +52,7 @@ const styles = (theme: Theme) =>
     firebase: {
       fontSize: 24,
       color: theme.palette.common.white,
+      background: '#000'
     },
     itemActiveItem: {
       color: '#4fc3f7',
@@ -63,10 +67,19 @@ const styles = (theme: Theme) =>
     divider: {
       marginTop: theme.spacing(2),
     },
+    linkStyle: {
+      textDecoration: 'none',
+      color: 'white',
+      hoverOpacity: "0.8",
+      padding: '5px',
+      '&:hover': {
+        textDecoration: 'none',
+      }
+    },
   });
 
 export interface NavigatorProps extends Omit<DrawerProps, 'classes'>, WithStyles<typeof styles> {}
-
+ 
 function Navigator(props: NavigatorProps) {
   const { classes, ...other } = props;
 
@@ -74,17 +87,19 @@ function Navigator(props: NavigatorProps) {
     <Drawer variant="permanent" {...other}>
       <List disablePadding>
         <ListItem className={clsx(classes.firebase, classes.item, classes.itemCategory)}>
-          Portara
+          <Link href="/" className={classes.linkStyle}>
+            Portara
+          </Link>
         </ListItem>
         <ListItem className={clsx(classes.item, classes.itemCategory)}>
           <ListItemIcon className={classes.itemIcon}>
             <HomeIcon />
           </ListItemIcon>
-          <ListItemText
+          <ListItemText 
             classes={{
               primary: classes.itemPrimary,
             }}
-          >
+          > 
             Settings Overview
           </ListItemText>
         </ListItem>

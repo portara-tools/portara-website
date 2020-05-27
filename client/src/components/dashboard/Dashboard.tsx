@@ -1,4 +1,4 @@
-import React from 'react';
+import  React, {useEffect} from 'react';
 import {
   createMuiTheme,
   createStyles,
@@ -16,9 +16,9 @@ import Header from './Header';
 
 function Copyright() {
   return (
-    <Typography variant="body2" color="textSecondary" align="center">
+    <Typography variant="body2" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
+      <Link color="inherit" href="https://github.com/oslabs-beta/portara">
         Portara
       </Link>{' '}
       {new Date().getFullYear()}
@@ -62,7 +62,7 @@ theme = {
   overrides: {
     MuiDrawer: {
       paper: {
-        backgroundColor: '#18202c',
+        backgroundColor: '#000',
       },
     },
     MuiButton: {
@@ -158,11 +158,15 @@ const styles = createStyles({
   main: {
     flex: 1,
     padding: theme.spacing(6, 4),
-    background: '#eaeff1',
+    background: '#212121',
+    borderLeft: '.5px solid rgba(250,250,250,0.6)',
+    borderTop: '.5px solid rgba(250,250,250,0.6)',
   },
   footer: {
     padding: theme.spacing(2),
-    background: '#eaeff1',
+    background: '#212121',
+    borderLeft: '.5px solid rgba(250,250,250,0.6)',
+    color: '#fff',
   },
 });
 
@@ -175,6 +179,10 @@ function Paperbase(props: PaperbaseProps) {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  // useEffect(() => {
+
+  // })
 
   return (
     <ThemeProvider theme={theme}>

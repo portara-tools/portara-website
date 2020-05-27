@@ -9,20 +9,21 @@ const mongoose = require('mongoose');
 const cors = require('cors')
 
 const { v4: uuidv4 } = require('uuid');
-// require('dotenv').config() // THIS SEEMS TO BE THE CULPRIT
-// const passport = require("passport"); // ADDING THIS LINE FAILS
+if (process.env.NODE_ENV === 'development') {
+  require('dotenv').config() // THIS SEEMS TO BE THE CULPRIT
+}
+
 const passport = require('passport');
 
 const { Profile } = require('passport-github');
 const GitHubStrategy = require('passport-github').Strategy;
 
 // Mongo Connection
-// const URI = process.env.MONGODB_URI || '';
-const URI = 'mongodb://heroku_wcgfs261:n1g8tpuc2nmb8bj8d8jt24hd8v@ds137263.mlab.com:37263/heroku_wcgfs261';
+const URI = process.env.MONGODB_URI || '';
+// const URI = 'mongodb://heroku_wcgfs261:n1g8tpuc2nmb8bj8d8jt24hd8v@ds137263.mlab.com:37263/heroku_wcgfs261';
 mongoose.connect(URI, { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false }, () =>
   console.log('connected to MongoDB')
 );
-
 const db = mongoose.connection;
 
 const userSchema = new mongoose.Schema({
@@ -145,10 +146,10 @@ app.use(cors())
 
 passport.use(
   new GitHubStrategy({
-    clientID: "287f5caf1e8c640581e4",
-    // clientID: process.env.GITHUB_CLIENT_ID,
-    clientSecret: "94b22b16bfc5d9d40309dd35d67d437dd6b83da0",
-    // clientSecret: process.env.GITHUB_CLIENT_SECRET,
+    // clientID: "287f5caf1e8c640581e4",
+    clientID: process.env.GITHUB_CLIENT_ID,
+    // clientSecret: "94b22b16bfc5d9d40309dd35d67d437dd6b83da0",
+    clientSecret: process.env.GITHUB_CLIENT_SECRET,
     callbackURL: "http://portara-web.herokuapp.com/auth/github/callback" // CHANGE IN PRODUCTION
   },
   async (accessToken, refreshToken, profile, cb) => {
@@ -181,7 +182,7 @@ app.get(
 app.get(
   '/auth/github/callback',
   passport.authenticate('github', { session: false }),
-  (req, res) => res.redirect('http://localhost:3000') // CHANGE IN PRODUCTION TO '/dashboard'
+  (req, res) => res.redirect('http://portara-web.herokuapp.com') // CHANGE IN PRODUCTION TO '/dashboard'
 );
 // --------------------------------------------------------------------------
 

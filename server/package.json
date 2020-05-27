@@ -6,7 +6,7 @@
     "url": "git+https://github.com/oslabs-beta/portara.git"
   },
   "scripts": {
-    "dev": "nodemon server.ts",
+    "dev": "NODE_ENV=development nodemon server.ts",
     "start": "node server.ts"
   },
   "author": "portara-labs",

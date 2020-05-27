@@ -6,9 +6,9 @@ const http = require('http');
 const pubsub = new PubSub();
 const mongoose = require('mongoose');
 
-// const cors = require('cors')
+const cors = require('cors')
 
-// const { v4: uuidv4 } = require('uuid');
+const { v4: uuidv4 } = require('uuid');
 // require('dotenv').config()
 // const passport = require("passport");
 // const { Profile } = require('passport-github');
@@ -133,7 +133,7 @@ const PORT = process.env.PORT || 4000;
 
 const app = express();
 
-// app.use(cors())
+app.use(cors())
 // Github Authentication --------------------------------------------------
 // interface UserProfile extends Profile {
 //   _json: {
@@ -196,7 +196,7 @@ server.installSubscriptionHandlers(httpServer);
 
 server.applyMiddleware({
   app,
-  // cors: false,
+  cors: false,
 });
 
 app.use(express.static('public'));

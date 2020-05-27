@@ -1,51 +1,22 @@
 import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
-import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
-import Link from '@material-ui/core/Link';
 import Tabs from '@material-ui/core/Tabs';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core/styles';
+import Cookies from 'js-cookie';
 
-const lightColor = 'rgba(255, 255, 255, 0.7)';
+const username = Cookies.get('Username');
 
-const styles = (theme: Theme) =>
-  createStyles({
-    secondaryBar: {
-      zIndex: 0,
-      background: '000',
-      borderLeft: '.5px solid rgba(250,250,250,0.6)',
-    },
-    menuButton: {
-      marginLeft: -theme.spacing(1),
-    },
-    iconButtonAvatar: {
-      padding: 4,
-    },
-    link: {
-      textDecoration: 'none',
-      color: lightColor,
-      '&:hover': {
-        color: theme.palette.common.white,
-      },
-    },
-    button: {
-      borderColor: lightColor,
-    },
-    appbar: {
-      background: '000',
-      borderLeft: '.5px solid rgba(250,250,250,0.6)',
-    }
-  });
 
 interface HeaderProps extends WithStyles<typeof styles> {
   onDrawerToggle: () => void;
 }
 
 function Header(props: HeaderProps) {
-  const { classes, onDrawerToggle } = props;
+  const { classes } = props;
 
   return (
     <React.Fragment>
@@ -55,12 +26,12 @@ function Header(props: HeaderProps) {
             <Grid item xs />
             <Grid item>
               <Typography color="inherit" variant="subtitle1">
-                Welcome {}
+                Welcome {username}
               </Typography>
             </Grid>
             <Grid item>
               <IconButton color="inherit" className={classes.iconButtonAvatar}>
-                <Avatar src="/static/images/avatar/1.jpg" alt="My Avatar" />
+                {/* <Avatar src="/static/images/avatar/1.jpg" alt="My Avatar" /> */}
               </IconButton>
             </Grid>
           </Grid>
@@ -100,4 +71,38 @@ function Header(props: HeaderProps) {
   );
 }
 
+const lightColor = 'rgba(255, 255, 255, 0.7)';
+
+const styles = (theme: Theme) =>
+  createStyles({
+    secondaryBar: {
+      zIndex: 0,
+      background: '000',
+      borderLeft: '.5px solid rgba(250,250,250,0.6)',
+    },
+    menuButton: {
+      marginLeft: -theme.spacing(1),
+    },
+    iconButtonAvatar: {
+      padding: 4,
+    },
+    link: {
+      textDecoration: 'none',
+      color: lightColor,
+      '&:hover': {
+        color: theme.palette.common.white,
+      },
+    },
+    button: {
+      borderColor: lightColor,
+    },
+    appbar: {
+      background: '000',
+      borderLeft: '.5px solid rgba(250,250,250,0.6)',
+    }
+  });
+
+
 export default withStyles(styles)(Header);
+
+

@@ -1,4 +1,4 @@
-import  React, {useEffect} from 'react';
+import  React from 'react';
 import {
   createMuiTheme,
   createStyles,
@@ -11,21 +11,63 @@ import Hidden from '@material-ui/core/Hidden';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import Navigator from './Navigator';
-import Content from './Content';
 import Header from './Header';
+import RateLimitAdjuster from './RateLimitAdjuster';
 
-function Copyright() {
+
+export interface PaperbaseProps extends WithStyles<typeof styles> {}
+
+function Paperbase(props: PaperbaseProps) {
+  const { classes } = props;
+  const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
+
   return (
-    <Typography variant="body2" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://github.com/oslabs-beta/portara">
-        Portara
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
+    <ThemeProvider theme={theme}>    
+      <div className={classes.root}>
+        <CssBaseline />
+        <nav className={classes.drawer}>
+          <Hidden smUp implementation="js">
+            <Navigator
+              PaperProps={{ style: { width: drawerWidth } }}
+              variant="temporary"
+              open={mobileOpen}
+              onClose={handleDrawerToggle}
+            />
+          </Hidden>
+          <Hidden xsDown implementation="css">
+            <Navigator PaperProps={{ style: { width: drawerWidth } }} />
+          </Hidden>
+        </nav>
+        <div className={classes.app}>
+          <Header onDrawerToggle={handleDrawerToggle} />
+          <main className={classes.main}>
+            <div>
+              <RateLimitAdjuster />
+            </div>
+          </main>
+          <footer className={classes.footer}>
+            <Typography variant="body2" align="center">
+              {'Copyright © '}
+              <Link color="inherit" href="https://github.com/oslabs-beta/portara">
+                Portara
+              </Link>{' '}
+              {new Date().getFullYear()}
+              {'.'}
+            </Typography>
+          </footer>
+        </div>
+      </div>
+    </ThemeProvider>
   );
 }
+
+
+
+
 
 let theme = createMuiTheme({
   palette: {
@@ -170,49 +212,5 @@ const styles = createStyles({
   },
 });
 
-export interface PaperbaseProps extends WithStyles<typeof styles> {}
-
-function Paperbase(props: PaperbaseProps) {
-  const { classes } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
-
-  // useEffect(() => {
-
-  // })
-
-  return (
-    <ThemeProvider theme={theme}>
-      <div className={classes.root}>
-        <CssBaseline />
-        <nav className={classes.drawer}>
-          <Hidden smUp implementation="js">
-            <Navigator
-              PaperProps={{ style: { width: drawerWidth } }}
-              variant="temporary"
-              open={mobileOpen}
-              onClose={handleDrawerToggle}
-            />
-          </Hidden>
-          <Hidden xsDown implementation="css">
-            <Navigator PaperProps={{ style: { width: drawerWidth } }} />
-          </Hidden>
-        </nav>
-        <div className={classes.app}>
-          <Header onDrawerToggle={handleDrawerToggle} />
-          <main className={classes.main}>
-            <Content />
-          </main>
-          <footer className={classes.footer}>
-            <Copyright />
-          </footer>
-        </div>
-      </div>
-    </ThemeProvider>
-  );
-}
 
 export default withStyles(styles)(Paperbase);

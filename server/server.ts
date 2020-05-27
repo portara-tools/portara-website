@@ -11,9 +11,18 @@ const pubsub = new PubSub();
 const passport = require('passport');
 const GitHubStrategy = require('passport-github').Strategy;
 
+// Set local variables/paths depending on production/development
+let redirectURI;
+let callbackURI;
 if (process.env.NODE_ENV === 'development') {
   require('dotenv').config();
+  callbackURI = 'http://localhost:4000/auth/github/callback'
+  redirectURI = 'http://localhost:3000/' 
+} else {
+  redirectURI = 'https://portara-web.herokuapp.com/'
+  callbackURI = 'https://portara-web.herokuapp.com/auth/github/callback'
 }
+
 
 // Mongo Connection
 const URI = process.env.MONGODB_URI || '';
@@ -41,14 +50,14 @@ const User = mongoose.model('portaraUsers', userSchema);
 const typeDefs = gql`
   type Query {
     test: String!
-    findUser(userID: String!): [PortaraSetting]!
+    findUser(userID: ID!): [PortaraSetting]!
   }
   type Subscription {
     portaraSettings(userID: String!): PortaraSetting!
   }
   type Mutation {
     changeSetting(
-      userID: String!
+      userID: ID!
       name: String!
       limit: ID!
       per: ID!
@@ -79,7 +88,7 @@ const resolvers = {
       try {
         const newArr = [];
         const finalArr = [];
-        await User.findOne({ _id: userID }).then((data) => {
+        await User.findOne({ githubID: userID }).then((data) => {
           const str = JSON.stringify(data);
           newArr.push(str);
         });
@@ -94,8 +103,7 @@ const resolvers = {
             newObj['name'] = key.toString();
             finalArr.push(newObj);
           }
-        }
-
+        }      
         return finalArr;
       } catch (error) {
         return error;
@@ -143,7 +151,7 @@ passport.use(
     {
       clientID: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
-      callbackURL: 'https://portara-web.herokuapp.com/auth/github/callback',
+      callbackURL: callbackURI,
     },
     async (accessToken, refreshToken, profile, cb) => {
       const existingUser = await User.find({ githubID: profile._json.id });
@@ -160,6 +168,7 @@ passport.use(
   ),
 );
 
+
 app.use(passport.initialize());
 app.get('/githublogin', passport.authenticate('github', { session: false }));
 app.get(
@@ -173,7 +182,7 @@ app.get(
       .cookie('GitHubID', res.locals.id)
       .cookie('Username', res.locals.username)
       .cookie('Avatar', res.locals.avatar)
-      .redirect('https://portara-web.herokuapp.com/');
+      .redirect(redirectURI);
   },
 );
 // --------------------------------------------------------------------------
@@ -192,11 +201,14 @@ server.applyMiddleware({
   app,
   cors: false,
 });
+
 // This static is used to server our build folder when deploying
-app.use(express.static('public'));
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
-});
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('public'));
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
+  });
+}
 
 httpServer.listen(PORT, () => {
   console.log(`🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`);

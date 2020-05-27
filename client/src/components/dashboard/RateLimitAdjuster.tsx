@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import gql from 'graphql-tag'
 import { useQuery, useMutation } from '@apollo/react-hooks'
 import { withStyles, makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -10,11 +9,19 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import RefreshIcon from '@material-ui/icons/Refresh';
 import Button from '@material-ui/core/Button';
+import RefreshIcon from '@material-ui/icons/Refresh';
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
 import { UPDATE_SETTING, READ_DATABASE } from '../../utils/queries'
+
+
+interface Props {
+  name: string
+  limit: string
+  per: string
+  throttle: string
+};
 
 let setted = false
 const RateLimitAdjuster: React.FunctionComponent = () => {
@@ -24,7 +31,6 @@ const RateLimitAdjuster: React.FunctionComponent = () => {
     variables: { userID: "5ec9aa3a9057a222f161be33" }, // this needs to change to variable
   });
   const [triggerMutation, { data: newData }] = useMutation(UPDATE_SETTING)
-
 
   const handleDuration = (e: any, index: any, settingType: any, newValue?: any) => {  
     let value = e.target.value;
@@ -37,7 +43,6 @@ const RateLimitAdjuster: React.FunctionComponent = () => {
     copyOfState[index] = copyOfSetting;
     setState(copyOfState);
   };
-
 
   if (!loading && data) {    
     if (!setted){
@@ -53,7 +58,7 @@ const RateLimitAdjuster: React.FunctionComponent = () => {
             <Toolbar>
               <Grid container spacing={2} alignItems="center">
                 <Grid item xs>
-                <Typography color="textPrimary">
+                <Typography className={classes.text}>
                   <h4 className={index}>{setting.name}</h4>
                 </Typography>
                 </Grid>
@@ -78,11 +83,11 @@ const RateLimitAdjuster: React.FunctionComponent = () => {
                   >
                     Update
                   </Button>
-                  <Tooltip title="Reset">
+                  {/* <Tooltip title="Reset">
                     <IconButton>
                       <RefreshIcon className={classes.block} color="inherit" />
                     </IconButton>
-                  </Tooltip>
+                  </Tooltip> */}
                 </Grid>
               </Grid>
             </Toolbar>
@@ -92,7 +97,7 @@ const RateLimitAdjuster: React.FunctionComponent = () => {
             <div className={classes.margin} />
             <div key={index}>
               <div>
-                <Typography color="textSecondary" align="center">
+                <Typography className={classes.text} align="center">
                 Current Rate Limit: {setting.limit}
                 </Typography>
                 <div className={classes.innerRoot}>
@@ -121,7 +126,7 @@ const RateLimitAdjuster: React.FunctionComponent = () => {
               <div className={classes.contentWrapper}>
                 <div className={classes.innerRoot}>
                 <div className={classes.margin} />
-                <Typography>Throttle: </Typography>
+                <Typography className={classes.text}>Throttle: </Typography>
                   <TextField
                     name="throttle"
                     placeholder={setting.throttle}
@@ -176,27 +181,43 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: theme.typography.fontSize,
       margin: '1rem',
       maxWidth: 140!,
-    },
+      color: '#fff',
+      border: '1px solid rgba(255, 255, 255, 0.8)',
+      paddingLeft: '6px',
+      borderRadius: '2px',
+    }, 
     paper: {
       maxWidth: 936,
       overflow: 'hidden',
       margin: '2rem auto',
-    },
+      background: 'transparent',
+      border: '1px solid rgba(255, 255, 255, 0.8)',
+    }, 
     searchBar: {
-      borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
+      borderBottom: '1px solid rgba(255, 255, 255, 0.8)',
+      background: 'transparent',
+      '&::placeholder': {
+        color: 'red',
+        opacity: '1',
+      },
     },
     block: {
       display: 'block',
-    },
+    }, 
     update: {
       marginRight: theme.spacing(1),
+      background: 'transparent',
+      border: '1px solid rgba(255, 255, 255, 0.8)',
     },
+    text: {
+      color: '#fff'
+    }
   }),
 );
 
 const DemoSlider = withStyles({
   root: {
-    color: '#52af77',
+    color: '#009be5',
     height: 8,
     margin: '1rem',
   },
@@ -224,6 +245,3 @@ const DemoSlider = withStyles({
     borderRadius: 4,
   },
 })(Slider);
-
-
-

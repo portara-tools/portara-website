@@ -11,7 +11,7 @@ import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import BlockRounded from '@material-ui/icons/BlockRounded';
 import AlternateEmail from '@material-ui/icons/AlternateEmail';
 import DoneAll from '@material-ui/icons/DoneAll';
-import Title from './Title'
+import Title from './Title' 
 
 
 const LandingPage = () => {

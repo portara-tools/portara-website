@@ -9,7 +9,7 @@ const cors = require('cors')
 
 const { v4: uuidv4 } = require('uuid');
 if (process.env.NODE_ENV === 'development') {
-  require('dotenv').config() 
+  require('dotenv').config()
 }
 
 const passport = require('passport');
@@ -29,8 +29,8 @@ const userSchema = new mongoose.Schema({
   username: String,
   githubID: Number,
   avatarURL: String,
-}, 
-{ strict: false });
+},
+  { strict: false });
 
 const User = mongoose.model('portaraUsers', userSchema);
 
@@ -72,7 +72,7 @@ const resolvers = {
   Query: {
     test: () => "Test success",
 
-    findUser: async (_, { userID }) => {      
+    findUser: async (_, { userID }) => {
       try {
         const newArr = [];
         const finalArr = [];
@@ -91,7 +91,7 @@ const resolvers = {
             newObj['name'] = key.toString()
             finalArr.push(newObj)
           }
-        }        
+        }
         return finalArr;
 
       } catch (error) {
@@ -107,7 +107,7 @@ const resolvers = {
       ---- userID: the unique token that is used and sent back to the client
       */
     changeSetting: async (_, { userID, name, limit, per, throttle }) => {
-      
+
       try {
         const newObj = {
           limit,
@@ -116,7 +116,7 @@ const resolvers = {
         };
 
         await User.findByIdAndUpdate(userID, { [name]: newObj }, { upsert: true, new: true })
-        await pubsub.publish(userID, { portaraSettings: { name, limit, per, throttle } })        
+        await pubsub.publish(userID, { portaraSettings: { name, limit, per, throttle } })
         return { userID, name, limit, per, throttle }
 
       } catch (error) {
@@ -141,21 +141,21 @@ passport.use(
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
     callbackURL: "https://portara-web.herokuapp.com/auth/github/callback" // CHANGE IN PRODUCTION
   },
-  async (accessToken, refreshToken, profile, cb) => {
-    let existingUser = await User.find(
-      { githubID: profile._json.id }
-    );
-    if (!existingUser.length) {
-      await User.create({
-        URI: uuidv4(),
-        username: profile._json.login,
-        githubID: profile._json.id,
-        avatarURL: profile._json.avatar_url,
-      })
+    async (accessToken, refreshToken, profile, cb) => {
+      let existingUser = await User.find(
+        { githubID: profile._json.id }
+      );
+      if (!existingUser.length) {
+        await User.create({
+          URI: uuidv4(),
+          username: profile._json.login,
+          githubID: profile._json.id,
+          avatarURL: profile._json.avatar_url,
+        })
+      }
+      await cb(null, profile)
     }
-    await cb(null, profile)
-  }
-));
+  ));
 
 app.use(passport.initialize());
 app.get(
@@ -165,7 +165,10 @@ app.get(
 app.get(
   '/auth/github/callback',
   passport.authenticate('github', { session: false }),
-  (req, res) => res.redirect('https://portara-web.herokuapp.com')
+  (req, res) => {
+    res.json({ id: req.user.id, username: req.user.username })
+    res.redirect('https://portara-web.herokuapp.com')
+  }
 );
 // --------------------------------------------------------------------------
 

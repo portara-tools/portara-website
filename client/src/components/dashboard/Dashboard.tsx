@@ -21,12 +21,12 @@ import RateLimitAdjuster from './RateLimitAdjuster';
 export interface PaperbaseProps extends WithStyles<typeof styles> {}
 
 const FIND_DASHBOARD = gql`
-query findDashboard($github_ID: ID!) {
-  findDashboard(github_ID: $github_ID) {
-    token
-    avatarURL
+  query findDashboard($github_ID: ID!) {
+    findDashboard(github_ID: $github_ID) {
+      token
+      avatarURL
+    }
   }
-}
 `;
 
 const githubID = Cookies.get('GitHubID') 

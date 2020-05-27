@@ -8,7 +8,8 @@ import ApolloClient from 'apollo-boost'
 import { ApolloProvider } from '@apollo/react-hooks';
 
 // const theme = createMuiTheme({ palette: { type: 'dark' } });
-const client = new ApolloClient({ uri: "http://localhost:4000/graphql" })
+// const client = new ApolloClient({ uri: "http://localhost:4000/graphql" })
+const client = new ApolloClient({ uri: "http://portara-web.herokuapp.com/graphql" })
 
 
 ReactDOM.render(

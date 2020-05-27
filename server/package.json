@@ -6,13 +6,14 @@
     "url": "git+https://github.com/oslabs-beta/portara.git"
   },
   "scripts": {
-    "dev": "nodemon server.ts",
+    "dev": "NODE_ENV=development nodemon server.ts",
     "start": "node server.ts"
   },
   "author": "portara-labs",
   "license": "MIT",
   "dependencies": {
     "@types/node": "^14.0.5",
+    "@types/passport": "^1.0.3",
     "apollo-server-express": "^2.13.1",
     "cookie-parser": "^1.4.5",
     "graphql": "^15.0.0",
@@ -20,7 +21,9 @@
     "mongoose": "^5.9.15",
     "nodemon": "^2.0.4",
     "passport": "^0.4.1",
-    "passport-github": "^1.1.0"
+    "passport-github": "^1.1.0",
+    "passport-local-mongoose": "^6.0.1",
+    "uuid": "^8.1.0"
   },
   "devDependencies": {
     "@types/jest": "^25.2.1",

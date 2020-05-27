@@ -5,22 +5,19 @@ const path = require('path');
 const http = require('http');
 const pubsub = new PubSub();
 const mongoose = require('mongoose');
-
 const cors = require('cors')
 
 const { v4: uuidv4 } = require('uuid');
 if (process.env.NODE_ENV === 'development') {
-  require('dotenv').config() // THIS SEEMS TO BE THE CULPRIT
+  require('dotenv').config() 
 }
 
 const passport = require('passport');
-
 const { Profile } = require('passport-github');
 const GitHubStrategy = require('passport-github').Strategy;
 
 // Mongo Connection
 const URI = process.env.MONGODB_URI || '';
-// const URI = 'mongodb://heroku_wcgfs261:n1g8tpuc2nmb8bj8d8jt24hd8v@ds137263.mlab.com:37263/heroku_wcgfs261';
 mongoose.connect(URI, { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false }, () =>
   console.log('connected to MongoDB')
 );
@@ -28,7 +25,6 @@ const db = mongoose.connection;
 
 const userSchema = new mongoose.Schema({
   userID: String,
-  portara: [{ name: String, limit: String, per: String, throttle: String }],
   URI: String,
   username: String,
   githubID: Number,
@@ -36,7 +32,6 @@ const userSchema = new mongoose.Schema({
 }, 
 { strict: false });
 
-// userSchema.plugin(passportLocalMongoose);
 const User = mongoose.model('portaraUsers', userSchema);
 
 // typeDefs
@@ -137,12 +132,6 @@ const PORT = process.env.PORT || 4000;
 const app = express();
 
 app.use(cors())
-// Github Authentication --------------------------------------------------
-// interface UserProfile extends Profile {
-//   _json: {
-//     [key: string]: string;
-//   };
-// }
 
 passport.use(
   new GitHubStrategy({
@@ -153,12 +142,9 @@ passport.use(
     callbackURL: "https://portara-web.herokuapp.com/auth/github/callback" // CHANGE IN PRODUCTION
   },
   async (accessToken, refreshToken, profile, cb) => {
-
-    // const profile = (userProfile as unknown) as UserProfile;
     let existingUser = await User.find(
       { githubID: profile._json.id }
     );
-
     if (!existingUser.length) {
       await User.create({
         URI: uuidv4(),
@@ -167,22 +153,19 @@ passport.use(
         avatarURL: profile._json.avatar_url,
       })
     }
-    // let test = await 
     await cb(null, profile)
   }
 ));
 
 app.use(passport.initialize());
-
 app.get(
   '/githublogin',
   passport.authenticate('github', { session: false })
 );
-
 app.get(
   '/auth/github/callback',
   passport.authenticate('github', { session: false }),
-  (req, res) => res.redirect('https://portara-web.herokuapp.com') // CHANGE IN PRODUCTION TO '/dashboard'
+  (req, res) => res.redirect('https://portara-web.herokuapp.com')
 );
 // --------------------------------------------------------------------------
 
@@ -203,8 +186,6 @@ server.applyMiddleware({
 });
 
 app.use(express.static('public'));
-
-
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'public', 'index.html'))
 });

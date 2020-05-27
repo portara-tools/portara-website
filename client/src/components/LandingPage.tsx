@@ -1,6 +1,7 @@
+import React from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
-import React from 'react';
+import About from './About';
 import { Button, Typography, Grid, Link as LinkM, Box, Zoom } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import AnimatedCard from './AnimatedCard';
@@ -127,10 +128,11 @@ const LandingPage = () => {
       </Box>
       <br /> 
       {/* <Box maxWidth='sm' className={classes.gradientContainer}></Box> */}
+      <About />
       <Footer />
-    </> 
+    </>  
   ); 
-}; 
+};
 
 export default LandingPage;
 

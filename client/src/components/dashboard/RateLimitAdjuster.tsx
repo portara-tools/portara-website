@@ -110,7 +110,7 @@ const RateLimitAdjuster: React.FunctionComponent = () => {
                     handleDuration(e, index, "limit", newValue)
                   }}
                   />
-                  <label>Duration</label>
+                  <Typography className={classes.text}>Duration</Typography>
                     <TextField
                       name="per"
                       placeholder={setting.per}
@@ -121,7 +121,7 @@ const RateLimitAdjuster: React.FunctionComponent = () => {
                         handleDuration(e, index, "per")
                       }}
                     />
-                </div>
+                </div> 
               </div>
               <div className={classes.contentWrapper}>
                 <div className={classes.innerRoot}>

@@ -17,7 +17,8 @@ const { Profile } = require('passport-github');
 const GitHubStrategy = require('passport-github').Strategy;
 
 // Mongo Connection
-const URI = process.env.MONGODB_URI || '';
+// const URI = process.env.MONGODB_URI || '';
+const URI = 'mongodb://heroku_wcgfs261:n1g8tpuc2nmb8bj8d8jt24hd8v@ds137263.mlab.com:37263/heroku_wcgfs261'
 mongoose.connect(URI, { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false }, () =>
   console.log('connected to MongoDB')
 );
@@ -25,7 +26,7 @@ const db = mongoose.connection;
 
 const userSchema = new mongoose.Schema({
   userID: String,
-  URI: String,
+  token: String,
   username: String,
   githubID: Number,
   avatarURL: String,
@@ -39,6 +40,7 @@ const typeDefs = gql`
   type Query {
     test: String!
     findUser (userID: String!): [PortaraSetting]!
+    findDashboard (github_ID: ID!): UserInfo!
   }
   type Subscription {
     portaraSettings(userID: String!): PortaraSetting!
@@ -46,9 +48,12 @@ const typeDefs = gql`
   type Mutation {
     changeSetting(userID: String!, name: String!, limit: ID!, per: ID!, throttle: ID!): PortaraSetting
   }
-  type User {
-    userID: String!
-    portara: [PortaraSetting]!
+  type UserInfo {
+    user_ID: ID! 
+    token: String!
+    username: String!
+    github_ID: ID!
+    avatarURL: String!
   }
   type PortaraSetting {
     name: String!
@@ -97,6 +102,11 @@ const resolvers = {
       } catch (error) {
         return error;
       }
+    }, 
+
+    findDashboard: async (_, { github_ID }) => {
+      const dashboardData = await User.findOne({ githubID: github_ID });
+      return dashboardData
     }
   },
   Mutation: {
@@ -137,7 +147,7 @@ passport.use(
   new GitHubStrategy({
     clientID: process.env.GITHUB_CLIENT_ID,
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    callbackURL: "https://portara-web.herokuapp.com/auth/github/callback" // CHANGE IN PRODUCTION
+    callbackURL: "http://localhost:4000/auth/github/callback" // CHANGE IN PRODUCTION
   },
   async (accessToken, refreshToken, profile, cb) => {
 
@@ -146,7 +156,7 @@ passport.use(
     );
     if (!existingUser.length) {
       await User.create({
-        URI: uuidv4(),
+        token: uuidv4(),
         username: profile._json.login,
         githubID: profile._json.id,
         avatarURL: profile._json.avatar_url,
@@ -172,7 +182,7 @@ app.get(
       .cookie('GitHubID', res.locals.id)
       .cookie('Username', res.locals.username)
       .cookie('Avatar', res.locals.avatar)
-      .redirect('https://portara-web.herokuapp.com/')
+      .redirect('http://localhost:4000')
   }
 );
 // --------------------------------------------------------------------------

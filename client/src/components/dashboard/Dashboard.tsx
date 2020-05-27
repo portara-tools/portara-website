@@ -1,4 +1,7 @@
-import  React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
+import Cookies from 'js-cookie';
+import { useQuery } from '@apollo/react-hooks';
+import gql from 'graphql-tag';
 import {
   createMuiTheme,
   createStyles,
@@ -171,17 +174,37 @@ const styles = createStyles({
 
 export interface PaperbaseProps extends WithStyles<typeof styles> {}
 
+const FIND_DASHBOARD = gql`
+query findDashboard($github_ID: ID!) {
+  findDashboard(github_ID: $github_ID) {
+    token
+    avatarURL
+  }
+}
+`;
+
+const githubID = Cookies.get('GitHubID') 
+
 function Paperbase(props: PaperbaseProps) {
   const { classes } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [token, setToken] = React.useState('TOKEN');
+  const [avatarURL, setAvatarURL] = React.useState('AVATAR');
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
-  // useEffect(() => {
+  const { loading, error, data } = useQuery(FIND_DASHBOARD, {
+    variables: { github_ID: githubID },
+  });
 
-  // })
+  useEffect(() => {
+    if (data) setToken(data.findDashboard.token);
+    if (data) setAvatarURL(data.findDashboard.avatarURL);
+  })
+
+  if (loading) return <div>Loading...</div>
 
   return (
     <ThemeProvider theme={theme}>
@@ -201,7 +224,13 @@ function Paperbase(props: PaperbaseProps) {
           </Hidden>
         </nav>
         <div className={classes.app}>
-          <Header onDrawerToggle={handleDrawerToggle} />
+
+          <Header 
+          onDrawerToggle={handleDrawerToggle} 
+          token={token} 
+          avatarURL={avatarURL} 
+          />
+
           <main className={classes.main}>
             <Content />
           </main>

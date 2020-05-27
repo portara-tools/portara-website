@@ -13,11 +13,13 @@
   "author": "portara-labs",
   "license": "MIT",
   "dependencies": {
+    "@shelf/jest-mongodb": "^1.1.5",
     "@types/node": "^14.0.5",
     "@types/passport": "^1.0.3",
     "apollo-server-express": "^2.13.1",
     "graphql": "^15.0.0",
     "mongodb": "^3.5.7",
+    "mongodb-memory-server": "^6.6.1",
     "mongoose": "^5.9.15",
     "nodemon": "^2.0.4",
     "passport": "^0.4.1",

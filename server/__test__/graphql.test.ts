@@ -82,7 +82,7 @@ const resolvers = {
   },
   Mutation: {
     testM: () => 'Mutation test success!',
-    changeSetting: async (_, { userID, name, limit, per, throttle }) => {
+    changeSetting: (_, { userID, name, limit, per, throttle }) => {
 
       try {
         const newObj = {
@@ -91,10 +91,9 @@ const resolvers = {
           throttle
         };
 
-        await User.findByIdAndUpdate(userID, { [name]: newObj }, { upsert: true, new: true })
-        await pubsub.publish(userID, { portaraSettings: { name, limit, per, throttle } })
-        return { userID, name, limit, per, throttle }
+        userData[name] = newObj
 
+        return { userID, name, limit, per, throttle, userData }
       } catch (error) {
         return error;
       }
@@ -171,5 +170,51 @@ describe('GraphQL query locates and returns data', () => {
     expect(keys).toContain('limit')
     expect(keys).toContain('per')
     expect(keys).toContain('throttle')
+  })
+})
+
+describe('GraphQL mutation locates and mutates data', () => {
+
+  const changeByeSetting = `
+    mutation{
+      changeSetting(userID: "5ec9aa3a9057a222f161be33",name:"bye", limit: 5, per: 10, throttle:0) {
+        name
+        limit
+        per
+        throttle
+      }
+    }
+  `;
+  const changeMutationSetting = `
+    mutation{
+      changeSetting(userID: "5ec9aa3a9057a222f161be33",name:"Mutation", limit: 5, per: 10, throttle:0) {
+        name
+        limit
+        per
+        throttle
+      }
+    }
+  `;
+
+  const schema = makeExecutableSchema({
+    typeDefs,
+    resolvers,
+    resolverValidationOptions,
+  })
+
+  it("Data of user's bye setting should be updated", async () => {
+    const response = await graphql(schema, changeByeSetting);
+    expect(response.data!.changeSetting.name).toBe('bye')
+    expect(response.data!.changeSetting.limit).toBe(userData.bye.limit)
+    expect(response.data!.changeSetting.per).toBe(userData.bye.per)
+    expect(response.data!.changeSetting.throttle).toBe(userData.bye.throttle)
+  })
+
+  it("Data of user's Mutation setting should be updated", async () => {
+    const response = await graphql(schema, changeMutationSetting);
+    expect(response.data!.changeSetting.name).toBe('Mutation')
+    expect(response.data!.changeSetting.limit).toBe(userData.bye.limit)
+    expect(response.data!.changeSetting.per).toBe(userData.bye.per)
+    expect(response.data!.changeSetting.throttle).toBe(userData.bye.throttle)
   })
 })

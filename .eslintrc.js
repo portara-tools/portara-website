@@ -8,6 +8,3 @@ module.exports = {
     'airbnb-typescript',
   ],
 };
-
-// TO RUN LINTER MANUALLY, RUN THIS FROM PROJECT ROOT
-// yarn eslint . --ext .js,.jsx,.ts,.tsx 

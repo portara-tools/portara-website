@@ -5,10 +5,14 @@ import { IResolverValidationOptions } from 'graphql-tools'
 const mongoose = require('mongoose');
 
 // Mongo Connection to a Live (Cloud) Dummy Db
-const URI = process.env.MONGODB_URI || '';
-mongoose.connect(URI, { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false }, () =>
-  console.log('connected to MongoDB')
-);
+beforeAll(async () => {
+  const URI = process.env.MONGODB_URI || '';
+  await mongoose.connect(URI, { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false }, () =>
+    console.log('connected to MongoDB')
+  );
+})
+
+
 const db = mongoose.connection;
 
 const userSchema = new mongoose.Schema({
@@ -122,12 +126,6 @@ describe('Receives a response from our GraphQL Query', () => {
 
   it('Completes a query', async () => {
 
-    // const typeDefs = gql`
-    //   type Query {
-    //     test: String!
-    //   }
-    // `;
-
     const schema = makeExecutableSchema({
       typeDefs,
       resolvers,
@@ -139,14 +137,6 @@ describe('Receives a response from our GraphQL Query', () => {
   })
 
   it('Completes a mutation', async () => {
-    //   const typeDefs = gql`
-    //     type Query {
-    //       test: String!
-    //     }
-    //     type Mutation {
-    //       testM: String!
-    //     }
-    // `;
 
     const schema = makeExecutableSchema({
       typeDefs,
@@ -163,48 +153,48 @@ describe('Receives a response from our GraphQL Query', () => {
 //    Return user's array of rate limiter settings
 // -------------------------------------------------------------
 
-// describe('Receives a response from our GraphQL Query', () => {
+describe('Receives a response from our GraphQL Query', () => {
 
-//   it('Completes a query without directive', async () => {
+  it('Completes a query without directive', async () => {
 
-//     const typeDefs = gql`
-//       {
-//         findUser (userID: "5ec9aa3a9057a222f161be33") {
-//           name
-//           limit
-//           throttle
-//           per
-//         }
-//       }
-//     `;
+    const findUser = `
+      {
+        findUser (userID: "5ec9aa3a9057a222f161be33") {
+          name
+          limit
+          throttle
+          per
+        }
+      }
+    `;
 
-//     const schema = makeExecutableSchema({
-//       typeDefs,
-//       resolvers,
-//       resolverValidationOptions,
-//     })
+    const schema = makeExecutableSchema({
+      typeDefs,
+      resolvers,
+      resolverValidationOptions,
+    })
 
-//     const response = await graphql(schema, 'query { test }');
-//     expect(response.data!.test).toBe("Test")
-//   })
+    const response = await graphql(schema, findUser);
+    expect(response.data!.test).toBe("Test")
+  })
 
-//   it('Completes a mutation', async () => {
-//     const typeDefs = gql`
-//       type Query {
-//         test: String!
-//       }
-//       type Mutation {
-//         hello: String!
-//       }
-//   `;
+  //   it('Completes a mutation', async () => {
+  //     const typeDefs = gql`
+  //       type Query {
+  //         test: String!
+  //       }
+  //       type Mutation {
+  //         hello: String!
+  //       }
+  //   `;
 
-//     const schema = makeExecutableSchema({
-//       typeDefs,
-//       resolvers,
-//       resolverValidationOptions
-//     })
+  //     const schema = makeExecutableSchema({
+  //       typeDefs,
+  //       resolvers,
+  //       resolverValidationOptions
+  //     })
 
-//     const response = await graphql(schema, 'mutation { hello }');
-//     expect(response.data!.hello).toBe("Hello World");
-//   })
-// })
+  //     const response = await graphql(schema, 'mutation { hello }');
+  //     expect(response.data!.hello).toBe("Hello World");
+  //   })
+})

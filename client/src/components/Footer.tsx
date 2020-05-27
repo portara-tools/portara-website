@@ -12,7 +12,6 @@ const Footer: React.FunctionComponent = () => {
 
   return(
     <footer className={classes.footer}>
-      <hr style={{ width: '100%', marginBottom: '30px', opacity: '.2' }}></hr>
         <div className={classes.socialLinks}>
           <Link href="https://github.com/oslabs-beta/portara">
             <GitHubIcon className={classes.socialLink} />
@@ -27,6 +26,7 @@ const Footer: React.FunctionComponent = () => {
           <Typography variant="subtitle1" align="center">
             Stay up to date with Portara
           </Typography>
+          <hr style={{ width: '60%', margin: '30px 0', opacity: '.2' }}></hr>
         <div className={classes.footerLinks}>
           <Typography variant="body2">
             {'© '}
@@ -53,19 +53,19 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    margin: '2rem 10%',
+    margin: '4rem 10%',
     height: '5rem',
   },
   socialLinks: {
     display: 'flex',
-    hoverOpacity: "0.4",
-    '&:hover': {
-      color: '#7209b7',
-      backgroundColor: 'black',
-    },
   },
   socialLink: {
     margin: '.5rem',
+    '&:hover': {
+      opacity: '.4',
+      position: 'relative',
+      bottom: '1px',
+    },
   },
   footerLinks: {
     display: 'flex',

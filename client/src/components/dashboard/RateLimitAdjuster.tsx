@@ -22,7 +22,7 @@ interface Props {
   per: string
   throttle: string
 };
-
+// temp id 5ec9aa3a9057a222f161be33
 let setted = false
 const RateLimitAdjuster: React.FunctionComponent = () => {
   const classes = useStyles();
@@ -43,11 +43,11 @@ const RateLimitAdjuster: React.FunctionComponent = () => {
     copyOfState[index] = copyOfSetting;
     setState(copyOfState);
   };
-
+// if !loading and !data
   if (!loading && data) {    
     if (!setted){
       setState(data.findUser)
-      setted = true
+      setted = true 
     }  
     return (
       <div>
@@ -59,7 +59,7 @@ const RateLimitAdjuster: React.FunctionComponent = () => {
               <Grid container spacing={2} alignItems="center">
                 <Grid item xs>
                 <Typography className={classes.text}>
-                  <h4 className={index}>{setting.name}</h4>
+                  <h3 className={index}>{setting.name}</h3>
                 </Typography>
                 </Grid>
                 <Grid item>
@@ -71,7 +71,7 @@ const RateLimitAdjuster: React.FunctionComponent = () => {
                       e.preventDefault()                                          
                       triggerMutation({
                         variables: {
-                          userID: "5ec9aa3a9057a222f161be33",
+                          userID: "5ec9aa3a9057a222f161be33",                          
                           name: state[index].name, 
                           limit: state[index].limit,
                           per: state[index].per, 
@@ -95,58 +95,66 @@ const RateLimitAdjuster: React.FunctionComponent = () => {
         <div className={classes.contentWrapper}>
           <div className={classes.outerRoot}>
             <div className={classes.margin} />
-            <div key={index}>
-              <div>
-                <Typography className={classes.text} align="center">
-                Current Rate Limit: {setting.limit}
-                </Typography>
-                <div className={classes.innerRoot}>
-                  <div className={classes.margin} />
-                  <DemoSlider 
-                  name="limit" 
-                  valueLabelDisplay="auto" 
-                  defaultValue={Number(setting.limit)} 
-                  onChange={(e, newValue) => {
-                    handleDuration(e, index, "limit", newValue)
-                  }}
-                  />
-                  <label>Duration</label>
-                    <TextField
-                      name="per"
-                      placeholder={setting.per}
-                      InputProps={{
-                        className: classes.searchInput,
-                      }}
-                      onChange={(e) => {
-                        handleDuration(e, index, "per")
-                      }}
+              <div key={index}>
+                <div>
+                  <Typography align="center">
+                  Current Rate Limit: {setting.limit}
+                  </Typography>
+                  <div className={classes.innerRoot}>
+                    <div className={classes.margin} />
+                    <DemoSlider 
+                    name="limit" 
+                    valueLabelDisplay="auto" 
+                    defaultValue={Number(setting.limit)} 
+                    onChange={(e, newValue) => {
+                      handleDuration(e, index, "limit", newValue)
+                    }}
                     />
+                  </div> 
                 </div>
-              </div>
-              <div className={classes.contentWrapper}>
-                <div className={classes.innerRoot}>
-                <div className={classes.margin} />
-                <Typography className={classes.text}>Throttle: </Typography>
-                  <TextField
-                    name="throttle"
-                    placeholder={setting.throttle}
-                    InputProps={{
-                      className: classes.searchInput,
-                    }}
-                    onChange={(e) => {
-                      handleDuration(e, index, "throttle")
-                    }}
-                  />
+                <div className={classes.contentWrapper}>
+                  <div className={classes.innerRoot}>
+                  <div className={classes.margin} />
+                    <Typography>Duration:</Typography>
+                      <TextField
+                        name="per"
+                        placeholder={setting.per}
+                        InputProps={{
+                          className: classes.searchInput,
+                        }}
+                        onChange={(e) => {
+                          handleDuration(e, index, "per")
+                        }}
+                      />
+                  </div>
+                  <div className={classes.innerRoot}>
+                    <Typography>Throttle: </Typography>
+                      <TextField
+                        name="throttle"
+                        placeholder={setting.throttle}
+                        InputProps={{
+                          className: classes.searchInput,
+                        }}
+                        onChange={(e) => {
+                          handleDuration(e, index, "throttle")
+                        }}
+                      />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        </Paper>
+        </Paper> 
               )
         })}
       </div>
     );
+  } else if (!loading && !data) {
+    return(
+      <div>
+        You currently have no rate limiters. Please go to your tools and add some you fuck.
+      </div>
+    )
   } else {
     return (
       <>
@@ -173,33 +181,36 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     contentWrapper: {
       margin: '20px 16px',
+      display: 'flex',
+      justifyContent: 'space-evenly',
+     
     },
     margin: {
       height: theme.spacing(3),
     },
     searchInput: {
-      fontSize: theme.typography.fontSize,
+      fontSize: '1.2rem',
       margin: '1rem',
       maxWidth: 140!,
-      color: '#fff',
-      border: '1px solid rgba(255, 255, 255, 0.8)',
+      color: '#212121',
       paddingLeft: '6px',
       borderRadius: '2px',
+      textAlign: 'right',
+      float: 'right',
+      '&$::placeholder': {
+        color: 'red',
+        opacity: '1',
+      },
     }, 
     paper: {
       maxWidth: 936,
       overflow: 'hidden',
       margin: '2rem auto',
-      background: 'transparent',
-      border: '1px solid rgba(255, 255, 255, 0.8)',
+      background: 'ivory',
+      border: '2px solid rgba(0, 0, 0, .8)',
     }, 
     searchBar: {
-      borderBottom: '1px solid rgba(255, 255, 255, 0.8)',
-      background: 'transparent',
-      '&::placeholder': {
-        color: 'red',
-        opacity: '1',
-      },
+      background: '#000',
     },
     block: {
       display: 'block',

@@ -9,8 +9,10 @@ const mongoose = require('mongoose');
 const cors = require('cors')
 
 const { v4: uuidv4 } = require('uuid');
-require('dotenv').config()
-const passport = require("passport");
+// require('dotenv').config()
+// const passport = require("passport"); // ADDING THIS LINE FAILS
+const passport = require('passport');
+
 // const { Profile } = require('passport-github');
 // const GitHubStrategy = require('passport-github').Strategy;
 

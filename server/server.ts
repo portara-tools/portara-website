@@ -8,7 +8,8 @@ const mongoose = require('mongoose');
 // const passportLocalMongoose = require('passport-local-mongoose');
 const { v4: uuidv4 } = require('uuid');
 require('dotenv').config()
-import passport from "passport";
+// import passport from "passport";
+const passport = require('passport')
 // import { Profile, Strategy as GitHubStrategy } from 'passport-github';
 const GitHubStrategy = require('passport-github').Strategy;
 const cors = require('cors')

@@ -22,6 +22,9 @@
   },
   "homepage": "https://github.com/oslabs-beta/portara#readme",
   "dependencies": {
-    "js-cookie": "^2.2.1"
+    "@typescript-eslint/eslint-plugin": "^3.0.2",
+    "@typescript-eslint/parser": "^3.0.2",
+    "eslint": "^7.1.0",
+    "typescript": "^3.9.3"
   }
 }

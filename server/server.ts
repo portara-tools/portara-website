@@ -6,15 +6,16 @@ const http = require('http');
 const pubsub = new PubSub();
 const mongoose = require('mongoose');
 const cors = require('cors')
-
+const woiehn = 'hey'
 const { v4: uuidv4 } = require('uuid');
-if (process.env.NODE_ENV === 'development') {
-  require('dotenv').config() 
-}
 
 const passport = require('passport');
 const { Profile } = require('passport-github');
 const GitHubStrategy = require('passport-github').Strategy;
+
+if (process.env.NODE_ENV === 'development') {
+  require('dotenv').config() 
+}
 
 // Mongo Connection
 const URI = process.env.MONGODB_URI || '';
@@ -134,12 +135,10 @@ const app = express();
 app.use(cors())
 
 passport.use(
-  new GitHubStrategy({
-    // clientID: "287f5caf1e8c640581e4",
-    clientID: process.env.GITHUB_CLIENT_ID,
-    // clientSecret: "94b22b16bfc5d9d40309dd35d67d437dd6b83da0",
+  new GitHubStrategy({    
+    clientID: process.env.GITHUB_CLIENT_ID,    
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    callbackURL: "https://portara-web.herokuapp.com/auth/github/callback" // CHANGE IN PRODUCTION
+    callbackURL: "https://portara-web.herokuapp.com/auth/github/callback"
   },
   async (accessToken, refreshToken, profile, cb) => {
     let existingUser = await User.find(

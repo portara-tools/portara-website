@@ -1,0 +1,6 @@
+
+node_modules
+# don't lint build output (make sure it's set to your correct build folder name)
+client/node_modules
+server/node_modules
+server/public

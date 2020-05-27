@@ -161,12 +161,13 @@ const styles = createStyles({
   main: {
     flex: 1,
     padding: theme.spacing(6, 4),
-    background: '#000',
-    borderLeft: '.5px solid rgba(250,250,250,0.6)'
+    background: '#212121',
+    borderLeft: '.5px solid rgba(250,250,250,0.6)',
+    borderTop: '.5px solid rgba(250,250,250,0.6)',
   },
   footer: {
     padding: theme.spacing(2),
-    background: '#000',
+    background: '#212121',
     borderLeft: '.5px solid rgba(250,250,250,0.6)',
     color: '#fff',
   },

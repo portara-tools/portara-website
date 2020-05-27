@@ -23,7 +23,7 @@ const Navbar: React.FunctionComponent = (props) => {
               </Link>
             </Button>
             <Button >
-              <Link to="/about" className={classes.linkStyle}>
+              <Link to="#about" className={classes.linkStyle}>
                 ABOUT
               </Link>
             </Button>

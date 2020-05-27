@@ -1,6 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core/styles';
+import Link from '@material-ui/core/Link';
 import Divider from '@material-ui/core/Divider';
 import Drawer, { DrawerProps } from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
@@ -66,10 +67,19 @@ const styles = (theme: Theme) =>
     divider: {
       marginTop: theme.spacing(2),
     },
+    linkStyle: {
+      textDecoration: 'none',
+      color: 'white',
+      hoverOpacity: "0.8",
+      padding: '5px',
+      '&:hover': {
+        textDecoration: 'none',
+      }
+    },
   });
 
 export interface NavigatorProps extends Omit<DrawerProps, 'classes'>, WithStyles<typeof styles> {}
-
+ 
 function Navigator(props: NavigatorProps) {
   const { classes, ...other } = props;
 
@@ -77,7 +87,9 @@ function Navigator(props: NavigatorProps) {
     <Drawer variant="permanent" {...other}>
       <List disablePadding>
         <ListItem className={clsx(classes.firebase, classes.item, classes.itemCategory)}>
-          Portara
+          <Link href="/" className={classes.linkStyle}>
+            Portara
+          </Link>
         </ListItem>
         <ListItem className={clsx(classes.item, classes.itemCategory)}>
           <ListItemIcon className={classes.itemIcon}>
@@ -87,7 +99,7 @@ function Navigator(props: NavigatorProps) {
             classes={{
               primary: classes.itemPrimary,
             }}
-          >
+          > 
             Settings Overview
           </ListItemText>
         </ListItem>

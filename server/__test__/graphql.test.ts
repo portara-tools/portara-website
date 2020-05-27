@@ -2,29 +2,22 @@ import { graphql } from 'graphql'
 const { gql, makeExecutableSchema } = require('apollo-server-express')
 import { IResolverValidationOptions } from 'graphql-tools'
 // import portaraSchemaDirective from '../mockDirective'
-const mongoose = require('mongoose');
 
-// Mongo Connection to a Live (Cloud) Dummy Db
-beforeAll(async () => {
-  const URI = process.env.MONGODB_URI || '';
-  await mongoose.connect(URI, { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false }, () =>
-    console.log('connected to MongoDB')
-  );
-})
+const userData = {
+  _id: "5ec9aa3a9057a222f161be33",
+  userID: "steve",
+  Mutation: {
+    limit: "3",
+    per: "10",
+    throttle: "500ms"
+  },
+  bye: {
+    limit: "8",
+    per: "10",
+    throttle: "0"
+  },
+}
 
-
-const db = mongoose.connection;
-
-const userSchema = new mongoose.Schema({
-  userID: String,
-  URI: String,
-  username: String,
-  githubID: Number,
-  avatarURL: String,
-},
-  { strict: false });
-
-const User = mongoose.model('portaraUsers', userSchema);
 
 // Globally allows resolvers to not exist in the original schema
 const resolverValidationOptions: IResolverValidationOptions = {
@@ -62,7 +55,6 @@ const resolvers = {
   Subscription: {
     portaraSettings: {
       subscribe(_, { userID }) {
-        console.log(userID)
         return pubsub.asyncIterator(userID)
       }
     }
@@ -72,20 +64,11 @@ const resolvers = {
 
     findUser: async (_, { userID }) => {
       try {
-        const newArr = [];
         const finalArr = [];
-        const user = await User.findOne({ _id: userID })
-          .then(data => {
-            let str = JSON.stringify(data)
-            newArr.push(str)
-          })
-        const data = JSON.parse(newArr[0])
-        delete data['_id']
-        delete data['userID']
-        delete data['portara']
-        for (let key in data) {
-          if (typeof data[key] === 'object') {
-            let newObj = { ...data[key] }
+
+        for (let key in userData) {
+          if (typeof userData[key] === 'object') {
+            let newObj = { ...userData[key] }
             newObj['name'] = key.toString()
             finalArr.push(newObj)
           }
@@ -153,48 +136,40 @@ describe('Receives a response from our GraphQL Query', () => {
 //    Return user's array of rate limiter settings
 // -------------------------------------------------------------
 
-describe('Receives a response from our GraphQL Query', () => {
+describe('GraphQL query locates and returns data', () => {
 
-  it('Completes a query without directive', async () => {
-
-    const findUser = `
-      {
-        findUser (userID: "5ec9aa3a9057a222f161be33") {
-          name
-          limit
-          throttle
-          per
-        }
+  const findUser = `
+    {
+      findUser (userID: "5ec9aa3a9057a222f161be33") {
+        name
+        limit
+        throttle
+        per
       }
-    `;
+    }
+  `;
 
-    const schema = makeExecutableSchema({
-      typeDefs,
-      resolvers,
-      resolverValidationOptions,
-    })
-
-    const response = await graphql(schema, findUser);
-    expect(response.data!.test).toBe("Test")
+  const schema = makeExecutableSchema({
+    typeDefs,
+    resolvers,
+    resolverValidationOptions,
   })
 
-  //   it('Completes a mutation', async () => {
-  //     const typeDefs = gql`
-  //       type Query {
-  //         test: String!
-  //       }
-  //       type Mutation {
-  //         hello: String!
-  //       }
-  //   `;
+  it("Data of user should be an array with two specific objects", async () => {
+    const response = await graphql(schema, findUser);
+    expect(response.data!.findUser).toEqual([
+      expect.objectContaining({ name: "Mutation" }),
+      expect.objectContaining({ name: "bye" }),
+    ])
+  })
 
-  //     const schema = makeExecutableSchema({
-  //       typeDefs,
-  //       resolvers,
-  //       resolverValidationOptions
-  //     })
-
-  //     const response = await graphql(schema, 'mutation { hello }');
-  //     expect(response.data!.hello).toBe("Hello World");
-  //   })
+  it("Each object in the array should have a length of 4 with three specific properties each", async () => {
+    const response = await graphql(schema, findUser);
+    const keys = Object.keys(response.data!.findUser[0])
+    const length = keys.length
+    expect(length).toBe(4)
+    expect(keys).toContain('limit')
+    expect(keys).toContain('per')
+    expect(keys).toContain('throttle')
+  })
 })

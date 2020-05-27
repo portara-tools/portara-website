@@ -32,17 +32,14 @@ mongoose.connect(
   () => console.log('connected to MongoDB'),
 );
 
-// userSchema does not use strict. This is so that we can dynamically enter data into the root of each document.
-const userSchema = new mongoose.Schema(
-  {
-    userID: String,
-    URI: String,
-    username: String,
-    githubID: Number,
-    avatarURL: String,
-  },
-  { strict: false },
-);
+const userSchema = new mongoose.Schema({
+  userID: String,
+  token: String,
+  username: String,
+  githubID: Number,
+  avatarURL: String,
+}, 
+{ strict: false });
 
 const User = mongoose.model('portaraUsers', userSchema);
 
@@ -50,12 +47,21 @@ const User = mongoose.model('portaraUsers', userSchema);
 const typeDefs = gql`
   type Query {
     test: String!
-    findUser(userID: ID!): [PortaraSetting]!
+    findUser (userID: ID!): [PortaraSetting]!
+    findDashboard (github_ID: ID!): UserInfo!
   }
   type Subscription {
     portaraSettings(userID: String!): PortaraSetting!
   }
   type Mutation {
+    changeSetting(userID: String!, name: String!, limit: ID!, per: ID!, throttle: ID!): PortaraSetting
+  }
+  type UserInfo {
+    user_ID: ID! 
+    token: String!
+    username: String!
+    github_ID: ID!
+    avatarURL: String!
     changeSetting(
       userID: ID!
       name: String!
@@ -108,8 +114,13 @@ const resolvers = {
       } catch (error) {
         return error;
       }
+    }, 
+
+    findDashboard: async (_, { github_ID }) => {
+      const dashboardData = await User.findOne({ githubID: github_ID });
+      return dashboardData
+    }
     },
-  },
   Mutation: {
     /*
       This is the mutation to be triggered when a user updates settings to ANY field

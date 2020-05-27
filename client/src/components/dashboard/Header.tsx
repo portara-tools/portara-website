@@ -12,11 +12,13 @@ const username = Cookies.get('Username');
 
 
 interface HeaderProps extends WithStyles<typeof styles> {
-  onDrawerToggle: () => void;
+  onDrawerToggle: () => void
+  token: String
+  avatarURL: String
 }
 
 function Header(props: HeaderProps) {
-  const { classes } = props;
+  const { classes, onDrawerToggle, token, avatarURL } = props;
 
   return (
     <React.Fragment>

@@ -54,7 +54,7 @@ const typeDefs = gql`
   }
   type Mutation {
     changeSetting(
-      userID: String!
+      userID: ID!
       name: String!
       limit: ID!
       per: ID!
@@ -133,8 +133,9 @@ const resolvers = {
           per,
           throttle,
         };
-        await User.findByIdAndUpdate(userID, { [name]: newObj }, { upsert: true, new: true });
-        await pubsub.publish(userID, {
+        // await User.findByIdAndUpdate(userID, { [name]: newObj }, { upsert: true, new: true });
+        await User.findOneAndUpdate({ token: userID }, { [name]: newObj }, { upsert: true, new: true });
+        await pubsub.publish(userID, { //! we're going to use the token for userID instead of GHid
           portaraSettings: {
             name,
             limit,
@@ -142,6 +143,7 @@ const resolvers = {
             throttle,
           },
         });
+
         return {
           userID,
           name,
@@ -172,7 +174,7 @@ passport.use(
       const existingUser = await User.find({ githubID: profile._json.id });
       if (!existingUser.length) {
         await User.create({
-          URI: uuidv4(),
+          token: uuidv4(),
           username: profile._json.login,
           githubID: profile._json.id,
           avatarURL: profile._json.avatar_url,

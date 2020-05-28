@@ -13,7 +13,7 @@ let URI = "https://portara-web.herokuapp.com/graphql";
 if (process.env.NODE_ENV === 'development') {
   URI = "http://localhost:4000/graphql"
 }
-
+// console.log(URI)
 const client = new ApolloClient({ uri: URI })
 
 ReactDOM.render(

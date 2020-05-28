@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { useQuery, useMutation } from '@apollo/react-hooks'
 import { withStyles, makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -16,141 +16,138 @@ const gitHubID = Cookies.get('GitHubID');
 
 
 interface Props {
-  name: string
-  limit: string
-  per: string
-  throttle: string
+  token: string
 };
 // temp id 5ec9aa3a9057a222f161be33
 let setted = false
-const RateLimitAdjuster: React.FunctionComponent = () => {
+const RateLimitAdjuster: React.FC<Props> = (props) => {
   const classes = useStyles();
-  const [state, setState]:any = useState([])  
+  const [state, setState]: any = useState([])
   const { loading, data, refetch } = useQuery(READ_DATABASE, {
-    variables: { userID: gitHubID }, 
+    variables: { userID: gitHubID },
     // variables: { userID: "5ec9aa3a9057a222f161be33" }, // this needs to change to variable
   });
   const [triggerMutation] = useMutation(UPDATE_SETTING)
-
-  const handleDuration = (e: any, index: any, settingType: any, newValue?: any) => {  
+  console.log('token', props.token, 'state', state)
+  const handleDuration = (e: any, index: any, settingType: any, newValue?: any) => {
     let value = e.target.value;
     if (newValue) {
       value = newValue;
     }
-    const copyOfSetting = {...state[index]}
+    const copyOfSetting = { ...state[index] }
     copyOfSetting[settingType] = value.toString();
     const copyOfState = [...state];
     copyOfState[index] = copyOfSetting;
     setState(copyOfState);
   };
-// if !loading and !data
-  if (!loading && data) {    
-    if (!setted){
+  // if !loading and !data
+  if (!loading && data) {
+    if (!setted) {
       setState(data.findUser)
-      setted = true 
-    }  
+      setted = true
+    }
     return (
       <div>
-        {data.findUser.map((setting: any, index:any) => {
-              return (
-        <Paper key={index} className={classes.paper}>
-          <AppBar className={classes.searchBar} position="static" color="default" elevation={0}>
-            <Toolbar>
-              <Grid container spacing={2} alignItems="center">
-                <Grid item xs>
-                <Typography className={classes.text}>
-                  <h3 className={index}>{setting.name}</h3>
-                </Typography>
-                </Grid>
-                <Grid item>
-                  <Button 
-                    variant="contained" 
-                    color="primary" 
-                    className={classes.update}
-                    onClick={(e) => {
-                      e.preventDefault()                                          
-                      triggerMutation({
-                        variables: {
-                          userID: gitHubID,                          
-                          name: state[index].name, 
-                          limit: state[index].limit,
-                          per: state[index].per, 
-                          throttle: state[index].throttle, 
-                        }
-                      })
-                      refetch()
-                    }}
-                  >
-                    Update
+        {data.findUser.map((setting: any, index: any) => {
+          return (
+            <Paper key={index} className={classes.paper}>
+              <AppBar className={classes.searchBar} position="static" color="default" elevation={0}>
+                <Toolbar>
+                  <Grid container spacing={2} alignItems="center">
+                    <Grid item xs>
+                      <Typography className={classes.text}>
+                        <h3 className={index}>{setting.name}</h3>
+                      </Typography>
+                    </Grid>
+                    <Grid item>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        className={classes.update}
+                        onClick={(e) => {
+                          e.preventDefault()
+                          triggerMutation({
+                            variables: {
+                              userID: props.token,
+                              name: state[index].name,
+                              limit: state[index].limit,
+                              per: state[index].per,
+                              throttle: state[index].throttle,
+                            }
+                          })
+                          refetch()
+                        }}
+                      >
+                        Update
                   </Button>
-                  {/* <Tooltip title="Reset">
+                      {/* <Tooltip title="Reset">
                     <IconButton>
                       <RefreshIcon className={classes.block} color="inherit" />
                     </IconButton>
                   </Tooltip> */}
-                </Grid>
-              </Grid>
-            </Toolbar>
-          </AppBar>
-        <div className={classes.contentWrapper}>
-          <div className={classes.outerRoot}>
-            <div className={classes.margin} />
-              <div key={index}>
-                <div>
-                  <Typography align="center">
-                  Current Rate Limit: {setting.limit}
-                  </Typography>
-                  <div className={classes.innerRoot}>
-                    <div className={classes.margin} />
-                    <DemoSlider 
-                    name="limit" 
-                    valueLabelDisplay="auto" 
-                    defaultValue={Number(setting.limit)} 
-                    onChange={(e, newValue) => {
-                      handleDuration(e, index, "limit", newValue)
-                    }}
-                    />
-                  </div> 
-                </div>
-                <div className={classes.contentWrapper}>
-                  <div className={classes.innerRoot}>
+                    </Grid>
+                  </Grid>
+                </Toolbar>
+              </AppBar>
+              <div className={classes.contentWrapper}>
+                <div className={classes.outerRoot}>
                   <div className={classes.margin} />
-                    <Typography>Duration:</Typography>
-                      <TextField
-                        name="per"
-                        placeholder={setting.per}
-                        InputProps={{
-                          className: classes.searchInput,
-                        }}
-                        onChange={(e) => {
-                          handleDuration(e, index, "per")
-                        }}
-                      />
-                  </div>
-                  <div className={classes.innerRoot}>
-                    <Typography>Throttle: </Typography>
-                      <TextField
-                        name="throttle"
-                        placeholder={setting.throttle}
-                        InputProps={{
-                          className: classes.searchInput,
-                        }}
-                        onChange={(e) => {
-                          handleDuration(e, index, "throttle")
-                        }}
-                      />
+                  <div key={index}>
+                    <div>
+                      <Typography align="center">
+                        Current Rate Limit: {setting.limit}
+                      </Typography>
+                      <div className={classes.innerRoot}>
+                        <div className={classes.margin} />
+                        <DemoSlider
+                          name="limit"
+                          valueLabelDisplay="auto"
+                          defaultValue={Number(setting.limit)}
+                          onChange={(e, newValue) => {
+                            handleDuration(e, index, "limit", newValue)
+                          }}
+                        />
+                      </div>
+                    </div>
+                    <div className={classes.contentWrapper}>
+                      <div className={classes.innerRoot}>
+                        <div className={classes.margin} />
+                        <Typography>Duration:</Typography>
+                        <TextField
+                          name="per"
+                          placeholder={setting.per}
+                          InputProps={{
+                            className: classes.searchInput,
+                          }}
+                          onChange={(e) => {
+                            handleDuration(e, index, "per")
+                          }}
+                        />
+                      </div>
+                      <div className={classes.innerRoot}>
+                        <Typography>Throttle: </Typography>
+                        <TextField
+                          name="throttle"
+                          placeholder={setting.throttle}
+                          InputProps={{
+                            className: classes.searchInput,
+                          }}
+                          onChange={(e) => {
+                            handleDuration(e, index, "throttle")
+                          }}
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </Paper> 
-              )
+            </Paper>
+          )
         })}
       </div>
     );
   } else if (!loading && !data) {
-    return(
+    return (
       <div>
         You currently have no rate limiters. Please go to your tools and add some you fuck.
       </div>
@@ -164,7 +161,7 @@ const RateLimitAdjuster: React.FunctionComponent = () => {
   }
 }
 
-export default RateLimitAdjuster;
+
 
 
 
@@ -183,7 +180,7 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: '20px 16px',
       display: 'flex',
       justifyContent: 'space-evenly',
-     
+
     },
     margin: {
       height: theme.spacing(3),
@@ -201,20 +198,20 @@ const useStyles = makeStyles((theme: Theme) =>
         color: 'red',
         opacity: '1',
       },
-    }, 
+    },
     paper: {
       maxWidth: 936,
       overflow: 'hidden',
       margin: '2rem auto',
       background: 'ivory',
       border: '2px solid rgba(0, 0, 0, .8)',
-    }, 
+    },
     searchBar: {
       background: '#000',
     },
     block: {
       display: 'block',
-    }, 
+    },
     update: {
       marginRight: theme.spacing(1),
       background: 'transparent',
@@ -256,3 +253,5 @@ const DemoSlider = withStyles({
     borderRadius: 4,
   },
 })(Slider);
+
+export default RateLimitAdjuster;

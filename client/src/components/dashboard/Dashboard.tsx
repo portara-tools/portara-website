@@ -18,7 +18,7 @@ import Header from './Header';
 import RateLimitAdjuster from './RateLimitAdjuster';
 
 
-export interface PaperbaseProps extends WithStyles<typeof styles> {}
+export interface PaperbaseProps extends WithStyles<typeof styles> { }
 
 const FIND_DASHBOARD = gql`
   query findDashboard($github_ID: ID!) {
@@ -29,7 +29,7 @@ const FIND_DASHBOARD = gql`
   }
 `;
 
-const githubID = Cookies.get('GitHubID') 
+const githubID = Cookies.get('GitHubID')
 
 function Paperbase(props: PaperbaseProps) {
   const { classes } = props;
@@ -71,15 +71,15 @@ function Paperbase(props: PaperbaseProps) {
         </nav>
         <div className={classes.app}>
 
-          <Header 
-          onDrawerToggle={handleDrawerToggle} 
-          token={token} 
-          avatarURL={avatarURL} 
+          <Header
+            onDrawerToggle={handleDrawerToggle}
+            token={token}
+            avatarURL={avatarURL}
           />
 
           <main className={classes.main}>
             <div>
-              <RateLimitAdjuster />
+              <RateLimitAdjuster token={token} />
             </div>
           </main>
           <footer className={classes.footer}>

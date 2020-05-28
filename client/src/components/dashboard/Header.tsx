@@ -8,8 +8,10 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core/styles';
 import Cookies from 'js-cookie';
-
 const username = Cookies.get('Username');
+
+
+
 
 
 interface HeaderProps extends WithStyles<typeof styles> {
@@ -20,6 +22,7 @@ interface HeaderProps extends WithStyles<typeof styles> {
 
 function Header(props: HeaderProps) {
   const { classes, onDrawerToggle, token, avatarURL } = props;
+
 
   return (
     <React.Fragment>
@@ -45,12 +48,12 @@ function Header(props: HeaderProps) {
         className={classes.secondaryBar}
         position="static"
         elevation={0}
-      > 
+      >
         <Toolbar>
           <Grid container alignItems="center" spacing={1}>
             <Grid item xs>
               <Typography color="inherit" variant="h5" component="h1">
-                Rate Limiter
+                Portara Unique Token: {props.token}
               </Typography>
               <Typography color="inherit" variant="body1" component="h1">
                 {props.token}

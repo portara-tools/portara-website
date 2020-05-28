@@ -10,8 +10,8 @@ install:
 
 #before_script
 script:
+  - npm test
   - echo "Hello World"
-#   - npm test
 
 #after_success:
 

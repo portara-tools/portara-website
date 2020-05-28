@@ -9,7 +9,7 @@ import TwitterIcon from '@material-ui/icons/Twitter';
 const About: React.FunctionComponent = (props) => {
   const classes = useStyles(props);
   return (
-    <div style={{ background: '#212121', padding: '2rem'}}>
+    <div style={{ background: '#212121', padding: '2rem' }}>
       {/* <hr style={{ width: '80%', marginBottom: '30px', opacity: '.2' }}></hr> */}
       <Box maxWidth='sm' className={classes.container}>
         <Typography variant="h4" align="center">The Team</Typography>
@@ -76,7 +76,10 @@ const About: React.FunctionComponent = (props) => {
                 <Link href="https://www.linkedin.com/in/alexanderinfante/">
                   <LinkedInIcon className={classes.socialLink} />
                 </Link>
-              </div> 
+                <Link href="https://twitter.com/portaraQL">
+                  <TwitterIcon className={classes.socialLink} />
+                </Link>
+              </div>
             </Box>
           </Grid>
         </Grid>
@@ -94,13 +97,13 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-  }, 
+  },
   peopleContainer: {
     padding: '1rem',
     width: '100%',
     display: 'flex',
     justifyContent: 'space-evenly',
-  }, 
+  },
   personCard: {
     display: 'flex',
     flexDirection: 'column',

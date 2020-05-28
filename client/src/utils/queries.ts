@@ -22,3 +22,12 @@ export const READ_DATABASE = gql`
     }
   }
 `
+
+export const FIND_DASHBOARD = gql`
+  query findDashboard($github_ID: ID!) {
+    findDashboard(github_ID: $github_ID) {
+      token
+      avatarURL
+    }
+  }
+`;

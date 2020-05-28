@@ -16,18 +16,12 @@ import Link from '@material-ui/core/Link';
 import Navigator from './Navigator';
 import Header from './Header';
 import RateLimitAdjuster from './RateLimitAdjuster';
+import { FIND_DASHBOARD } from '../../utils/queries';
 
 
 export interface PaperbaseProps extends WithStyles<typeof styles> { }
 
-const FIND_DASHBOARD = gql`
-  query findDashboard($github_ID: ID!) {
-    findDashboard(github_ID: $github_ID) {
-      token
-      avatarURL
-    }
-  }
-`;
+
 
 const githubID = Cookies.get('GitHubID')
 

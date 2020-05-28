@@ -19,7 +19,6 @@ const categories = [
     id: '',
     children: [
       { id: 'Rate Limiter', icon: <TimerIcon />, active: true },
-      { id: 'Analytics', icon: <SettingsIcon /> },
     ],
   },
  

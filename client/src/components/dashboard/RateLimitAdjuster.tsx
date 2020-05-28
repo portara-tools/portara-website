@@ -202,7 +202,7 @@ const useStyles = makeStyles((theme: Theme) =>
       textAlign: 'right',
       float: 'right',
       '::placeholder': {
-        color: 'red',
+        color: '#000',
         opacity: '1',
       },
     },

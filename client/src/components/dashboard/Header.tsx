@@ -50,7 +50,7 @@ function Header(props: HeaderProps) {
                 logout()
               }}
               >
-              <Tooltip title="Log Out">
+              <Tooltip title="Click image to logout">
                 <Avatar src={props.avatarURL} alt="My Avatar" className={classes.avatar} />
               </Tooltip>
               </IconButton>

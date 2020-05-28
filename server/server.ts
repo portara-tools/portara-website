@@ -4,7 +4,7 @@ const express = require('express');
 const path = require('path');
 const http = require('http');
 const mongoose = require('mongoose');
-const cors = require('cors');
+// const cors = require('cors');
 const { v4: uuidv4 } = require('uuid');
 
 const pubsub = new PubSub();
@@ -12,7 +12,7 @@ const passport = require('passport');
 const GitHubStrategy = require('passport-github').Strategy;
 
 // Set local variables/paths depending on production/development
-let redirectURI = 'https://portara.io/';
+let redirectURI = 'https://portara.io';
 let callbackURI = 'https://portara.io/auth/github/callback';
 
 if (process.env.NODE_ENV === 'development') {
@@ -160,7 +160,7 @@ const resolvers = {
 
 const PORT = process.env.PORT || 4000;
 const app = express();
-app.use(cors());
+// app.use(cors());
 
 // Github Authentication --------------------------------------------------
 passport.use(
@@ -215,7 +215,7 @@ server.installSubscriptionHandlers(httpServer);
 
 server.applyMiddleware({
   app,
-  cors: false,
+  // cors: false,
 });
 
 // This static is used to server our build folder when deploying

@@ -50,7 +50,7 @@ function Header(props: HeaderProps) {
                 logout()
               }}
               >
-              <Tooltip title="Log Out">
+              <Tooltip title="Click image to logout">
                 <Avatar src={props.avatarURL} alt="My Avatar" className={classes.avatar} />
               </Tooltip>
               </IconButton>
@@ -70,10 +70,10 @@ function Header(props: HeaderProps) {
               <Typography color="inherit" variant="h5" component="h1">
                 {username}'s Unique Portara Token:
               </Typography>
-              <Typography className={classes.tokenDisplay} variant="h6" component="h1">
+              {/* <Typography className={classes.tokenDisplay} variant="h6" component="h1">
                 {props.token}
-              </Typography>
-              <Typography color="inherit" variant="body1" component="h1">
+              </Typography> */}
+              <Typography style={{color: "#009be5"}} variant="body1" component="h1">
                 {props.token}
               </Typography>
             </Grid>

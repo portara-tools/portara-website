@@ -18,14 +18,14 @@ const gitHubID = Cookies.get('GitHubID');
 interface Props {
   token: string
 };
-// temp id 5ec9aa3a9057a222f161be33
+
 let setted = false
 const RateLimitAdjuster: React.FC<Props> = (props) => {
   const classes = useStyles();
   const [state, setState]: any = useState([])
   const { loading, data, refetch } = useQuery(READ_DATABASE, {
     variables: { userID: gitHubID },
-    // variables: { userID: "5ec9aa3a9057a222f161be33" }, // this needs to change to variable
+
   });
   const [triggerMutation] = useMutation(UPDATE_SETTING)
   console.log('token', props.token, 'state', state)
@@ -41,7 +41,7 @@ const RateLimitAdjuster: React.FC<Props> = (props) => {
     setState(copyOfState);
   };
   // if !loading and !data
-  if (!loading && data) {
+  if (!loading && data.findUser.length) {
     if (!setted) {
       setState(data.findUser)
       setted = true
@@ -146,15 +146,15 @@ const RateLimitAdjuster: React.FC<Props> = (props) => {
         })}
       </div>
     );
-  } else if (!loading && !data) {
+  } else if (!loading && data.findUser.length === 0) {
     return(
       <Paper className={classes.paper}>
         <AppBar className={classes.searchBar} position="static" color="default" elevation={0}>
           <Toolbar>
             <Grid container spacing={2} alignItems="center">
               <Grid item xs>
-                <Typography variant="h6" color="primary">
-                  You currently have no rate limiters. Please add them in your Portara tools. You fuck.
+                <Typography variant="h6" color="secondary" style={{padding: "5px"}}>
+                  You currently have no active rate limiters. Please add your token to your Portara rate limiter. Your token is {props.token}
                 </Typography>
               </Grid>
             </Grid>

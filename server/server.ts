@@ -12,8 +12,8 @@ const passport = require('passport');
 const GitHubStrategy = require('passport-github').Strategy;
 
 // Set local variables/paths depending on production/development
-let redirectURI = 'https://portara-web.herokuapp.com/';
-let callbackURI = 'https://portara-web.herokuapp.com/auth/github/callback';
+let redirectURI = 'https://portara.io/';
+let callbackURI = 'https://portara.io/auth/github/callback';
 
 if (process.env.NODE_ENV === 'development') {
   require('dotenv').config();

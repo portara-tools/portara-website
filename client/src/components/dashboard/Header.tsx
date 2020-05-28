@@ -11,9 +11,6 @@ import Cookies from 'js-cookie';
 const username = Cookies.get('Username');
 
 
-
-
-
 interface HeaderProps extends WithStyles<typeof styles> {
   onDrawerToggle: () => void
   token: string

@@ -1,17 +1,14 @@
 import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Grid from '@material-ui/core/Grid';
+import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Tabs from '@material-ui/core/Tabs';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Avatar from '@material-ui/core/Avatar';
 import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core/styles';
 import Cookies from 'js-cookie';
 const username = Cookies.get('Username');
-
-
-
 
 
 interface HeaderProps extends WithStyles<typeof styles> {
@@ -54,6 +51,9 @@ function Header(props: HeaderProps) {
             <Grid item xs>
               <Typography color="inherit" variant="h5" component="h1">
                 Portara Unique Token: {props.token}
+              </Typography>
+              <Typography color="inherit" variant="body1" component="h1">
+                {props.token}
               </Typography>
             </Grid>
           </Grid>

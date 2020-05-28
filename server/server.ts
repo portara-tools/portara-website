@@ -12,16 +12,14 @@ const passport = require('passport');
 const GitHubStrategy = require('passport-github').Strategy;
 
 // Set local variables/paths depending on production/development
-let redirectURI;
-let callbackURI;
+let redirectURI = 'https://portara-web.herokuapp.com/';
+let callbackURI ='https://portara-web.herokuapp.com/auth/github/callback'
+
 if (process.env.NODE_ENV === 'development') {
   require('dotenv').config();
   callbackURI = 'http://localhost:4000/auth/github/callback'
   redirectURI = 'http://localhost:3000/' 
-} else {
-  redirectURI = 'https://portara-web.herokuapp.com/'
-  callbackURI = 'https://portara-web.herokuapp.com/auth/github/callback'
-}
+};
 
 
 // Mongo Connection

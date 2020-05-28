@@ -30,6 +30,7 @@ const LandingPage = () => {
         <Box maxWidth='sm' className={classes.container}>
           <Grid className={classes.content}>
             <Title>Portara</Title>
+            <Title>NODE_ENV = {process.env.NODE_ENV}</Title>
             {/* <img src={'https://imgur.com/U0PyleJ.png'} alt='wtf' /> */}
             <hr style={{ width: '100%', marginBottom: '30px' }} />
             <Typography variant='h5' color='primary' style={{ marginBottom: '8rem' }}>

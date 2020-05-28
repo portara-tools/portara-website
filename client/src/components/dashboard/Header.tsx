@@ -5,20 +5,24 @@ import IconButton from '@material-ui/core/IconButton';
 import Tabs from '@material-ui/core/Tabs';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import Avatar from '@material-ui/core/Avatar';
 import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core/styles';
 import Cookies from 'js-cookie';
-
 const username = Cookies.get('Username');
+
+
+
 
 
 interface HeaderProps extends WithStyles<typeof styles> {
   onDrawerToggle: () => void
-  token: String
-  avatarURL: String
+  token: string
+  avatarURL: string
 }
 
 function Header(props: HeaderProps) {
   const { classes, onDrawerToggle, token, avatarURL } = props;
+
 
   return (
     <React.Fragment>
@@ -33,7 +37,7 @@ function Header(props: HeaderProps) {
             </Grid>
             <Grid item>
               <IconButton color="inherit" className={classes.iconButtonAvatar}>
-                {/* <Avatar src="/static/images/avatar/1.jpg" alt="My Avatar" /> */}
+                <Avatar src={props.avatarURL} alt="My Avatar" />
               </IconButton>
             </Grid>
           </Grid>
@@ -44,12 +48,12 @@ function Header(props: HeaderProps) {
         className={classes.secondaryBar}
         position="static"
         elevation={0}
-      > 
+      >
         <Toolbar>
           <Grid container alignItems="center" spacing={1}>
             <Grid item xs>
               <Typography color="inherit" variant="h5" component="h1">
-                Rate Limiter
+                Portara Unique Token: {props.token}
               </Typography>
             </Grid>
           </Grid>

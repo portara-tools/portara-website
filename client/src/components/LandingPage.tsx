@@ -14,7 +14,9 @@ import AlternateEmail from '@material-ui/icons/AlternateEmail';
 import DoneAll from '@material-ui/icons/DoneAll';
 import Title from './Title';
 import Cookies from 'js-cookie';
+import AnimatedCard from './AnimatedCard'
 const gitHubID = Cookies.get('GitHubID');
+
 
 const LandingPage = () => {
   const classes = useStyles();
@@ -32,29 +34,30 @@ const LandingPage = () => {
             <Title>Portara</Title>
             {/* <img src={'https://imgur.com/U0PyleJ.png'} alt='wtf' /> */}
             <hr style={{ width: '100%', marginBottom: '30px' }} />
-            <Typography variant='h5' color='primary' style={{ marginBottom: '8rem' }}>
-              The best rate limiter that exists
+            <Typography variant='h5' color='primary' style={{ marginBottom: '2rem' }}>
+              GraphQL • Rate Limiter • Throttler
             </Typography>
             {/* IMAGE WITH BULLETS */}
             <Grid className={classes.imageWrapper}>
+                {/* <img src="/code-editor-svg.svg" style={{height: "360px"}}/> */}
+                <AnimatedCard>
+                <img src="/code-editor-svg.svg" style={{height: "400px"}}/>
+              </AnimatedCard>
               <Box className={classes.imageContainer}>
-                {/* <AnimatedCard>
-                <img src={'/portaraScreenshot2.png'} height='400px' />
-              </AnimatedCard> */}
-                <Grid className={classes.textWrapper}>
+                {/* <Grid className={classes.textWrapper}>
                   <Typography className={classes.textLine}>
                     <AlternateEmail style={{ marginRight: '5px' }} />
-                    Easy to use: decorate at will
+                    Simple Implementation
                   </Typography>
                   <Typography className={classes.textLine}>
                     <BlockRounded style={{ marginRight: '5px' }} />
-                    Blocks or slows requests
+                    Schema Directive
                   </Typography>
                   <Typography className={classes.textLine}>
                     <DoneAll style={{ marginRight: '5px' }} />
                     Tested & Typescripted
                   </Typography>
-                </Grid>
+                </Grid> */}
               </Box>
             </Grid>
             <Button className={classes.downloadButton} variant='outlined'>
@@ -172,7 +175,7 @@ const useStyles = makeStyles(() => ({
     marginTop: '5rem',
     background: 'rgba(33, 33, 33, .8)',
     padding: '8px 16px',
-    backgroundColor: 'green',
+    backgroundColor: 'dodgerblue',
   },
   cardsWrapper: {
     marginTop: '2rem',
@@ -182,12 +185,12 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'space-evenly',
   },
   imageWrapper: {
-    marginTop: '6%',
+    marginTop: '2%',
     padding: '1rem',
     spacing: '8',
     display: 'flex',
     justifyContent: 'center',
-    background: 'rgba(0, 0, 0, .5)',
+    // background: 'rgba(0, 0, 0, .5)',
     width: '100%',
   },
   imageContainer: {

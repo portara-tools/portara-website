@@ -35,6 +35,7 @@ function Navigator(props: NavigatorProps) {
     <Drawer variant="permanent" {...other}>
       <List disablePadding>
         <ListItem className={clsx(classes.firebase, classes.item, classes.itemCategory)}>
+          {/* <img src="portara-logo-no-background"/> */}
           <Link href="/" className={classes.linkStyle}>
             Portara
           </Link>

@@ -92,10 +92,6 @@ function Paperbase(props: PaperbaseProps) {
   );
 }
 
-
-
-
-
 let theme = createMuiTheme({
   palette: {
     primary: {
@@ -228,19 +224,15 @@ const styles = createStyles({
     flex: 1,
     padding: theme.spacing(6, 4),
     background: '#212121',
-    borderLeft: '.5px solid rgba(250,250,250,0.6)',
-    borderTop: '.5px solid rgba(250,250,250,0.6)',
+    borderLeft: '.5px solid rgba(250,250,250,0.4)',
+    borderTop: '.5px solid rgba(250,250,250,0.4)',
   },
   footer: {
     padding: theme.spacing(2),
     background: '#212121',
-    borderLeft: '.5px solid rgba(250,250,250,0.6)',
+    borderLeft: '.5px solid rgba(250,250,250,0.4)',
     color: '#fff',
   },
 });
-
-
-
-
 
 export default withStyles(styles)(Paperbase);

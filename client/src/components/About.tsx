@@ -18,11 +18,11 @@ const About: React.FunctionComponent = (props) => {
             <img alt='Peve' src={'/b.png'} className={classes.headshot}/>
             <Box className={classes.infoBox}>
               <Typography variant='h5'>Steve</Typography>
-              <Typography variant='body1'>Senior Software Engineer</Typography>
+              <Typography variant='body1'>Full Stack Software Engineer</Typography>
               <div className={classes.socialLinks}>
                 <Link href="https://github.com/stevefrend">
                   <GitHubIcon className={classes.socialLink} />
-                </Link>Full Stack
+                </Link>
                 <Link href="https://www.linkedin.com/in/steve-christersson-frend-697a8588/?challengeId=AQFt2bFbYRc1VgAAAXJYOO69aCyo9V4gGpvY90j6pa-bGoczsjqtYz75k-lCMGimMDcUSicooFNXhEg4TM8KYHsCssbxnhSGHA&submissionId=92b607a4-aa02-1316-d08f-e00aaa96e902">
                   <LinkedInIcon className={classes.socialLink} />
                 </Link>
@@ -33,11 +33,11 @@ const About: React.FunctionComponent = (props) => {
             <img alt='Todd' src={'/c.png'} className={classes.headshot}/>
             <Box className={classes.infoBox}>
               <Typography variant='h5'>Todd</Typography>
-              <Typography variant='body1'>Front End Engineer</Typography>
+              <Typography variant='body1'>Full Stack Software Engineer</Typography>
               <div className={classes.socialLinks}>
                 <Link href="https://github.com/toddalex">
                   <GitHubIcon className={classes.socialLink} />
-                </Link>Full Stack Software
+                </Link>
                 <Link href="http://www.linkedin.com/in/toddmalexander">
                   <LinkedInIcon className={classes.socialLink} />
                 </Link>
@@ -53,11 +53,11 @@ const About: React.FunctionComponent = (props) => {
             <img alt='Pary' src={'/d.png'} className={classes.headshot}  />
             <Box className={classes.infoBox}>
               <Typography variant='h5'>Cary</Typography>
-              <Typography variant='body1'>Chief Technology Officer</Typography>
+              <Typography variant='body1'>Fullstack Software Engineer</Typography>
               <div className={classes.socialLinks}>
                 <Link href="https://github.com/caryLchan">
                   <GitHubIcon className={classes.socialLink} />
-                </Link>Fuckkll Stack Software Engineer
+                </Link>
                 <Link href="https://www.linkedin.com/in/cary-chan-2b7933b/">
                   <LinkedInIcon className={classes.socialLink} />
                 </Link>
@@ -68,11 +68,11 @@ const About: React.FunctionComponent = (props) => {
             <img alt='Palex' src={'/a.png'} className={classes.headshot}/>
             <Box className={classes.infoBox}>
               <Typography variant='h5'>Alex</Typography>
-              <Typography variant='body1'>Senior Systems Engineer</Typography>
+              <Typography variant='body1'>Full Stack Software Engineer</Typography>
               <div className={classes.socialLinks}>
                 <Link href="https://github.com/Alexander-Infante">
                   <GitHubIcon className={classes.socialLink} />
-                </Link>Full Stack Software Engineer
+                </Link>
                 <Link href="https://www.linkedin.com/in/alexanderinfante/">
                   <LinkedInIcon className={classes.socialLink} />
                 </Link>

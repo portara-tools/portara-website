@@ -7,10 +7,6 @@ import App from './App';
 import ApolloClient from 'apollo-boost'
 import { ApolloProvider } from '@apollo/react-hooks';
 
-<<<<<<< HEAD
-const client = new ApolloClient({ uri: "http://localhost:4000/graphql" })
-// const client = new ApolloClient({ uri: "http://portara-web.herokuapp.com/graphql" })
-=======
 let URI = "https://portara-web.herokuapp.com/graphql";
 // const client = new ApolloClient({ uri: "http://localhost:4000/graphql" })
 
@@ -19,7 +15,6 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 const client = new ApolloClient({ uri: URI })
->>>>>>> 29ff91752b768fd609a8f0419cbfab69cec07cb7
 
 ReactDOM.render(
   <ApolloProvider client={client}>

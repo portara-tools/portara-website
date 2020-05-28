@@ -1,14 +1,10 @@
 import React from 'react';
 import { Box, Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import Navbar from './Navbar';
-import Footer from './Footer';
 import Link from '@material-ui/core/Link';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import TwitterIcon from '@material-ui/icons/Twitter';
-// import AnimatedCard from './AnimatedCard'
-import Title from './Title'
 
 const About: React.FunctionComponent = (props) => {
   const classes = useStyles(props);

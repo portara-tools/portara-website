@@ -10,10 +10,9 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import RefreshIcon from '@material-ui/icons/Refresh';
-import Tooltip from '@material-ui/core/Tooltip';
-import IconButton from '@material-ui/core/IconButton';
 import { UPDATE_SETTING, READ_DATABASE } from '../../utils/queries'
+import Cookies from 'js-cookie';
+const gitHubID = Cookies.get('GitHubID');
 
 
 interface Props {
@@ -26,11 +25,12 @@ interface Props {
 let setted = false
 const RateLimitAdjuster: React.FunctionComponent = () => {
   const classes = useStyles();
-  const [state, setState]:any = useState([])
+  const [state, setState]:any = useState([])  
   const { loading, data, refetch } = useQuery(READ_DATABASE, {
-    variables: { userID: "5ec9aa3a9057a222f161be33" }, // this needs to change to variable
+    variables: { userID: gitHubID }, 
+    // variables: { userID: "5ec9aa3a9057a222f161be33" }, // this needs to change to variable
   });
-  const [triggerMutation, { data: newData }] = useMutation(UPDATE_SETTING)
+  const [triggerMutation] = useMutation(UPDATE_SETTING)
 
   const handleDuration = (e: any, index: any, settingType: any, newValue?: any) => {  
     let value = e.target.value;
@@ -71,7 +71,7 @@ const RateLimitAdjuster: React.FunctionComponent = () => {
                       e.preventDefault()                                          
                       triggerMutation({
                         variables: {
-                          userID: "5ec9aa3a9057a222f161be33",                          
+                          userID: gitHubID,                          
                           name: state[index].name, 
                           limit: state[index].limit,
                           per: state[index].per, 

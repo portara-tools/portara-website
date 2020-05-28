@@ -2,7 +2,7 @@ import gql from 'graphql-tag'
 
 
 export const UPDATE_SETTING = gql`
-  mutation ($userID: String!, $name: String!, $limit: ID!, $per: ID!, $throttle: ID!){
+  mutation ($userID: ID!, $name: String!, $limit: ID!, $per: ID!, $throttle: ID!){
     changeSetting(userID: $userID, name: $name, limit: $limit, per: $per, throttle: $throttle) {
       name
       limit
@@ -13,7 +13,7 @@ export const UPDATE_SETTING = gql`
 `
 
 export const READ_DATABASE = gql`
-  query findUser($userID: String!){
+  query findUser($userID: ID!){
     findUser(userID: $userID) {
       name
       limit

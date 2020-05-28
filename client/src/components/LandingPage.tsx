@@ -16,91 +16,6 @@ import Title from './Title';
 import Cookies from 'js-cookie';
 const gitHubID = Cookies.get('GitHubID');
 
-// ------- STYLING FOR THIS PAGE -----
-const useStyles = makeStyles(() => ({
-  container: {
-    background: `url("https://images.unsplash.com/photo-1486783046960-64d2ef697c46?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80")`,
-    backgroundSize: 'contain',
-    // padding: '25px',
-    margin: '0 10.5% 5rem',
-    backgroundRepeat: 'no-repeat',
-    maxWidth: '1800px'
-  }, 
-  gradientContainer: {
-    // background: 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(0,0,0,1) 100%)',
-    padding: '25px',
-    margin: '0px',
-    marginRight: '0px',
-  },
-  content: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    marginBottom: '6rem',
-  },
-  downloadButton: {
-    marginTop: '5rem',
-    background: 'rgba(33, 33, 33, .8)',
-    padding: '8px 16px',
-  },
-  cardsWrapper: {
-    marginTop: '2rem',
-    spacing: '8',
-    display: 'flex',
-    justifyContent: 'space-evenly',
-  },
-  imageWrapper: {
-    marginTop: '6%',
-    padding: '1rem',
-    spacing: '8',
-    display: 'flex',
-    justifyContent: 'center',
-    background: 'rgba(0, 0, 0, .5)',
-    width: '100%',
-  },
-  imageContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  textWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-  },
-  textLine: {
-    fontSize: 'large',
-    display: 'flex',
-    alignItems: 'center',
-  },
-  cardsContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    flexWrap: 'wrap',
-    marginTop: '10px',
-  },
-  card: {
-    // color: 'white',
-    minHeight: '150px',
-    minWidth: '250px',
-  },
-  cardHeader: {
-    textAlign: 'center',
-  },
-  upperSplit: {
-    borderTopLeftRadius: '10px',
-    borderTopRightRadius: '10px',
-    borderBottomRightRadius: '30px',
-    padding: '10px',
-    width: '100%',
-    height: '60%',
-    background:
-      'linear-gradient(197deg, rgba(114,111,156,1) 0%, rgba(58,80,107,1) 65%, rgba(58,80,107,1) 100%)',
-  },
-}));
-
 const LandingPage = () => {
   const classes = useStyles();
   // const [state, setState] = useState()
@@ -231,4 +146,89 @@ const LandingPage = () => {
 
 export default LandingPage;
 
-
+// ------- STYLING FOR THIS PAGE -----
+const useStyles = makeStyles(() => ({
+  container: {
+    background: `url("https://images.unsplash.com/photo-1486783046960-64d2ef697c46?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80")`,
+    backgroundSize: 'contain',
+    // padding: '25px',
+    margin: '0 10.5% 5rem',
+    backgroundRepeat: 'no-repeat',
+    maxWidth: '1800px'
+  }, 
+  gradientContainer: {
+    // background: 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(0,0,0,1) 100%)',
+    padding: '25px',
+    margin: '0px',
+    marginRight: '0px',
+  },
+  content: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    marginBottom: '6rem',
+  },
+  downloadButton: {
+    marginTop: '5rem',
+    background: 'rgba(33, 33, 33, .8)',
+    padding: '8px 16px',
+    backgroundColor: 'green',
+  },
+  cardsWrapper: {
+    marginTop: '2rem',
+    padding: '24px 16px',
+    spacing: '8',
+    display: 'flex',
+    justifyContent: 'space-evenly',
+  },
+  imageWrapper: {
+    marginTop: '6%',
+    padding: '1rem',
+    spacing: '8',
+    display: 'flex',
+    justifyContent: 'center',
+    background: 'rgba(0, 0, 0, .5)',
+    width: '100%',
+  },
+  imageContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  textWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+  textLine: {
+    fontSize: 'large',
+    display: 'flex',
+    alignItems: 'center',
+  },
+  cardsContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    flexWrap: 'wrap',
+    marginTop: '10px',
+  },
+  card: {
+    // color: 'white',
+    minHeight: '150px',
+    minWidth: '250px',
+  },
+  cardHeader: {
+    textAlign: 'center',
+  },
+  upperSplit: {
+    borderTopLeftRadius: '10px',
+    borderTopRightRadius: '10px',
+    borderBottomRightRadius: '30px',
+    padding: '10px',
+    width: '100%',
+    height: '60%',
+    background:
+      'linear-gradient(197deg, rgba(114,111,156,1) 0%, rgba(58,80,107,1) 65%, rgba(58,80,107,1) 100%)',
+  },
+}));

@@ -15,36 +15,33 @@ const About: React.FunctionComponent = (props) => {
         <Typography variant="h4" align="center">The Team</Typography>
         <Grid container spacing={6} className={classes.peopleContainer}>
           <Grid item xs={6} className={classes.personCard}>
-            <img alt='Peve' src={'/a.png'} className={classes.headshot} />
+            <img alt='Peve' src={'/b.png'} className={classes.headshot}/>
             <Box className={classes.infoBox}>
-              <Typography variant='h5'>Peve</Typography>
-              <Typography variant='body1'>Sweet Young Man</Typography>
+              <Typography variant='h5'>Steve</Typography>
+              <Typography variant='body1'>Full Stack Software Engineer</Typography>
               <div className={classes.socialLinks}>
-                <Link href="https://github.com/oslabs-beta/portara">
+                <Link href="https://github.com/stevefrend">
                   <GitHubIcon className={classes.socialLink} />
                 </Link>
-                <Link href="https://www.linkedin.com/company/teamportara">
+                <Link href="https://www.linkedin.com/in/steve-christersson-frend-697a8588/?challengeId=AQFt2bFbYRc1VgAAAXJYOO69aCyo9V4gGpvY90j6pa-bGoczsjqtYz75k-lCMGimMDcUSicooFNXhEg4TM8KYHsCssbxnhSGHA&submissionId=92b607a4-aa02-1316-d08f-e00aaa96e902">
                   <LinkedInIcon className={classes.socialLink} />
-                </Link>
-                <Link href="https://twitter.com/portaraQL">
-                  <TwitterIcon className={classes.socialLink} />
                 </Link>
               </div>
             </Box>
           </Grid>
           <Grid item xs={6} className={classes.personCard}>
-            <img alt='Podd' src={'/b.png'} className={classes.headshot} />
+            <img alt='Todd' src={'/c.png'} className={classes.headshot}/>
             <Box className={classes.infoBox}>
-              <Typography variant='h5'>Podd</Typography>
-              <Typography variant='body1'>Man of the Mountains</Typography>
+              <Typography variant='h5'>Todd</Typography>
+              <Typography variant='body1'>Full Stack Software Engineer</Typography>
               <div className={classes.socialLinks}>
-                <Link href="https://github.com/oslabs-beta/portara">
+                <Link href="https://github.com/toddalex">
                   <GitHubIcon className={classes.socialLink} />
                 </Link>
-                <Link href="https://www.linkedin.com/company/teamportara">
+                <Link href="http://www.linkedin.com/in/toddmalexander">
                   <LinkedInIcon className={classes.socialLink} />
                 </Link>
-                <Link href="https://twitter.com/portaraQL">
+                <Link href="https://twitter.com/toddpants">
                   <TwitterIcon className={classes.socialLink} />
                 </Link>
               </div>
@@ -53,33 +50,30 @@ const About: React.FunctionComponent = (props) => {
         </Grid>
         <Grid container spacing={6} className={classes.peopleContainer}>
           <Grid item xs={6} className={classes.personCard}>
-            <img alt='Pary' src={'/c.png'} className={classes.headshot} />
+            <img alt='Pary' src={'/d.png'} className={classes.headshot}  />
             <Box className={classes.infoBox}>
-              <Typography variant='h5'>Pary</Typography>
-              <Typography variant='body1'>Pizza Hut Aficionado.</Typography>
+              <Typography variant='h5'>Cary</Typography>
+              <Typography variant='body1'>Fullstack Software Engineer</Typography>
               <div className={classes.socialLinks}>
-                <Link href="https://github.com/oslabs-beta/portara">
+                <Link href="https://github.com/caryLchan">
                   <GitHubIcon className={classes.socialLink} />
                 </Link>
-                <Link href="https://www.linkedin.com/company/teamportara">
+                <Link href="https://www.linkedin.com/in/cary-chan-2b7933b/">
                   <LinkedInIcon className={classes.socialLink} />
-                </Link>
-                <Link href="https://twitter.com/portaraQL">
-                  <TwitterIcon className={classes.socialLink} />
                 </Link>
               </div>
             </Box>
           </Grid>
           <Grid item xs={6} className={classes.personCard}>
-            <img alt='Palex' src={'/d.png'} className={classes.headshot} />
+            <img alt='Palex' src={'/a.png'} className={classes.headshot}/>
             <Box className={classes.infoBox}>
-              <Typography variant='h5'>Palex</Typography>
-              <Typography variant='body1'>50% of LinkedIn Traffic</Typography>
+              <Typography variant='h5'>Alex</Typography>
+              <Typography variant='body1'>Full Stack Software Engineer</Typography>
               <div className={classes.socialLinks}>
-                <Link href="https://github.com/oslabs-beta/portara">
+                <Link href="https://github.com/Alexander-Infante">
                   <GitHubIcon className={classes.socialLink} />
                 </Link>
-                <Link href="https://www.linkedin.com/company/teamportara">
+                <Link href="https://www.linkedin.com/in/alexanderinfante/">
                   <LinkedInIcon className={classes.socialLink} />
                 </Link>
                 <Link href="https://twitter.com/portaraQL">
@@ -116,11 +110,12 @@ const useStyles = makeStyles(() => ({
     alignItems: 'center',
     marginBottom: '10px',
     maxWidth: '300px',
-  },
+    minWidth: '200px',
+  }, 
   headshot: {
-    width: '85%',
-    borderRadius: '100%',
+    borderRadius: '50%',
     margin: '10px',
+    width: '85%',
   },
   infoBox: {
     display: 'flex',

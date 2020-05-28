@@ -133,16 +133,16 @@ const LandingPage = () => {
                 </Typography>
               </Grid>
             </Zoom>
-          </Grid>
-        </Box>
-        <br />
-        {/* <Box maxWidth='sm' className={classes.gradientContainer}></Box> */}
-        <About />
-        <Footer />
-      </>
-    );
-  }
-};
+        </Grid>
+      </Box>
+      <br id="about"/> 
+      {/* <Box maxWidth='sm' className={classes.gradientContainer}></Box> */}
+      <About />
+      <Footer />
+    </>  
+    ); 
+  };
+}
 
 export default LandingPage;
 
@@ -154,7 +154,8 @@ const useStyles = makeStyles(() => ({
     // padding: '25px',
     margin: '0 10.5% 5rem',
     backgroundRepeat: 'no-repeat',
-  },
+    maxWidth: '1800px'
+  }, 
   gradientContainer: {
     // background: 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(0,0,0,1) 100%)',
     padding: '25px',
@@ -171,9 +172,11 @@ const useStyles = makeStyles(() => ({
     marginTop: '5rem',
     background: 'rgba(33, 33, 33, .8)',
     padding: '8px 16px',
+    backgroundColor: 'green',
   },
   cardsWrapper: {
     marginTop: '2rem',
+    padding: '24px 16px',
     spacing: '8',
     display: 'flex',
     justifyContent: 'space-evenly',

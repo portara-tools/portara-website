@@ -13,9 +13,6 @@ import Cookies from 'js-cookie';
 const username = Cookies.get('Username');
 
 
-
-
-
 interface HeaderProps extends WithStyles<typeof styles> {
   onDrawerToggle: () => void
   token: string
@@ -74,6 +71,9 @@ function Header(props: HeaderProps) {
                 {username}'s Unique Portara Token:
               </Typography>
               <Typography className={classes.tokenDisplay} variant="h6" component="h1">
+                {props.token}
+              </Typography>
+              <Typography color="inherit" variant="body1" component="h1">
                 {props.token}
               </Typography>
             </Grid>

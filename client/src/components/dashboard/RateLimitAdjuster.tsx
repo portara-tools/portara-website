@@ -85,72 +85,82 @@ const RateLimitAdjuster: React.FC<Props> = (props) => {
                       <RefreshIcon className={classes.block} color="inherit" />
                     </IconButton>
                   </Tooltip> */}
-                    </Grid>
-                  </Grid>
-                </Toolbar>
-              </AppBar>
-              <div className={classes.contentWrapper}>
-                <div className={classes.outerRoot}>
+                </Grid>
+              </Grid>
+            </Toolbar>
+          </AppBar>
+        <div className={classes.contentWrapper}>
+          <div className={classes.outerRoot}>
+            <div className={classes.margin} />
+              <div key={index}>
+                <div> 
+                  <Typography align="center" variant="h6">
+                  Current Rate Limit: {setting.limit}
+                  </Typography>
+                  <div className={classes.innerRoot}>
+                    <div className={classes.margin} />
+                    <DemoSlider 
+                    name="limit" 
+                    valueLabelDisplay="auto" 
+                    defaultValue={Number(setting.limit)} 
+                    onChange={(e, newValue) => {
+                      handleDuration(e, index, "limit", newValue)
+                    }}
+                    />
+                  </div> 
+                </div>
+                <div className={classes.contentWrapper}>
+                  <div className={classes.innerRoot}>
                   <div className={classes.margin} />
-                  <div key={index}>
-                    <div>
-                      <Typography align="center">
-                        Current Rate Limit: {setting.limit}
-                      </Typography>
-                      <div className={classes.innerRoot}>
-                        <div className={classes.margin} />
-                        <DemoSlider
-                          name="limit"
-                          valueLabelDisplay="auto"
-                          defaultValue={Number(setting.limit)}
-                          onChange={(e, newValue) => {
-                            handleDuration(e, index, "limit", newValue)
-                          }}
-                        />
-                      </div>
-                    </div>
-                    <div className={classes.contentWrapper}>
-                      <div className={classes.innerRoot}>
-                        <div className={classes.margin} />
-                        <Typography>Duration:</Typography>
-                        <TextField
-                          name="per"
-                          placeholder={setting.per}
-                          InputProps={{
-                            className: classes.searchInput,
-                          }}
-                          onChange={(e) => {
-                            handleDuration(e, index, "per")
-                          }}
-                        />
-                      </div>
-                      <div className={classes.innerRoot}>
-                        <Typography>Throttle: </Typography>
-                        <TextField
-                          name="throttle"
-                          placeholder={setting.throttle}
-                          InputProps={{
-                            className: classes.searchInput,
-                          }}
-                          onChange={(e) => {
-                            handleDuration(e, index, "throttle")
-                          }}
-                        />
-                      </div>
-                    </div>
+                    <Typography variant="body1">Duration:</Typography>
+                      <TextField
+                        name="per"
+                        placeholder={setting.per}
+                        InputProps={{
+                          className: classes.searchInput,
+                        }}
+                        onChange={(e) => {
+                          handleDuration(e, index, "per")
+                        }}
+                      />
+                  </div>
+                  <div className={classes.innerRoot}>
+                    <Typography variant="body1">Throttle: </Typography>
+                      <TextField
+                        name="throttle"
+                        placeholder={setting.throttle}
+                        InputProps={{
+                          className: classes.searchInput,
+                        }}
+                        onChange={(e) => {
+                          handleDuration(e, index, "throttle")
+                        }}
+                      />
+                  </div>
                   </div>
                 </div>
               </div>
-            </Paper>
+            </div>
+          </Paper>
           )
         })}
       </div>
     );
   } else if (!loading && !data) {
-    return (
-      <div>
-        You currently have no rate limiters. Please go to your tools and add some you fuck.
-      </div>
+    return(
+      <Paper className={classes.paper}>
+        <AppBar className={classes.searchBar} position="static" color="default" elevation={0}>
+          <Toolbar>
+            <Grid container spacing={2} alignItems="center">
+              <Grid item xs>
+                <Typography variant="h6" color="primary">
+                  You currently have no rate limiters. Please add them in your Portara tools. You fuck.
+                </Typography>
+              </Grid>
+            </Grid>
+          </Toolbar>
+        </AppBar>
+      </Paper>
     )
   } else {
     return (
@@ -160,9 +170,6 @@ const RateLimitAdjuster: React.FC<Props> = (props) => {
     )
   }
 }
-
-
-
 
 
 // ---------- STYLING -------------------------
@@ -194,8 +201,8 @@ const useStyles = makeStyles((theme: Theme) =>
       borderRadius: '2px',
       textAlign: 'right',
       float: 'right',
-      '&$::placeholder': {
-        color: 'red',
+      '::placeholder': {
+        color: '#000',
         opacity: '1',
       },
     },
@@ -203,9 +210,9 @@ const useStyles = makeStyles((theme: Theme) =>
       maxWidth: 936,
       overflow: 'hidden',
       margin: '2rem auto',
-      background: 'ivory',
-      border: '2px solid rgba(0, 0, 0, .8)',
-    },
+      background: '#f5f5f5',
+      border: '8px solid rgba(0, 0, 0, .8)',
+    }, 
     searchBar: {
       background: '#000',
     },
@@ -215,10 +222,10 @@ const useStyles = makeStyles((theme: Theme) =>
     update: {
       marginRight: theme.spacing(1),
       background: 'transparent',
-      border: '1px solid rgba(255, 255, 255, 0.8)',
+      border: '1px solid rgba(245, 245, 245, 0.8)',
     },
     text: {
-      color: '#fff'
+      color: '#f5f5f5'
     }
   }),
 );
@@ -232,7 +239,7 @@ const DemoSlider = withStyles({
   thumb: {
     height: 24,
     width: 24,
-    backgroundColor: '#fff',
+    backgroundColor: '#f5f5f5',
     border: '2px solid currentColor',
     marginTop: -8,
     marginLeft: -10,

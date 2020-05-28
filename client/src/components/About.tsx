@@ -9,16 +9,16 @@ import TwitterIcon from '@material-ui/icons/Twitter';
 const About: React.FunctionComponent = (props) => {
   const classes = useStyles(props);
   return (
-    <div style={{ background: '#212121', padding: '2rem'}}>
+    <div style={{ background: '#212121', padding: '2rem' }}>
       {/* <hr style={{ width: '80%', marginBottom: '30px', opacity: '.2' }}></hr> */}
       <Box maxWidth='sm' className={classes.container}>
         <Typography variant="h4" align="center">The Team</Typography>
         <Grid container spacing={6} className={classes.peopleContainer}>
           <Grid item xs={6} className={classes.personCard}>
-            <img alt='Peve' src={'/a.png'} className={classes.headshot}/>
+            <img alt='Peve' src={'/a.png'} className={classes.headshot} />
             <Box className={classes.infoBox}>
               <Typography variant='h5'>Peve</Typography>
-              <Typography variant='body1'>Swedish Fuck Boi</Typography>
+              <Typography variant='body1'>Sweet Young Man</Typography>
               <div className={classes.socialLinks}>
                 <Link href="https://github.com/oslabs-beta/portara">
                   <GitHubIcon className={classes.socialLink} />
@@ -33,7 +33,7 @@ const About: React.FunctionComponent = (props) => {
             </Box>
           </Grid>
           <Grid item xs={6} className={classes.personCard}>
-            <img alt='Podd' src={'/b.png'} className={classes.headshot}/>
+            <img alt='Podd' src={'/b.png'} className={classes.headshot} />
             <Box className={classes.infoBox}>
               <Typography variant='h5'>Podd</Typography>
               <Typography variant='body1'>Man of the Mountains</Typography>
@@ -53,7 +53,7 @@ const About: React.FunctionComponent = (props) => {
         </Grid>
         <Grid container spacing={6} className={classes.peopleContainer}>
           <Grid item xs={6} className={classes.personCard}>
-            <img alt='Pary' src={'/c.png'} className={classes.headshot}  />
+            <img alt='Pary' src={'/c.png'} className={classes.headshot} />
             <Box className={classes.infoBox}>
               <Typography variant='h5'>Pary</Typography>
               <Typography variant='body1'>Pizza Hut Aficionado.</Typography>
@@ -71,7 +71,7 @@ const About: React.FunctionComponent = (props) => {
             </Box>
           </Grid>
           <Grid item xs={6} className={classes.personCard}>
-            <img alt='Palex' src={'/d.png'} className={classes.headshot}/>
+            <img alt='Palex' src={'/d.png'} className={classes.headshot} />
             <Box className={classes.infoBox}>
               <Typography variant='h5'>Palex</Typography>
               <Typography variant='body1'>50% of LinkedIn Traffic</Typography>
@@ -85,7 +85,7 @@ const About: React.FunctionComponent = (props) => {
                 <Link href="https://twitter.com/portaraQL">
                   <TwitterIcon className={classes.socialLink} />
                 </Link>
-              </div> 
+              </div>
             </Box>
           </Grid>
         </Grid>
@@ -103,13 +103,13 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-  }, 
+  },
   peopleContainer: {
     padding: '1rem',
     width: '100%',
     display: 'flex',
     justifyContent: 'space-evenly',
-  }, 
+  },
   personCard: {
     display: 'flex',
     flexDirection: 'column',

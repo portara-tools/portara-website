@@ -1,0 +1,82 @@
+{
+  "@apollo/react-ssr": [
+    {
+      "id": "+wdc",
+      "name": "./node_modules/scheduler/cjs/scheduler.production.min.js",
+      "file": "static/chunks/framework.f8db2d19fabae2d87dde.js",
+      "publicPath": "static/chunks/framework.f8db2d19fabae2d87dde.js"
+    },
+    {
+      "id": "16Al",
+      "name": "./node_modules/prop-types/factoryWithThrowingShims.js",
+      "file": "static/chunks/framework.f8db2d19fabae2d87dde.js",
+      "publicPath": "static/chunks/framework.f8db2d19fabae2d87dde.js"
+    },
+    {
+      "id": "17x9",
+      "name": "./node_modules/prop-types/index.js",
+      "file": "static/chunks/framework.f8db2d19fabae2d87dde.js",
+      "publicPath": "static/chunks/framework.f8db2d19fabae2d87dde.js"
+    },
+    {
+      "id": "IDhZ",
+      "name": "./node_modules/react-dom/cjs/react-dom-server.browser.production.min.js",
+      "file": "static/chunks/framework.f8db2d19fabae2d87dde.js",
+      "publicPath": "static/chunks/framework.f8db2d19fabae2d87dde.js"
+    },
+    {
+      "id": "KAy6",
+      "name": "./node_modules/react-dom/server.browser.js",
+      "file": "static/chunks/framework.f8db2d19fabae2d87dde.js",
+      "publicPath": "static/chunks/framework.f8db2d19fabae2d87dde.js"
+    },
+    {
+      "id": "QCnb",
+      "name": "./node_modules/scheduler/index.js",
+      "file": "static/chunks/framework.f8db2d19fabae2d87dde.js",
+      "publicPath": "static/chunks/framework.f8db2d19fabae2d87dde.js"
+    },
+    {
+      "id": "WbBG",
+      "name": "./node_modules/prop-types/lib/ReactPropTypesSecret.js",
+      "file": "static/chunks/framework.f8db2d19fabae2d87dde.js",
+      "publicPath": "static/chunks/framework.f8db2d19fabae2d87dde.js"
+    },
+    {
+      "id": "i8i4",
+      "name": "./node_modules/react-dom/index.js",
+      "file": "static/chunks/framework.f8db2d19fabae2d87dde.js",
+      "publicPath": "static/chunks/framework.f8db2d19fabae2d87dde.js"
+    },
+    {
+      "id": "q1tI",
+      "name": "./node_modules/react/index.js",
+      "file": "static/chunks/framework.f8db2d19fabae2d87dde.js",
+      "publicPath": "static/chunks/framework.f8db2d19fabae2d87dde.js"
+    },
+    {
+      "id": "viRO",
+      "name": "./node_modules/react/cjs/react.production.min.js",
+      "file": "static/chunks/framework.f8db2d19fabae2d87dde.js",
+      "publicPath": "static/chunks/framework.f8db2d19fabae2d87dde.js"
+    },
+    {
+      "id": "yl30",
+      "name": "./node_modules/react-dom/cjs/react-dom.production.min.js",
+      "file": "static/chunks/framework.f8db2d19fabae2d87dde.js",
+      "publicPath": "static/chunks/framework.f8db2d19fabae2d87dde.js"
+    },
+    {
+      "id": "83xU",
+      "name": "./node_modules/@apollo/react-ssr/lib/react-ssr.esm.js",
+      "file": "static/chunks/13.90428e81f85148438e5c.js",
+      "publicPath": "static/chunks/13.90428e81f85148438e5c.js"
+    },
+    {
+      "id": "ttZb",
+      "name": "./node_modules/@apollo/react-hooks/lib/react-hooks.esm.js",
+      "file": "static/chunks/13.90428e81f85148438e5c.js",
+      "publicPath": "static/chunks/13.90428e81f85148438e5c.js"
+    }
+  ]
+}

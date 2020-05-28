@@ -1,0 +1,1 @@
+{"ast":null,"code":"import exampleReducer from './exampleReducer';\nimport { combineReducers } from 'redux';\nvar rootReducer = combineReducers({\n  count: exampleReducer,\n  light: exampleReducer,\n  lastUpdate: exampleReducer\n});\nexport default rootReducer;","map":null,"metadata":{},"sourceType":"module"}

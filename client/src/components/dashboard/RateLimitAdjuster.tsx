@@ -151,9 +151,19 @@ const RateLimitAdjuster: React.FunctionComponent = () => {
     );
   } else if (!loading && !data) {
     return(
-      <div>
-        You currently have no rate limiters. Please go to your tools and add some you fuck.
-      </div>
+      <Paper className={classes.paper}>
+        <AppBar className={classes.searchBar} position="static" color="default" elevation={0}>
+         <Toolbar>
+          <Grid container spacing={2} alignItems="center">
+            <Grid item xs>
+            <div>
+              You currently have no rate limiters. Please add them in your Portara tools. You fuck.
+            </div>
+            </Grid>
+            </Grid>
+          </Toolbar>
+        </AppBar>
+      </Paper>
     )
   } else {
     return (

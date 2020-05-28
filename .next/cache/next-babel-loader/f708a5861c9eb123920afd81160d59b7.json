@@ -1,0 +1,1 @@
+{"ast":null,"code":"const mongoose = require('mongoose');\n\nconst userSchema = new mongoose.Schema({\n  name: {\n    type: String\n  },\n  created_at: {\n    type: Date,\n    default: Date.now\n  }\n});\nexport const User = mongoose.model('User', userSchema);","map":null,"metadata":{},"sourceType":"module"}

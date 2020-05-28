@@ -1,0 +1,1 @@
+{"ast":null,"code":"var __jsx = React.createElement;\nimport React from 'react';\nimport Layout from '../components/Layout';\nexport default function About() {\n  return __jsx(Layout, {\n    title: \"Portara | About\"\n  }, \"This is just some text on our About page\");\n}","map":null,"metadata":{},"sourceType":"module"}

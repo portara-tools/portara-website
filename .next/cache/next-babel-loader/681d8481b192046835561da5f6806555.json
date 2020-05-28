@@ -1,0 +1,1 @@
+{"ast":null,"code":"const {\n  gql\n} = require('apollo-server-lambda');\n\nexport const typeDefs = gql`\n  type Query {\n    hello: String\n  }\n\n  type User {\n    id: ID!\n    name: String!\n  }\n\n  type Mutation {\n    createUser(name: String!): User!\n  }\n`;","map":null,"metadata":{},"sourceType":"module"}

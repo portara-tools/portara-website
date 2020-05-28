@@ -41,134 +41,135 @@ const RateLimitAdjuster: React.FC<Props> = (props) => {
     setState(copyOfState);
   };
   // if !loading and !data
-  if (!loading && data.findUser.length) {
-    if (!setted) {
-      setState(data.findUser)
-      setted = true
-    }
-    return (
-      <div>
-        {data.findUser.map((setting: any, index: any) => {
-          return (
-            <Paper key={index} className={classes.paper}>
-              <AppBar className={classes.searchBar} position="static" color="default" elevation={0}>
-                <Toolbar>
-                  <Grid container spacing={2} alignItems="center">
-                    <Grid item xs>
-                      <Typography className={classes.text}>
-                        <h3 className={index}>{setting.name}</h3>
-                      </Typography>
-                    </Grid>
-                    <Grid item>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        className={classes.update}
-                        onClick={(e) => {
-                          e.preventDefault()
-                          triggerMutation({
-                            variables: {
-                              userID: props.token,
-                              name: state[index].name,
-                              limit: state[index].limit,
-                              per: state[index].per,
-                              throttle: state[index].throttle,
-                            }
-                          })
-                          refetch()
-                        }}
-                      >
-                        Update
-                  </Button>
-                      {/* <Tooltip title="Reset">
-                    <IconButton>
-                      <RefreshIcon className={classes.block} color="inherit" />
-                    </IconButton>
-                  </Tooltip> */}
+  if (!loading && data) {
+    if (data.findUser.length) {
+      if (!setted) {
+        setState(data.findUser)
+        setted = true
+      }
+      return (
+        <div>
+          {data.findUser.map((setting: any, index: any) => {
+            return (
+              <Paper key={index} className={classes.paper}>
+                <AppBar className={classes.searchBar} position="static" color="default" elevation={0}>
+                  <Toolbar>
+                    <Grid container spacing={2} alignItems="center">
+                      <Grid item xs>
+                        <Typography className={classes.text}>
+                          <h3 className={index}>{setting.name}</h3>
+                        </Typography>
+                      </Grid>
+                      <Grid item>
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          className={classes.update}
+                          onClick={(e) => {
+                            e.preventDefault()
+                            triggerMutation({
+                              variables: {
+                                userID: props.token,
+                                name: state[index].name,
+                                limit: state[index].limit,
+                                per: state[index].per,
+                                throttle: state[index].throttle,
+                              }
+                            })
+                            refetch()
+                          }}
+                        >
+                          Update
+                    </Button>
+                        {/* <Tooltip title="Reset">
+                      <IconButton>
+                        <RefreshIcon className={classes.block} color="inherit" />
+                      </IconButton>
+                    </Tooltip> */}
+                  </Grid>
+                </Grid>
+              </Toolbar>
+            </AppBar>
+          <div className={classes.contentWrapper}>
+            <div className={classes.outerRoot}>
+              <div className={classes.margin} />
+                <div key={index}>
+                  <div> 
+                    <Typography align="center" variant="h6">
+                    Current Rate Limit: {setting.limit}
+                    </Typography>
+                    <div className={classes.innerRoot}>
+                      <div className={classes.margin} />
+                      <DemoSlider 
+                      name="limit" 
+                      valueLabelDisplay="auto" 
+                      defaultValue={Number(setting.limit)} 
+                      onChange={(e, newValue) => {
+                        handleDuration(e, index, "limit", newValue)
+                      }}
+                      />
+                    </div> 
+                  </div>
+                  <div className={classes.contentWrapper}>
+                    <div className={classes.innerRoot}>
+                    <div className={classes.margin} />
+                      <Typography variant="body1">Duration:</Typography>
+                        <TextField
+                          name="per"
+                          placeholder={setting.per}
+                          InputProps={{
+                            className: classes.searchInput,
+                          }}
+                          onChange={(e) => {
+                            handleDuration(e, index, "per")
+                          }}
+                        />
+                    </div>
+                    <div className={classes.innerRoot}>
+                      <Typography variant="body1">Throttle: </Typography>
+                        <TextField
+                          name="throttle"
+                          placeholder={setting.throttle}
+                          InputProps={{
+                            className: classes.searchInput,
+                          }}
+                          onChange={(e) => {
+                            handleDuration(e, index, "throttle")
+                          }}
+                        />
+                    </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Paper>
+            )
+          })}
+        </div>
+      );
+    } else if (!loading && data.findUser.length === 0) {
+      return(
+        <Paper className={classes.paper}>
+          <AppBar className={classes.searchBar} position="static" color="default" elevation={0}>
+            <Toolbar>
+              <Grid container spacing={2} alignItems="center">
+                <Grid item xs>
+                  <Typography variant="h6" color="secondary" style={{padding: "5px"}}>
+                    You currently have no active rate limiters. Please add your token to your Portara rate limiter. Your token is {props.token}
+                  </Typography>
                 </Grid>
               </Grid>
             </Toolbar>
           </AppBar>
-        <div className={classes.contentWrapper}>
-          <div className={classes.outerRoot}>
-            <div className={classes.margin} />
-              <div key={index}>
-                <div> 
-                  <Typography align="center" variant="h6">
-                  Current Rate Limit: {setting.limit}
-                  </Typography>
-                  <div className={classes.innerRoot}>
-                    <div className={classes.margin} />
-                    <DemoSlider 
-                    name="limit" 
-                    valueLabelDisplay="auto" 
-                    defaultValue={Number(setting.limit)} 
-                    onChange={(e, newValue) => {
-                      handleDuration(e, index, "limit", newValue)
-                    }}
-                    />
-                  </div> 
-                </div>
-                <div className={classes.contentWrapper}>
-                  <div className={classes.innerRoot}>
-                  <div className={classes.margin} />
-                    <Typography variant="body1">Duration:</Typography>
-                      <TextField
-                        name="per"
-                        placeholder={setting.per}
-                        InputProps={{
-                          className: classes.searchInput,
-                        }}
-                        onChange={(e) => {
-                          handleDuration(e, index, "per")
-                        }}
-                      />
-                  </div>
-                  <div className={classes.innerRoot}>
-                    <Typography variant="body1">Throttle: </Typography>
-                      <TextField
-                        name="throttle"
-                        placeholder={setting.throttle}
-                        InputProps={{
-                          className: classes.searchInput,
-                        }}
-                        onChange={(e) => {
-                          handleDuration(e, index, "throttle")
-                        }}
-                      />
-                  </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Paper>
-          )
-        })}
-      </div>
-    );
-  } else if (!loading && data.findUser.length === 0) {
-    return(
-      <Paper className={classes.paper}>
-        <AppBar className={classes.searchBar} position="static" color="default" elevation={0}>
-          <Toolbar>
-            <Grid container spacing={2} alignItems="center">
-              <Grid item xs>
-                <Typography variant="h6" color="secondary" style={{padding: "5px"}}>
-                  You currently have no active rate limiters. Please add your token to your Portara rate limiter. Your token is {props.token}
-                </Typography>
-              </Grid>
-            </Grid>
-          </Toolbar>
-        </AppBar>
-      </Paper>
-    )
-  } else {
-    return (
-      <>
-        <CircularProgress disableShrink />
-      </>
-    )
+        </Paper>
+      )
+    }
   }
+  return (
+    <>
+      <CircularProgress disableShrink />
+    </>
+  )
 }
 
 

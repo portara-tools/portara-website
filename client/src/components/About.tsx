@@ -111,7 +111,8 @@ const useStyles = makeStyles(() => ({
     alignItems: 'center',
     marginBottom: '10px',
     maxWidth: '300px',
-  },
+    minWidth: '200px',
+  }, 
   headshot: {
     borderRadius: '50%',
     margin: '10px',

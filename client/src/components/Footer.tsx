@@ -26,7 +26,7 @@ const Footer: React.FunctionComponent = () => {
           <Typography variant="subtitle1" align="center">
             Stay up to date with Portara
           </Typography>
-          <hr style={{ width: '60%', margin: '30px 0', opacity: '.2' }}></hr>
+          <hr style={{ width: '60%', margin: '50px', opacity: '.2' }}></hr>
         <div className={classes.footerLinks}>
           <Typography variant="body2">
             {'© '}

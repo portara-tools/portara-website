@@ -16,7 +16,9 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // Mongo Connection
-const URI = process.env.MONGODB_URI || '';
+// const URI = process.env.MONGODB_URI || '';
+const URI = 'mongodb://heroku_wcgfs261:n1g8tpuc2nmb8bj8d8jt24hd8v@ds137263.mlab.com:37263/heroku_wcgfs261'
+
 mongoose.connect(
   URI,
   { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false },
@@ -154,7 +156,7 @@ passport.use(
     {
       clientID: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
-      callbackURL: 'https://portara-web.herokuapp.com/auth/github/callback',
+      callbackURL: 'http://localhost:4000/auth/github/callback',
     },
     async (accessToken, refreshToken, profile, cb) => {
       const existingUser = await User.find({ githubID: profile._json.id });
@@ -184,7 +186,7 @@ app.get(
       .cookie('GitHubID', res.locals.id)
       .cookie('Username', res.locals.username)
       .cookie('Avatar', res.locals.avatar)
-      .redirect('https://portara-web.herokuapp.com/');
+      .redirect('http://localhost:4000/');
   },
 );
 // --------------------------------------------------------------------------

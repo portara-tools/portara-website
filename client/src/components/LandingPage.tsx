@@ -145,6 +145,7 @@ const useStyles = makeStyles(() => ({
     // padding: '25px',
     margin: '0 10.5% 5rem',
     backgroundRepeat: 'no-repeat',
+    maxWidth: '1800px'
   }, 
   gradientContainer: {
     // background: 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(0,0,0,1) 100%)',

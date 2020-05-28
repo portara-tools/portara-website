@@ -16,7 +16,7 @@ const styles = (theme: Theme) =>
     secondaryBar: {
       zIndex: 0,
       background: '000',
-      borderLeft: '.5px solid rgba(250,250,250,0.6)',
+      borderLeft: '.5px solid rgba(250,250,250,0.4)',
     },
     menuButton: {
       marginLeft: -theme.spacing(1),
@@ -36,14 +36,14 @@ const styles = (theme: Theme) =>
     },
     appbar: {
       background: '000',
-      borderLeft: '.5px solid rgba(250,250,250,0.6)',
+      borderLeft: '.5px solid rgba(250,250,250,0.4)',
     }
   });
 
 interface HeaderProps extends WithStyles<typeof styles> {
   onDrawerToggle: () => void
-  token: String
-  avatarURL: String
+  token: string
+  avatarURL: string
 }
 
 function Header(props: HeaderProps) {
@@ -62,7 +62,7 @@ function Header(props: HeaderProps) {
             </Grid>
             <Grid item>
               <IconButton color="inherit" className={classes.iconButtonAvatar}>
-                <Avatar src="/static/images/avatar/1.jpg" alt="My Avatar" />
+                <Avatar src={props.avatarURL} alt="My Avatar" />
               </IconButton>
             </Grid>
           </Grid>
@@ -79,6 +79,9 @@ function Header(props: HeaderProps) {
             <Grid item xs>
               <Typography color="inherit" variant="h5" component="h1">
                 Rate Limiter
+              </Typography>
+              <Typography color="inherit" variant="body1" component="h1">
+                {props.token}
               </Typography>
             </Grid>
           </Grid>

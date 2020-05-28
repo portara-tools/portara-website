@@ -21,9 +21,7 @@ import { FIND_DASHBOARD } from '../../utils/queries';
 
 export interface PaperbaseProps extends WithStyles<typeof styles> { }
 
-
-
-const githubID = Cookies.get('GitHubID')
+const githubID = Cookies.get('GitHubID');
 
 function Paperbase(props: PaperbaseProps) {
   const { classes } = props;
@@ -42,7 +40,7 @@ function Paperbase(props: PaperbaseProps) {
   useEffect(() => {
     if (data) setToken(data.findDashboard.token);
     if (data) setAvatarURL(data.findDashboard.avatarURL);
-  })
+  }, data)
 
   if (loading) return <div>Loading...</div>
 

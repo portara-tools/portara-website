@@ -13,31 +13,32 @@ const GitHubStrategy = require('passport-github').Strategy;
 
 // Set local variables/paths depending on production/development
 let redirectURI = 'https://portara-web.herokuapp.com/';
-let callbackURI ='https://portara-web.herokuapp.com/auth/github/callback'
+let callbackURI = 'https://portara-web.herokuapp.com/auth/github/callback';
 
 if (process.env.NODE_ENV === 'development') {
   require('dotenv').config();
-  callbackURI = 'http://localhost:4000/auth/github/callback'
-  redirectURI = 'http://localhost:3000/' 
-};
-
+  callbackURI = 'http://localhost:4000/auth/github/callback';
+  redirectURI = 'http://localhost:3000/';
+}
 
 // Mongo Connection
 const URI = process.env.MONGODB_URI || '';
 mongoose.connect(
   URI,
   { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false },
-  () => console.log('connected to MongoDB'),
+  () => console.log('connected to MongoDB')
 );
 
-const userSchema = new mongoose.Schema({
-  userID: String,
-  token: String,
-  username: String,
-  githubID: Number,
-  avatarURL: String,
-}, 
-{ strict: false });
+const userSchema = new mongoose.Schema(
+  {
+    userID: String,
+    token: String,
+    username: String,
+    githubID: Number,
+    avatarURL: String,
+  },
+  { strict: false }
+);
 
 const User = mongoose.model('portaraUsers', userSchema);
 
@@ -45,28 +46,28 @@ const User = mongoose.model('portaraUsers', userSchema);
 const typeDefs = gql`
   type Query {
     test: String!
-    findUser (userID: ID!): [PortaraSetting]!
-    findDashboard (github_ID: ID!): UserInfo!
+    findUser(userID: ID!): [PortaraSetting]!
+    findDashboard(github_ID: ID!): UserInfo!
   }
   type Subscription {
     portaraSettings(userID: String!): PortaraSetting!
   }
   type Mutation {
-    changeSetting(userID: String!, name: String!, limit: ID!, per: ID!, throttle: ID!): PortaraSetting
-  }
-  type UserInfo {
-    user_ID: ID! 
-    token: String!
-    username: String!
-    github_ID: ID!
-    avatarURL: String!
     changeSetting(
-      userID: ID!
+      userID: String!
       name: String!
       limit: ID!
       per: ID!
       throttle: ID!
     ): PortaraSetting
+  }
+  type UserInfo {
+    user_ID: ID!
+    token: String!
+    username: String!
+    github_ID: ID!
+    avatarURL: String!
+    changeSetting(userID: ID!, name: String!, limit: ID!, per: ID!, throttle: ID!): PortaraSetting
   }
   type PortaraSetting {
     name: String!
@@ -107,27 +108,25 @@ const resolvers = {
             newObj['name'] = key.toString();
             finalArr.push(newObj);
           }
-        }      
+        }
         return finalArr;
       } catch (error) {
         return error;
       }
-    }, 
+    },
 
     findDashboard: async (_, { github_ID }) => {
       const dashboardData = await User.findOne({ githubID: github_ID });
-      return dashboardData
-    }
+      return dashboardData;
     },
+  },
   Mutation: {
     /*
       This is the mutation to be triggered when a user updates settings to ANY field
       ---- name: the name of the field definition or object
       ---- userID: the unique token that is used and sent back to the client
       */
-    changeSetting: async (_, {
-      userID, name, limit, per, throttle,
-    }) => {
+    changeSetting: async (_, { userID, name, limit, per, throttle }) => {
       try {
         const newObj = {
           limit,
@@ -137,11 +136,18 @@ const resolvers = {
         await User.findByIdAndUpdate(userID, { [name]: newObj }, { upsert: true, new: true });
         await pubsub.publish(userID, {
           portaraSettings: {
-            name, limit, per, throttle,
+            name,
+            limit,
+            per,
+            throttle,
           },
         });
         return {
-          userID, name, limit, per, throttle,
+          userID,
+          name,
+          limit,
+          per,
+          throttle,
         };
       } catch (error) {
         return error;
@@ -173,10 +179,9 @@ passport.use(
         });
       }
       await cb(null, profile);
-    },
-  ),
+    }
+  )
 );
-
 
 app.use(passport.initialize());
 app.get('/githublogin', passport.authenticate('github', { session: false }));
@@ -192,7 +197,7 @@ app.get(
       .cookie('Username', res.locals.username)
       .cookie('Avatar', res.locals.avatar)
       .redirect(redirectURI);
-  },
+  }
 );
 // --------------------------------------------------------------------------
 

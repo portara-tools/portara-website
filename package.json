@@ -8,8 +8,7 @@
     "install:client": "(cd ./client && npm install)",
     "install:server": "(cd ./server && npm install)",
     "start": "npm run start:server",
-    "start:server": "(cd ./server && npm start)",
-    "linter": "yarn eslint . --ext .js,.jsx,.ts,.tsx "
+    "start:server": "(cd ./server && npm start)"
   },
   "repository": {
     "type": "git",
@@ -23,10 +22,6 @@
   },
   "homepage": "https://github.com/oslabs-beta/portara#readme",
   "dependencies": {
-    "@typescript-eslint/parser": "^3.0.2",
-    "typescript": "^3.9.3"
-  },
-  "devDependencies": {
 
   }
 }

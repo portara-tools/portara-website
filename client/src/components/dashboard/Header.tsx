@@ -1,11 +1,13 @@
 import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Grid from '@material-ui/core/Grid';
-import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Tabs from '@material-ui/core/Tabs';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import Tooltip from '@material-ui/core/Tooltip';
+import Link from '@material-ui/core/Link';
+import Avatar from '@material-ui/core/Avatar';
 import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core/styles';
 import Cookies from 'js-cookie';
 const username = Cookies.get('Username');
@@ -15,6 +17,13 @@ interface HeaderProps extends WithStyles<typeof styles> {
   onDrawerToggle: () => void
   token: string
   avatarURL: string
+}
+
+const logout = () => {
+  Cookies.remove('GitHubID', { path: 'https:portara.io' });
+  Cookies.remove('Username', { path: 'https:portara.io' });
+  Cookies.remove('AvatarURL', { path: 'https:portara.io' });
+  window.location.reload();
 }
 
 function Header(props: HeaderProps) {
@@ -29,12 +38,21 @@ function Header(props: HeaderProps) {
             <Grid item xs />
             <Grid item>
               <Typography color="inherit" variant="subtitle1">
-                Welcome {username}
+                Welcome, {username}!
               </Typography>
             </Grid>
             <Grid item>
-              <IconButton color="inherit" className={classes.iconButtonAvatar}>
-                <Avatar src={props.avatarURL} alt="My Avatar" />
+              <IconButton 
+              color="inherit" 
+              className={classes.iconButtonAvatar}
+              onClick={(e)=> {
+                e.preventDefault()
+                logout()
+              }}
+              >
+              <Tooltip title="Log Out">
+                <Avatar src={props.avatarURL} alt="My Avatar" className={classes.avatar} />
+              </Tooltip>
               </IconButton>
             </Grid>
           </Grid>
@@ -50,7 +68,10 @@ function Header(props: HeaderProps) {
           <Grid container alignItems="center" spacing={1}>
             <Grid item xs>
               <Typography color="inherit" variant="h5" component="h1">
-                Portara Unique Token: {props.token}
+                {username}'s Unique Portara Token:
+              </Typography>
+              <Typography className={classes.tokenDisplay} variant="h6" component="h1">
+                {props.token}
               </Typography>
               <Typography color="inherit" variant="body1" component="h1">
                 {props.token}
@@ -92,6 +113,10 @@ const styles = (theme: Theme) =>
     iconButtonAvatar: {
       padding: 4,
     },
+    avatar: {
+      width: theme.spacing(6),
+      height: theme.spacing(6),
+    },
     link: {
       textDecoration: 'none',
       color: lightColor,
@@ -105,10 +130,10 @@ const styles = (theme: Theme) =>
     appbar: {
       background: '000',
       borderLeft: '.5px solid rgba(250,250,250,0.6)',
+    },
+    tokenDisplay: {
+      color: '#4fc3f7'
     }
   });
 
-
 export default withStyles(styles)(Header);
-
-

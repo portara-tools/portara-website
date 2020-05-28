@@ -14,21 +14,93 @@ import Hidden from '@material-ui/core/Hidden';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import Navigator from './Navigator';
-import Content from './Content';
 import Header from './Header';
+import RateLimitAdjuster from './RateLimitAdjuster';
 
-function Copyright() {
+
+export interface PaperbaseProps extends WithStyles<typeof styles> {}
+
+const FIND_DASHBOARD = gql`
+  query findDashboard($github_ID: ID!) {
+    findDashboard(github_ID: $github_ID) {
+      token
+      avatarURL
+    }
+  }
+`;
+
+const githubID = Cookies.get('GitHubID') 
+
+function Paperbase(props: PaperbaseProps) {
+  const { classes } = props;
+  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [token, setToken] = React.useState('TOKEN');
+  const [avatarURL, setAvatarURL] = React.useState('AVATAR');
+
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
+
+  const { loading, error, data } = useQuery(FIND_DASHBOARD, {
+    variables: { github_ID: githubID },
+  });
+
+  useEffect(() => {
+    if (data) setToken(data.findDashboard.token);
+    if (data) setAvatarURL(data.findDashboard.avatarURL);
+  })
+
+  if (loading) return <div>Loading...</div>
+
   return (
-    <Typography variant="body2" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://github.com/oslabs-beta/portara">
-        Portara
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
+    <ThemeProvider theme={theme}>
+      <div className={classes.root}>
+        <CssBaseline />
+        <nav className={classes.drawer}>
+          <Hidden smUp implementation="js">
+            <Navigator
+              PaperProps={{ style: { width: drawerWidth } }}
+              variant="temporary"
+              open={mobileOpen}
+              onClose={handleDrawerToggle}
+            />
+          </Hidden>
+          <Hidden xsDown implementation="css">
+            <Navigator PaperProps={{ style: { width: drawerWidth } }} />
+          </Hidden>
+        </nav>
+        <div className={classes.app}>
+
+          <Header 
+          onDrawerToggle={handleDrawerToggle} 
+          token={token} 
+          avatarURL={avatarURL} 
+          />
+
+          <main className={classes.main}>
+            <div>
+              <RateLimitAdjuster />
+            </div>
+          </main>
+          <footer className={classes.footer}>
+            <Typography variant="body2" align="center">
+              {'Copyright © '}
+              <Link color="inherit" href="https://github.com/oslabs-beta/portara">
+                Portara
+              </Link>{' '}
+              {new Date().getFullYear()}
+              {'.'}
+            </Typography>
+          </footer>
+        </div>
+      </div>
+    </ThemeProvider>
   );
 }
+
+
+
+
 
 let theme = createMuiTheme({
   palette: {
@@ -173,8 +245,8 @@ const styles = createStyles({
   },
 });
 
-export interface PaperbaseProps extends WithStyles<typeof styles> {}
 
+<<<<<<< HEAD
 const FIND_DASHBOARD = gql`
 query findDashboard($github_ID: ID!) {
   findDashboard(github_ID: $github_ID) {
@@ -243,5 +315,9 @@ function Paperbase(props: PaperbaseProps) {
     </ThemeProvider>
   );
 }
+=======
+
+
+>>>>>>> 29ff91752b768fd609a8f0419cbfab69cec07cb7
 
 export default withStyles(styles)(Paperbase);

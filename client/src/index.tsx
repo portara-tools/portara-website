@@ -1,14 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
 import theme from './utils/theme';
 import App from './App';
 import ApolloClient from 'apollo-boost'
 import { ApolloProvider } from '@apollo/react-hooks';
 
+<<<<<<< HEAD
 const client = new ApolloClient({ uri: "http://localhost:4000/graphql" })
 // const client = new ApolloClient({ uri: "http://portara-web.herokuapp.com/graphql" })
+=======
+let URI = "https://portara-web.herokuapp.com/graphql";
+// const client = new ApolloClient({ uri: "http://localhost:4000/graphql" })
+
+if (process.env.NODE_ENV === 'development') {
+  URI = "http://localhost:4000/graphql"
+}
+
+const client = new ApolloClient({ uri: URI })
+>>>>>>> 29ff91752b768fd609a8f0419cbfab69cec07cb7
 
 ReactDOM.render(
   <ApolloProvider client={client}>

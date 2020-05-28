@@ -4,7 +4,6 @@ import LandingPage from './components/LandingPage';
 import About from './components/About';
 import Dashboard from './components/dashboard/Dashboard'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import TempDashboard from './components/TempDashboard';
 
 function App() {
   return (
@@ -14,8 +13,7 @@ function App() {
           <Switch>
             <Route exact path='/' component={LandingPage} />
             <Route exact path='/about' component={About} />
-            <Route exact path='/dashboard' component={Dashboard} />
-            <Route exact path='/account' component={TempDashboard} />
+            <Route exact path='/account' component={Dashboard} />
           </Switch>
         </Route>
       </Router>

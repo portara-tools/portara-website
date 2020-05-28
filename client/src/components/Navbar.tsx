@@ -6,7 +6,12 @@ import { HashLink } from 'react-router-hash-link';
 import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
-const oauthLogin_Github = 'https://portara-web.herokuapp.com/githublogin'
+let oauthLogin_Github = 'https://portara-web.herokuapp.com/githublogin'
+if (process.env.NODE_ENV === 'development') {
+  oauthLogin_Github = 'http://localhost:4000/githublogin'
+}
+// const oauthLogin_Github = 'https://portara-web.herokuapp.com/githublogin'
+// const oauthLogin_Github = 'http://localhost:4000/githublogin'
 
 const Navbar: React.FunctionComponent = (props) => {
   const classes = useStyles(props);

@@ -11,28 +11,34 @@ const pubsub = new PubSub();
 const passport = require('passport');
 const GitHubStrategy = require('passport-github').Strategy;
 
+// Set local variables/paths depending on production/development
+let redirectURI = 'https://portara-web.herokuapp.com/';
+let callbackURI = 'https://portara-web.herokuapp.com/auth/github/callback';
+
 if (process.env.NODE_ENV === 'development') {
   require('dotenv').config();
+  callbackURI = 'http://localhost:4000/auth/github/callback';
+  redirectURI = 'http://localhost:3000/';
 }
 
 // Mongo Connection
-// const URI = process.env.MONGODB_URI || '';
-const URI = 'mongodb://heroku_wcgfs261:n1g8tpuc2nmb8bj8d8jt24hd8v@ds137263.mlab.com:37263/heroku_wcgfs261'
-
+const URI = process.env.MONGODB_URI || '';
 mongoose.connect(
   URI,
   { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false },
-  () => console.log('connected to MongoDB'),
+  () => console.log('connected to MongoDB')
 );
 
-const userSchema = new mongoose.Schema({
-  userID: String,
-  token: String,
-  username: String,
-  githubID: Number,
-  avatarURL: String,
-}, 
-{ strict: false });
+const userSchema = new mongoose.Schema(
+  {
+    userID: String,
+    token: String,
+    username: String,
+    githubID: Number,
+    avatarURL: String,
+  },
+  { strict: false }
+);
 
 const User = mongoose.model('portaraUsers', userSchema);
 
@@ -40,21 +46,13 @@ const User = mongoose.model('portaraUsers', userSchema);
 const typeDefs = gql`
   type Query {
     test: String!
-    findUser (userID: String!): [PortaraSetting]!
-    findDashboard (github_ID: ID!): UserInfo!
+    findUser(userID: ID!): [PortaraSetting]!
+    findDashboard(github_ID: ID!): UserInfo!
   }
   type Subscription {
     portaraSettings(userID: String!): PortaraSetting!
   }
   type Mutation {
-    changeSetting(userID: String!, name: String!, limit: ID!, per: ID!, throttle: ID!): PortaraSetting
-  }
-  type UserInfo {
-    user_ID: ID! 
-    token: String!
-    username: String!
-    github_ID: ID!
-    avatarURL: String!
     changeSetting(
       userID: String!
       name: String!
@@ -62,6 +60,14 @@ const typeDefs = gql`
       per: ID!
       throttle: ID!
     ): PortaraSetting
+  }
+  type UserInfo {
+    user_ID: ID!
+    token: String!
+    username: String!
+    github_ID: ID!
+    avatarURL: String!
+    changeSetting(userID: ID!, name: String!, limit: ID!, per: ID!, throttle: ID!): PortaraSetting
   }
   type PortaraSetting {
     name: String!
@@ -87,7 +93,7 @@ const resolvers = {
       try {
         const newArr = [];
         const finalArr = [];
-        await User.findOne({ _id: userID }).then((data) => {
+        await User.findOne({ githubID: userID }).then((data) => {
           const str = JSON.stringify(data);
           newArr.push(str);
         });
@@ -103,27 +109,24 @@ const resolvers = {
             finalArr.push(newObj);
           }
         }
-
         return finalArr;
       } catch (error) {
         return error;
       }
-    }, 
+    },
 
     findDashboard: async (_, { github_ID }) => {
       const dashboardData = await User.findOne({ githubID: github_ID });
-      return dashboardData
-    }
+      return dashboardData;
     },
+  },
   Mutation: {
     /*
       This is the mutation to be triggered when a user updates settings to ANY field
       ---- name: the name of the field definition or object
       ---- userID: the unique token that is used and sent back to the client
       */
-    changeSetting: async (_, {
-      userID, name, limit, per, throttle,
-    }) => {
+    changeSetting: async (_, { userID, name, limit, per, throttle }) => {
       try {
         const newObj = {
           limit,
@@ -133,11 +136,18 @@ const resolvers = {
         await User.findByIdAndUpdate(userID, { [name]: newObj }, { upsert: true, new: true });
         await pubsub.publish(userID, {
           portaraSettings: {
-            name, limit, per, throttle,
+            name,
+            limit,
+            per,
+            throttle,
           },
         });
         return {
-          userID, name, limit, per, throttle,
+          userID,
+          name,
+          limit,
+          per,
+          throttle,
         };
       } catch (error) {
         return error;
@@ -156,7 +166,7 @@ passport.use(
     {
       clientID: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
-      callbackURL: 'http://localhost:4000/auth/github/callback',
+      callbackURL: callbackURI,
     },
     async (accessToken, refreshToken, profile, cb) => {
       const existingUser = await User.find({ githubID: profile._json.id });
@@ -169,8 +179,8 @@ passport.use(
         });
       }
       await cb(null, profile);
-    },
-  ),
+    }
+  )
 );
 
 app.use(passport.initialize());
@@ -186,8 +196,8 @@ app.get(
       .cookie('GitHubID', res.locals.id)
       .cookie('Username', res.locals.username)
       .cookie('Avatar', res.locals.avatar)
-      .redirect('http://localhost:4000/');
-  },
+      .redirect(redirectURI);
+  }
 );
 // --------------------------------------------------------------------------
 
@@ -205,11 +215,14 @@ server.applyMiddleware({
   app,
   cors: false,
 });
+
 // This static is used to server our build folder when deploying
-app.use(express.static('public'));
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
-});
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('public'));
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
+  });
+}
 
 httpServer.listen(PORT, () => {
   console.log(`🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`);

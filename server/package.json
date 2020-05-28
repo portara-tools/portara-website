@@ -8,7 +8,8 @@
   "scripts": {
     "dev": "NODE_ENV=development nodemon server.ts",
     "test": "jest --forceExit --detectOpenHandles",
-    "start": "node server.ts"
+    "start": "node server.ts",
+    "linter": "yarn eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "author": "portara-labs",
   "license": "MIT",
@@ -30,6 +31,7 @@
     "uuid": "^8.1.0"
   },
   "devDependencies": {
+    "@typescript-eslint/parser": "^3.0.2",
     "@types/jest": "^25.2.1",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
@@ -37,7 +39,14 @@
     "redis-mock": "^0.49.0",
     "ts-jest": "^25.5.1",
     "ts-node": "^8.10.1",
-    "typescript": "^3.8.3"
+    "typescript": "^3.8.3",
+    "@typescript-eslint/eslint-plugin": "^2.34.0",
+    "eslint": "^7.1.0",
+    "eslint-config-airbnb-typescript": "^7.2.1",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.20.0",
+    "eslint-plugin-react-hooks": "^2.5.1"
   },
   "homepage": "https://github.com/oslabs-beta/portara/blob/staging/README.md"
 }

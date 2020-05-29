@@ -15,7 +15,7 @@ const About: React.FunctionComponent = (props) => {
         <Typography variant="h4" align="center">The Team</Typography>
         <Grid container spacing={6} className={classes.peopleContainer}>
           <Grid item xs={6} className={classes.personCard}>
-            <img alt='Steve Frend' src={'/b.jpg'} className={classes.headshot}/>
+            <img alt='Steve Frend' src={'/b.jpg'} className={classes.headshot} />
             <Box className={classes.infoBox}>
               <Typography variant='h6'>Steve Frend</Typography>
               <Typography variant='body1'>Full Stack Software Engineer</Typography>
@@ -30,7 +30,7 @@ const About: React.FunctionComponent = (props) => {
             </Box>
           </Grid>
           <Grid item xs={6} className={classes.personCard}>
-            <img alt='Todd Alexander' src={'/c.jpg'} className={classes.headshot}/>
+            <img alt='Todd Alexander' src={'/c.jpg'} className={classes.headshot} />
             <Box className={classes.infoBox}>
               <Typography variant='h6'>Todd Alexander</Typography>
               <Typography variant='body1'>Full Stack Software Engineer</Typography>
@@ -50,10 +50,10 @@ const About: React.FunctionComponent = (props) => {
         </Grid>
         <Grid container spacing={6} className={classes.peopleContainer}>
           <Grid item xs={6} className={classes.personCard}>
-            <img alt='Cary Chan' src={'/d.jpg'} className={classes.headshot}  />
+            <img alt='Cary Chan' src={'/d.jpg'} className={classes.headshot} />
             <Box className={classes.infoBox}>
               <Typography variant='h6'>Cary Chan</Typography>
-              <Typography variant='body1'>Fullstack Software Engineer</Typography>
+              <Typography variant='body1'>Full Stack Software Engineer</Typography>
               <div className={classes.socialLinks}>
                 <Link href="https://github.com/caryLchan">
                   <GitHubIcon className={classes.socialLink} />
@@ -65,7 +65,7 @@ const About: React.FunctionComponent = (props) => {
             </Box>
           </Grid>
           <Grid item xs={6} className={classes.personCard}>
-            <img alt='Alexander Infante' src={'/a.jpg'} className={classes.headshot}/>
+            <img alt='Alexander Infante' src={'/a.jpg'} className={classes.headshot} />
             <Box className={classes.infoBox}>
               <Typography variant='h6'>Alexander Infante</Typography>
               <Typography variant='body1'>Full Stack Software Engineer</Typography>
@@ -111,7 +111,7 @@ const useStyles = makeStyles(() => ({
     marginBottom: '10px',
     maxWidth: '300px',
     minWidth: '200px',
-  }, 
+  },
   headshot: {
     borderRadius: '50%',
     margin: '10px',

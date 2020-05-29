@@ -32,7 +32,7 @@ function Header(props: HeaderProps) {
 
   return (
     <React.Fragment>
-      <AppBar className={classes.appbar} position="sticky" elevation={0}>
+      <AppBar className={classes.appbar} position="absolute" elevation={0}>
         <Toolbar>
           <Grid container spacing={1} alignItems="center">
             <Grid item xs />
@@ -42,17 +42,17 @@ function Header(props: HeaderProps) {
               </Typography>
             </Grid>
             <Grid item>
-              <IconButton 
-              color="inherit" 
-              className={classes.iconButtonAvatar}
-              onClick={(e)=> {
-                e.preventDefault()
-                logout()
-              }}
+              <IconButton
+                color="inherit"
+                className={classes.iconButtonAvatar}
+                onClick={(e) => {
+                  e.preventDefault()
+                  logout()
+                }}
               >
-              <Tooltip title="Click image to logout">
-                <Avatar src={props.avatarURL} alt="My Avatar" className={classes.avatar} />
-              </Tooltip>
+                <Tooltip title="Click image to logout">
+                  <Avatar src={props.avatarURL} alt="My Avatar" className={classes.avatar} />
+                </Tooltip>
               </IconButton>
             </Grid>
           </Grid>
@@ -73,7 +73,7 @@ function Header(props: HeaderProps) {
               {/* <Typography className={classes.tokenDisplay} variant="h6" component="h1">
                 {props.token}
               </Typography> */}
-              <Typography style={{color: "#009be5"}} variant="body1" component="h1">
+              <Typography style={{ color: "#009be5" }} variant="body1" component="h1">
                 {props.token}
               </Typography>
             </Grid>

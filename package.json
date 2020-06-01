@@ -1,23 +1,25 @@
 {
-  "name": "with-typescript",
-  "version": "1.0.0",
+  "name": "portara_website",
+  "version": "1.0.5",
+  "description": "Portara",
+  "main": "/server/server.ts",
   "scripts": {
-    "dev": "next",
-    "build": "next build",
-    "start": "next start",
-    "type-check": "tsc"
+    "install": "npm run install:client && npm run install:server",
+    "install:client": "(cd ./client && npm install)",
+    "install:server": "(cd ./server && npm install)",
+    "start": "npm run start:server",
+    "start:server": "(cd ./server && npm start)",
+    "test": "cd server && npm test"
   },
-  "dependencies": {
-    "isomorphic-unfetch": "3.0.0",
-    "next": "latest",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oslabs-beta/portara.git"
   },
-  "devDependencies": {
-    "@types/node": "^12.12.21",
-    "@types/react": "^16.9.16",
-    "@types/react-dom": "^16.9.4",
-    "typescript": "3.7.3"
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/oslabs-beta/portara/issues"
   },
-  "license": "ISC"
+  "homepage": "https://github.com/oslabs-beta/portara#readme"
 }

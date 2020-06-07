@@ -8,7 +8,8 @@
     "install:client": "(cd ./client && npm install)",
     "install:server": "(cd ./server && npm install)",
     "start": "npm run start:server",
-    "start:server": "(cd ./server && npm start)"
+    "start:server": "(cd ./server && npm start)",
+    "test": "cd server && npm test"
   },
   "repository": {
     "type": "git",

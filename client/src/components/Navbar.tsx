@@ -2,12 +2,22 @@ import * as React from 'react';
 import { AppBar, Link as LinkM, Button, Box } from '@material-ui/core';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import { makeStyles } from '@material-ui/core/styles';
+import { HashLink } from 'react-router-hash-link';
 import { Link } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
-const oauthLogin_Github = 'http://localhost:4000/githublogin'
+let oauthLogin_Github = 'https://portara.io/githublogin'
+if (process.env.NODE_ENV === 'development') {
+  oauthLogin_Github = 'http://localhost:4000/githublogin'
+}
+// const oauthLogin_Github = 'https://portara-web.herokuapp.com/githublogin'
+// const oauthLogin_Github = 'http://localhost:4000/githublogin'
 
 const Navbar: React.FunctionComponent = (props) => {
   const classes = useStyles(props);
+  const uuid = Cookies.get('GitHubID');
+  const username = Cookies.get('Username');
+
   return (
     <>
       <Box className={classes.container}>
@@ -19,16 +29,20 @@ const Navbar: React.FunctionComponent = (props) => {
               </Link>
             </Button>
             <Button >
-              <Link to="/about" className={classes.linkStyle}>
+              <HashLink to="/#about" className={classes.linkStyle}>
                 ABOUT
-              </Link>
+              </HashLink>
             </Button>
-            <Button >
-              <Link to="/account" className={classes.linkStyle}>
-                ACCOUNT
-              </Link>
-            </Button>
+            { uuid ?
+              <Button >
+                <Link to="/account" className={classes.linkStyle}>
+                  ACCOUNT
+                </Link>
+              </Button>
+              : <div />
+            }
           </ul>
+            { !uuid ?
           <ul className={classes.loginButton}>
           <LinkM
             href={oauthLogin_Github}
@@ -44,6 +58,10 @@ const Navbar: React.FunctionComponent = (props) => {
               </Button>
             </LinkM>
           </ul>
+          : <div id={'welcome'}> 
+            `Welcome, ${username}`
+            </div>
+            } 
         </AppBar>
       </Box>
     </>

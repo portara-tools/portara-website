@@ -17,7 +17,7 @@
     "@shelf/jest-mongodb": "^1.1.5",
     "@types/node": "^14.0.5",
     "@types/passport": "^1.0.3",
-    "apollo-server-express": "^2.13.1",
+    "apollo-server-express": "^2.14.2",
     "cookie-parser": "^1.4.5",
     "express": "^4.17.1",
     "graphql": "^15.0.0",

@@ -20,6 +20,7 @@
     "apollo-server-express": "^2.14.2",
     "cookie-parser": "^1.4.5",
     "express": "^4.17.1",
+    "express-sslify": "^1.2.0",
     "graphql": "^15.0.0",
     "mongodb": "^3.5.7",
     "mongodb-memory-server": "^6.6.1",

@@ -6,6 +6,7 @@ const http = require('http');
 const mongoose = require('mongoose');
 // const cors = require('cors');
 const { v4: uuidv4 } = require('uuid');
+const enforce = require('express-sslify');
 
 const pubsub = new PubSub();
 const passport = require('passport');
@@ -225,6 +226,8 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
   });
 }
+
+app.use(enforce.HTTPS());
 
 httpServer.listen(PORT, () => {
   console.log(`🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`);

@@ -162,6 +162,7 @@ const resolvers = {
 const PORT = process.env.PORT || 4000;
 const app = express();
 // app.use(cors());
+app.use(enforce.HTTPS({ trustProtoHeader: true }));
 
 // Github Authentication --------------------------------------------------
 passport.use(
@@ -227,7 +228,6 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-app.use(enforce.HTTPS());
 
 httpServer.listen(PORT, () => {
   console.log(`🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`);

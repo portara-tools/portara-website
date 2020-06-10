@@ -6,7 +6,7 @@ import { HashLink } from 'react-router-hash-link';
 import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
-let oauthLogin_Github = 'https://portara.io/githublogin'
+let oauthLogin_Github = 'https://www.portara.io/githublogin'
 if (process.env.NODE_ENV === 'development') {
   oauthLogin_Github = 'http://localhost:4000/githublogin'
 }
@@ -33,7 +33,7 @@ const Navbar: React.FunctionComponent = (props) => {
                 ABOUT
               </HashLink>
             </Button>
-            { uuid ?
+            {uuid ?
               <Button >
                 <Link to="/account" className={classes.linkStyle}>
                   ACCOUNT
@@ -42,26 +42,26 @@ const Navbar: React.FunctionComponent = (props) => {
               : <div />
             }
           </ul>
-            { !uuid ?
-          <ul className={classes.loginButton}>
-          <LinkM
-            href={oauthLogin_Github}
-            variant='overline' 
-            underline='none'
-            >
-              <Button 
-              variant='outlined' 
-              size='small'
+          {!uuid ?
+            <ul className={classes.loginButton}>
+              <LinkM
+                href={oauthLogin_Github}
+                variant='overline'
+                underline='none'
               >
-                SIGN IN WITH
+                <Button
+                  variant='outlined'
+                  size='small'
+                >
+                  SIGN IN WITH
                 <GitHubIcon style={{ fontSize: 'large', marginLeft: '8px' }}></GitHubIcon>
-              </Button>
-            </LinkM>
-          </ul>
-          : <div id={'welcome'}> 
-            `Welcome, ${username}`
+                </Button>
+              </LinkM>
+            </ul>
+            : <div id={'welcome'}>
+              `Welcome, ${username}`
             </div>
-            } 
+          }
         </AppBar>
       </Box>
     </>

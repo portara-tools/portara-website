@@ -10,33 +10,25 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import HomeIcon from '@material-ui/icons/Home';
 import TimerIcon from '@material-ui/icons/Timer';
-import SettingsIcon from '@material-ui/icons/Settings';
 import { Omit } from '@material-ui/types';
-
 
 const categories = [
   {
     id: '',
-    children: [
-      { id: 'Rate Limiter', icon: <TimerIcon />, active: true },
-    ],
+    children: [{ id: 'Rate Limiter', icon: <TimerIcon />, active: true }],
   },
- 
 ];
 
-
-
 export interface NavigatorProps extends Omit<DrawerProps, 'classes'>, WithStyles<typeof styles> {}
- 
+
 function Navigator(props: NavigatorProps) {
   const { classes, ...other } = props;
 
   return (
-    <Drawer variant="permanent" {...other}>
+    <Drawer variant='permanent' {...other}>
       <List disablePadding>
         <ListItem className={clsx(classes.firebase, classes.item, classes.itemCategory)}>
-          {/* <img src="portara-logo-no-background"/> */}
-          <Link href="/" className={classes.linkStyle}>
+          <Link href='/' className={classes.linkStyle}>
             Portara
           </Link>
         </ListItem>
@@ -44,11 +36,11 @@ function Navigator(props: NavigatorProps) {
           <ListItemIcon className={classes.itemIcon}>
             <HomeIcon />
           </ListItemIcon>
-          <ListItemText 
+          <ListItemText
             classes={{
               primary: classes.itemPrimary,
             }}
-          > 
+          >
             Settings Overview
           </ListItemText>
         </ListItem>
@@ -88,7 +80,6 @@ function Navigator(props: NavigatorProps) {
 }
 const styles = (theme: Theme) =>
   createStyles({
-  
     categoryHeader: {
       paddingTop: theme.spacing(2),
       paddingBottom: theme.spacing(2),
@@ -113,7 +104,7 @@ const styles = (theme: Theme) =>
     firebase: {
       fontSize: 24,
       color: theme.palette.common.white,
-      background: '#000'
+      background: '#000',
     },
     itemActiveItem: {
       color: '#4fc3f7',
@@ -131,11 +122,11 @@ const styles = (theme: Theme) =>
     linkStyle: {
       textDecoration: 'none',
       color: 'white',
-      hoverOpacity: "0.8",
+      hoverOpacity: '0.8',
       padding: '5px',
       '&:hover': {
         textDecoration: 'none',
-      }
+      },
     },
   });
 export default withStyles(styles)(Navigator);

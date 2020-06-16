@@ -6,7 +6,6 @@ import Tabs from '@material-ui/core/Tabs';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Tooltip from '@material-ui/core/Tooltip';
-import Link from '@material-ui/core/Link';
 import Avatar from '@material-ui/core/Avatar';
 import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core/styles';
 import Cookies from 'js-cookie';
@@ -70,9 +69,6 @@ function Header(props: HeaderProps) {
               <Typography color="inherit" variant="h5" component="h1">
                 {username}'s Unique Portara Token:
               </Typography>
-              {/* <Typography className={classes.tokenDisplay} variant="h6" component="h1">
-                {props.token}
-              </Typography> */}
               <Typography style={{ color: "#009be5" }} variant="body1" component="h1">
                 {props.token}
               </Typography>
@@ -88,10 +84,6 @@ function Header(props: HeaderProps) {
         elevation={0}
       >
         <Tabs value={0} textColor="inherit">
-          {/* <Tab textColor="inherit" label="Users" />
-          <Tab textColor="inherit" label="Sign-in method" />
-          <Tab textColor="inherit" label="Templates" />
-          <Tab textColor="inherit" label="Usage" /> */}
         </Tabs>
       </AppBar>
     </React.Fragment>

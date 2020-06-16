@@ -36,7 +36,7 @@ const userSchema = new mongoose.Schema(
     token: String,
     username: String,
     githubID: Number,
-    avatarURL: String,
+    avatarURL: String,    
   },
   { strict: false }
 );

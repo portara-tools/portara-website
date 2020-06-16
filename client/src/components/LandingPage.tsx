@@ -3,28 +3,27 @@ import Navbar from './Navbar';
 import Footer from './Footer';
 import About from './About';
 import { Button, Typography, Grid, Link as LinkM, Box, Zoom } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
-import Dashboard from './dashboard/Dashboard'
+import { makeStyles, useTheme } from '@material-ui/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import Dashboard from './dashboard/Dashboard';
 import BackupIcon from '@material-ui/icons/Backup';
 import EmojiEmotionsIcon from '@material-ui/icons/EmojiEmotions';
 import DoneOutlineIcon from '@material-ui/icons/DoneOutline';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
-import BlockRounded from '@material-ui/icons/BlockRounded';
-import AlternateEmail from '@material-ui/icons/AlternateEmail';
-import DoneAll from '@material-ui/icons/DoneAll';
 import Title from './Title';
 import Cookies from 'js-cookie';
-import AnimatedCard from './AnimatedCard'
+import AnimatedCard from './AnimatedCard';
 const gitHubID = Cookies.get('GitHubID');
-
 
 const LandingPage = () => {
   const classes = useStyles();
-  // const [state, setState] = useState()
+  const small = useMediaQuery('(max-width:800px)');
   if (gitHubID) {
-    return <>      
-      <Dashboard />
-    </>;
+    return (
+      <>
+        <Dashboard />
+      </>
+    );
   } else {
     return (
       <>
@@ -32,45 +31,28 @@ const LandingPage = () => {
         <Box maxWidth='sm' className={classes.container}>
           <Grid className={classes.content}>
             <Title>Portara</Title>
-            {/* <img src={'https://imgur.com/U0PyleJ.png'} alt='wtf' /> */}
             <hr style={{ width: '100%', marginBottom: '30px' }} />
-            <Typography variant='h5' color='primary' style={{ marginBottom: '2rem' }}>
+            <Typography variant='h5' color='primary' style={{ marginBottom: '1rem', textAlign: "center" }}>
               GraphQL • Rate Limiter • Throttler
             </Typography>
-            {/* IMAGE WITH BULLETS */}
-            <Grid className={classes.imageWrapper}>
-                {/* <img src="/code-editor-svg.svg" style={{height: "360px"}}/> */}
+            {!small && (
+              <Grid className={classes.imageWrapper}>
                 <AnimatedCard>
-                <img src="/code-editor-svg.svg" style={{height: "400px"}}/>
-              </AnimatedCard>
-              <Box className={classes.imageContainer}>
-                {/* <Grid className={classes.textWrapper}>
-                  <Typography className={classes.textLine}>
-                    <AlternateEmail style={{ marginRight: '5px' }} />
-                    Simple Implementation
-                  </Typography>
-                  <Typography className={classes.textLine}>
-                    <BlockRounded style={{ marginRight: '5px' }} />
-                    Schema Directive
-                  </Typography>
-                  <Typography className={classes.textLine}>
-                    <DoneAll style={{ marginRight: '5px' }} />
-                    Tested & Typescripted
-                  </Typography>
-                </Grid> */}
-              </Box>
-            </Grid>
+                  <img src='/code-editor-svg.svg' style={{ height: '400px' }} />
+                </AnimatedCard>
+              </Grid>
+            )}
             <Button className={classes.downloadButton} variant='outlined'>
               <LinkM target='_blank' href='https://www.npmjs.com/package/portara' underline='none'>
-                <Typography color='primary'>Download on NPM</Typography>
+                <Typography color='primary'>Download Beta (v1.0.8)</Typography>
               </LinkM>
             </Button>
           </Grid>
           {/* CARDS */}
-          <Grid container spacing={10}>
-            <Grid xs={12} container item className={classes.cardsWrapper} spacing={5}>
+          <Grid container>
+            <Grid sm={12} container item className={classes.cardsWrapper}>
               <Zoom in style={{ transitionDelay: '500ms' }}>
-                <Grid item xs={4} className={classes.card}>
+                <Grid item sm={4} className={classes.card}>
                   <Box style={{ flexDirection: 'row', display: 'flex', justifyContent: 'center' }}>
                     <BackupIcon
                       fontSize='large'
@@ -86,7 +68,7 @@ const LandingPage = () => {
                 </Grid>
               </Zoom>
               <Zoom in style={{ transitionDelay: '800ms' }}>
-                <Grid item xs={4} className={classes.card}>
+                <Grid item sm={4} className={classes.card}>
                   <Box style={{ flexDirection: 'row', display: 'flex', justifyContent: 'center' }}>
                     <EmojiEmotionsIcon
                       fontSize='large'
@@ -104,9 +86,9 @@ const LandingPage = () => {
               </Zoom>
             </Grid>
           </Grid>
-          <Grid xs={12} container item className={classes.cardsWrapper} spacing={5}>
+          <Grid sm={12} container item className={classes.cardsWrapper}>
             <Zoom in style={{ transitionDelay: '1100ms' }}>
-              <Grid item xs={4} className={classes.card}>
+              <Grid item sm={4} className={classes.card}>
                 <Box style={{ flexDirection: 'row', display: 'flex', justifyContent: 'center' }}>
                   <AttachMoneyIcon
                     fontSize='large'
@@ -122,7 +104,7 @@ const LandingPage = () => {
               </Grid>
             </Zoom>
             <Zoom in style={{ transitionDelay: '1300ms' }}>
-              <Grid item xs={4} className={classes.card}>
+              <Grid item sm={4} className={classes.card}>
                 <Box style={{ flexDirection: 'row', display: 'flex', justifyContent: 'center' }}>
                   <DoneOutlineIcon
                     fontSize='large'
@@ -136,34 +118,25 @@ const LandingPage = () => {
                 </Typography>
               </Grid>
             </Zoom>
-        </Grid>
-      </Box>
-      <br id="about"/> 
-      {/* <Box maxWidth='sm' className={classes.gradientContainer}></Box> */}
-      <About />
-      <Footer />
-    </>  
-    ); 
-  };
-}
+          </Grid>
+        </Box>
+        <br id='about' />
+        <About />
+        <Footer />
+      </>
+    );
+  }
+};
 
 export default LandingPage;
 
 // ------- STYLING FOR THIS PAGE -----
 const useStyles = makeStyles(() => ({
   container: {
-    background: `url("https://images.unsplash.com/photo-1486783046960-64d2ef697c46?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80")`,
+    background: `url("https://images.unsplash.com/photo-1486783046960-64d2ef697c46?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEysmd9&auto=format&fit=crop&w=1650&q=80")`,
     backgroundSize: 'contain',
-    // padding: '25px',
-    margin: '0 10.5% 5rem',
     backgroundRepeat: 'no-repeat',
-    maxWidth: '1800px'
-  }, 
-  gradientContainer: {
-    // background: 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(0,0,0,1) 100%)',
-    padding: '25px',
-    margin: '0px',
-    marginRight: '0px',
+    maxWidth: '1800px',
   },
   content: {
     display: 'flex',
@@ -178,26 +151,16 @@ const useStyles = makeStyles(() => ({
     backgroundColor: 'dodgerblue',
   },
   cardsWrapper: {
-    marginTop: '2rem',
-    padding: '24px 16px',
-    spacing: '8',
+    padding: '20px',
     display: 'flex',
     justifyContent: 'space-evenly',
   },
   imageWrapper: {
-    marginTop: '2%',
-    padding: '1rem',
-    spacing: '8',
     display: 'flex',
     justifyContent: 'center',
-    // background: 'rgba(0, 0, 0, .5)',
     width: '100%',
   },
-  imageContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
+
   textWrapper: {
     display: 'flex',
     flexDirection: 'column',
@@ -217,21 +180,9 @@ const useStyles = makeStyles(() => ({
     marginTop: '10px',
   },
   card: {
-    // color: 'white',
     minHeight: '150px',
-    minWidth: '250px',
   },
   cardHeader: {
     textAlign: 'center',
-  },
-  upperSplit: {
-    borderTopLeftRadius: '10px',
-    borderTopRightRadius: '10px',
-    borderBottomRightRadius: '30px',
-    padding: '10px',
-    width: '100%',
-    height: '60%',
-    background:
-      'linear-gradient(197deg, rgba(114,111,156,1) 0%, rgba(58,80,107,1) 65%, rgba(58,80,107,1) 100%)',
   },
 }));

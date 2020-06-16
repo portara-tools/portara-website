@@ -40,7 +40,6 @@ const RateLimitAdjuster: React.FC<Props> = (props) => {
     copyOfState[index] = copyOfSetting;
     setState(copyOfState);
   };
-  // if !loading and !data
   if (!loading && data) {
     if (data.findUser.length) {
       if (!setted) {
@@ -81,11 +80,7 @@ const RateLimitAdjuster: React.FC<Props> = (props) => {
                         >
                           Update
                     </Button>
-                        {/* <Tooltip title="Reset">
-                      <IconButton>
-                        <RefreshIcon className={classes.block} color="inherit" />
-                      </IconButton>
-                    </Tooltip> */}
+
                   </Grid>
                 </Grid>
               </Toolbar>
@@ -155,7 +150,7 @@ const RateLimitAdjuster: React.FC<Props> = (props) => {
               <Grid container spacing={2} alignItems="center">
                 <Grid item xs>
                   <Typography variant="h6" color="secondary" style={{padding: "5px"}}>
-                    You currently have no active rate limiters. Please add your token to your Portara rate limiter. Your token is {props.token}
+                    You currently have no active rate limiters. Please add the token to your Portara rate limiter. Your token is: {props.token}
                   </Typography>
                 </Grid>
               </Grid>

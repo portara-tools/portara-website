@@ -10,8 +10,6 @@ let oauthLogin_Github = 'https://www.portara.io/githublogin'
 if (process.env.NODE_ENV === 'development') {
   oauthLogin_Github = 'http://localhost:4000/githublogin'
 }
-// const oauthLogin_Github = 'https://portara-web.herokuapp.com/githublogin'
-// const oauthLogin_Github = 'http://localhost:4000/githublogin'
 
 const Navbar: React.FunctionComponent = (props) => {
   const classes = useStyles(props);
@@ -32,15 +30,7 @@ const Navbar: React.FunctionComponent = (props) => {
               <HashLink to="/#about" className={classes.linkStyle}>
                 ABOUT
               </HashLink>
-            </Button>
-            {uuid ?
-              <Button >
-                <Link to="/account" className={classes.linkStyle}>
-                  ACCOUNT
-                </Link>
-              </Button>
-              : <div />
-            }
+            </Button>            
           </ul>
           {!uuid ?
             <ul className={classes.loginButton}>
@@ -53,7 +43,7 @@ const Navbar: React.FunctionComponent = (props) => {
                   variant='outlined'
                   size='small'
                 >
-                  SIGN IN WITH
+                  SIGN IN
                 <GitHubIcon style={{ fontSize: 'large', marginLeft: '8px' }}></GitHubIcon>
                 </Button>
               </LinkM>

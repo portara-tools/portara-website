@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { useQuery } from '@apollo/react-hooks';
-import gql from 'graphql-tag';
 import {
   createMuiTheme,
   createStyles,
@@ -18,8 +17,7 @@ import Header from './Header';
 import RateLimitAdjuster from './RateLimitAdjuster';
 import { FIND_DASHBOARD } from '../../utils/queries';
 
-
-export interface PaperbaseProps extends WithStyles<typeof styles> { }
+export interface PaperbaseProps extends WithStyles<typeof styles> {}
 
 const githubID = Cookies.get('GitHubID');
 
@@ -33,41 +31,36 @@ function Paperbase(props: PaperbaseProps) {
     setMobileOpen(!mobileOpen);
   };
 
-  const { loading, error, data } = useQuery(FIND_DASHBOARD, {
+  const { loading, data } = useQuery(FIND_DASHBOARD, {
     variables: { github_ID: githubID },
   });
 
   useEffect(() => {
     if (data) setToken(data.findDashboard.token);
     if (data) setAvatarURL(data.findDashboard.avatarURL);
-  }, data)
+  }, data);
 
-  if (loading) return <div>Loading...</div>
+  if (loading) return <div>Loading...</div>;
 
   return (
     <ThemeProvider theme={theme}>
       <div className={classes.root}>
         <CssBaseline />
         <nav className={classes.drawer}>
-          <Hidden smUp implementation="js">
+          <Hidden smUp implementation='js'>
             <Navigator
               PaperProps={{ style: { width: drawerWidth } }}
-              variant="temporary"
+              variant='temporary'
               open={mobileOpen}
               onClose={handleDrawerToggle}
             />
           </Hidden>
-          <Hidden xsDown implementation="css">
+          <Hidden xsDown implementation='css'>
             <Navigator PaperProps={{ style: { width: drawerWidth } }} />
           </Hidden>
         </nav>
         <div className={classes.app}>
-
-          <Header
-            onDrawerToggle={handleDrawerToggle}
-            token={token}
-            avatarURL={avatarURL}
-          />
+          <Header onDrawerToggle={handleDrawerToggle} token={token} avatarURL={avatarURL} />
 
           <main className={classes.main}>
             <div>
@@ -75,9 +68,9 @@ function Paperbase(props: PaperbaseProps) {
             </div>
           </main>
           <footer className={classes.footer}>
-            <Typography variant="body2" align="center">
+            <Typography variant='body2' align='center'>
               {'Copyright © '}
-              <Link color="inherit" href="https://github.com/oslabs-beta/portara">
+              <Link color='inherit' href='https://github.com/oslabs-beta/portara'>
                 Portara
               </Link>{' '}
               {new Date().getFullYear()}

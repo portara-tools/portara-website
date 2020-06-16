@@ -1,5 +1,4 @@
 import React from 'react';
-// import { useTheme} from '@material-ui/core/styles';
 import LandingPage from './components/LandingPage';
 import About from './components/About';
 import Dashboard from './components/dashboard/Dashboard'

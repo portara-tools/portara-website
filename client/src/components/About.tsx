@@ -9,8 +9,7 @@ import TwitterIcon from '@material-ui/icons/Twitter';
 const About: React.FunctionComponent = (props) => {
   const classes = useStyles(props);
   return (
-    <div style={{ background: '#212121', padding: '2rem' }}>
-      {/* <hr style={{ width: '80%', marginBottom: '30px', opacity: '.2' }}></hr> */}
+    <div style={{ background: '#212121' }}>      
       <Box maxWidth='sm' className={classes.container}>
         <Typography variant="h4" align="center">The Team</Typography>
         <Grid container spacing={6} className={classes.peopleContainer}>
@@ -18,7 +17,7 @@ const About: React.FunctionComponent = (props) => {
             <img alt='Steve Frend' src={'/b.jpg'} className={classes.headshot} />
             <Box className={classes.infoBox}>
               <Typography variant='h6'>Steve Frend</Typography>
-              <Typography variant='body1'>Full Stack Software Engineer</Typography>
+              <Typography variant='body1'>Software Engineer</Typography>
               <div className={classes.socialLinks}>
                 <Link href="https://github.com/stevefrend">
                   <GitHubIcon className={classes.socialLink} />
@@ -33,7 +32,7 @@ const About: React.FunctionComponent = (props) => {
             <img alt='Todd Alexander' src={'/c.jpg'} className={classes.headshot} />
             <Box className={classes.infoBox}>
               <Typography variant='h6'>Todd Alexander</Typography>
-              <Typography variant='body1'>Full Stack Software Engineer</Typography>
+              <Typography variant='body1'>Software Engineer</Typography>
               <div className={classes.socialLinks}>
                 <Link href="https://github.com/toddalex">
                   <GitHubIcon className={classes.socialLink} />
@@ -53,7 +52,7 @@ const About: React.FunctionComponent = (props) => {
             <img alt='Cary Chan' src={'/d.jpg'} className={classes.headshot} />
             <Box className={classes.infoBox}>
               <Typography variant='h6'>Cary Chan</Typography>
-              <Typography variant='body1'>Full Stack Software Engineer</Typography>
+              <Typography variant='body1'>Software Engineer</Typography>
               <div className={classes.socialLinks}>
                 <Link href="https://github.com/caryLchan">
                   <GitHubIcon className={classes.socialLink} />
@@ -67,8 +66,8 @@ const About: React.FunctionComponent = (props) => {
           <Grid item xs={6} className={classes.personCard}>
             <img alt='Alexander Infante' src={'/a.jpg'} className={classes.headshot} />
             <Box className={classes.infoBox}>
-              <Typography variant='h6'>Alexander Infante</Typography>
-              <Typography variant='body1'>Full Stack Software Engineer</Typography>
+              <Typography variant='h6'>Alex Infante</Typography>
+              <Typography variant='body1'>Software Engineer</Typography>
               <div className={classes.socialLinks}>
                 <Link href="https://github.com/Alexander-Infante">
                   <GitHubIcon className={classes.socialLink} />

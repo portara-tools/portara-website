@@ -26,7 +26,7 @@ const logout = () => {
 }
 
 function Header(props: HeaderProps) {
-  const { classes, onDrawerToggle, token, avatarURL } = props;
+  const { classes } = props;
 
 
   return (

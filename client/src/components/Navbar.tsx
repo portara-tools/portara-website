@@ -28,7 +28,7 @@ const Navbar: React.FunctionComponent = (props) => {
             </Button>
             <Button >
               <HashLink to="/#about" className={classes.linkStyle}>
-                ABOUT
+                TEAM
               </HashLink>
             </Button>            
           </ul>
